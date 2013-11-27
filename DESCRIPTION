@@ -1,0 +1,14 @@
+Package: binaryLogic
+Title: Binary Logic. »binary number system« convert, shift, rotate ..
+Description: Binary Logic. (convert, shift, rotate, ..) using logical vectors.
+Version: 0.2
+Author: Daniel Dörrhöfer <dando@gmx.de>
+Maintainer: Daniel Dörrhöfer <dando@gmx.de>
+Depends:
+    R (>= 3.0.2)
+License: GPL-3
+LazyData: true
+Collate:
+    'binPrefix2Byte.R'
+    'binOperators.R'
+    'binConvert.R'
