@@ -73,7 +73,8 @@ negate <- function(x) {
 #' @usage shiftLeft(x, size)
 #' @param x The binary number to shift. (logical vector).
 #' @param size The number of places to shift.
-#' @return Pushes 0's(FALSE) to the vector from right(LSB) to left(MSB). Everything on right(MSB) side drops out. Returns a logical vector
+#' @return Pushes 0's(FALSE) to the vector from right(LSB) to left(MSB).
+#' Everything on right(MSB) side drops out. Returns a logical vector
 #' @examples
 #' x <- c(TRUE,FALSE,FALSE,TRUE,TRUE,TRUE,FALSE,TRUE); x
 #' shiftLeft(x,1)
@@ -103,7 +104,8 @@ shiftLeft <- function(x, size) {
 #' @usage shiftRight(x, size)
 #' @param x The binary number to shift. (logical vector).
 #' @param size The number of places to shift.
-#' @return Pushes 0's(FALSE) to the vector from left(MSB) to right(LSB). Everything on right(LSB) side drops out. Returns a logical vector
+#' @return Pushes 0's(FALSE) to the vector from left(MSB) to right(LSB).
+#' Everything on right(LSB) side drops out. Returns a logical vector
 #' @examples
 #' x <- c(TRUE,FALSE,FALSE,TRUE,TRUE,TRUE,FALSE,TRUE); x
 #' shiftRight(x,1)
@@ -134,7 +136,8 @@ shiftRight <- function(x, size) {
 #' @usage rotate(x, size)
 #' @param x The binary number to rotate. (logical vector).
 #' @param size The number of places to rotate.
-#' @return rotates the vector from left to right. The value from MSB is used to fill up the vector at LSB. Returns a logical vector.
+#' @return rotates the vector from left to right. 
+#' The value from MSB is used to fill up the vector at LSB. Returns a logical vector.
 #' @examples
 #' x <- c(TRUE,FALSE,FALSE,TRUE,TRUE,TRUE,FALSE,TRUE); x
 #' rotate(x,1)
