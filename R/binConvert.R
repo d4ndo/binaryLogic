@@ -20,6 +20,9 @@
 dec2bin <- function(num, littleEndian=FALSE, signed=FALSE, size=2) {
     if (missing(num)) stop("num is missing.")
     if (num < 0 & !signed) stop("Negative number is not possible with unsigned method.")
+    if (signed & (((num > ((2^(size*Byte())/2)-1))) | (num < ((-1)*(2^(size*Byte())/2))))) {
+        stop("Out of Range. Please increase the size[Byte]")
+    }
     size <- size*Byte()
     neg = FALSE
     if(num < 0) neg = TRUE

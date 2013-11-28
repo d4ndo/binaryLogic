@@ -163,3 +163,40 @@ rotate <- function(x, size) {
 
     return(x)
 }
+
+#' Fill Bits (000..)
+#' 
+#' @description Fills the number with Bits to the size in Byte.
+#' @details No floating point supported.
+#' @usage fillBits(x, value=FALSE, littleEndian=FALSE, size=0)
+#' @param x The binary number to fill with bits. (logical vector).
+#' @param value. fill with FALSE or fill with TRUE.
+#' @param littleEndian if TRUE. Big Endian if FALSE.
+#' @param size in Byte. 0 = auto (smallest possible byte).
+#' @return binary number. A logical vector with the desired size.
+#' @examples
+#' as.numeric(fillBits(as.logical(c(0,0)), value=TRUE))
+#' as.numeric(fillBits(as.logical(c(1,1)), size=2))
+#' fillBits(c(TRUE,FALSE,TRUE), littleEndian=TRUE, value=FALSE, size=2)
+#' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
+#' @export
+fillBits <- function(x, value=FALSE, littleEndian=FALSE, size=0) {
+    if(missing(x)) stop("x is missing")
+    stopifnot(is.logical(x))
+    if(size == 0 & length(x)%%Byte() == 0) return(x)
+    if(size > 0 & length(x) >= size*Byte()) return(x)
+
+    if(size == 0) {
+        append <- logical(((trunc((length(x)/Byte())) +1) * Byte()) - length(x))
+    } else {
+        append <- logical(size*Byte()-length(x))
+    }
+    append[1:length(append)] <- value
+
+    if (littleEndian) {
+        x <- c(x,append)
+    } else {
+        x <- c(append,x)
+    }
+    return(x)
+}
