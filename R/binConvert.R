@@ -85,3 +85,19 @@ bin2dec <- function(bin, littleEndian=FALSE, signed=FALSE, hex=FALSE) {
     if(hex) return(as.hexmode(numeric))
     else return(numeric)
 }
+
+#' Switch Endianess.
+#' 
+#' @description switch little-endian to big-endian and vice versa.
+#' @usage switchEndianess(x)
+#' @param x binary number. Any logical vector.
+#' @return switch little-endian to big-endian and vice versa.
+#' @examples
+#' x <- c(TRUE,TRUE,FALSE,FALSE); x
+#' y <- switchEndianess(x); y
+#' switchEndianess(y)
+#' @seealso base::as.logical , base::is.logical, base::as.integer, base::raw
+#' @export
+switchEndianess <- function(x) {
+    return(x[length(x):1])    
+}
