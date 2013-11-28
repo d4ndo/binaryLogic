@@ -23,7 +23,7 @@
 \details{
   The binary number is represented by a logical vector. The
   Bit order usually follows the same endianness as the byte
-  order.
+  order. No floating-point support. <- Time B
 }
 \examples{
 dec2bin(0xfa)

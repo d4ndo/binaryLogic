@@ -3,6 +3,7 @@
 #' @description Converts a decimal or hex number to a binary number.
 #' @details The binary number is represented by a logical vector.
 #' The Bit order usually follows the same endianness as the byte order.
+#' No floating-point support. <- Time B
 #' @usage dec2bin(num, littleEndian=FALSE, signed=FALSE, size=2)
 #' @param num     integer hex or decimal number.
 #' @param littleEndian if TRUE. Big Endian if FALSE.
@@ -99,5 +100,5 @@ bin2dec <- function(bin, littleEndian=FALSE, signed=FALSE, hex=FALSE) {
 #' @seealso base::as.logical , base::is.logical, base::as.integer, base::raw
 #' @export
 switchEndianess <- function(x) {
-    return(x[length(x):1])    
+    return(x[length(x):1])
 }
