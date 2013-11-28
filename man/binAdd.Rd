@@ -22,7 +22,8 @@
   Adds two binary numbers. (x + y)
 }
 \details{
-  Big Endian is supported only at the moment.
+  Little-Endian is not supported at the moment. No floating
+  point supported.
 }
 \examples{
 binAdd(as.logical(c(0,1)),as.logical(c(1,0)))

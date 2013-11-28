@@ -15,6 +15,9 @@
 \description{
   Negates the binary number x. Negation x -> -x or -x -> x
 }
+\details{
+  No floating point supported.
+}
 \examples{
 negate(c(TRUE,FALSE,TRUE))
 bin2dec(negate(dec2bin(-5, signed=TRUE)))

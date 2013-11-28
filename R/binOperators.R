@@ -1,7 +1,7 @@
 #' Binary Addition (+)
 #' 
 #' @description Adds two binary numbers. (x + y)
-#' @details Big Endian is supported only at the moment.
+#' @details Little-Endian is not supported at the moment. No floating point supported.
 #' @usage binAdd(x, y, signed=FALSE, size=0)
 #' @param x summand 1 (logical vector)
 #' @param y summand 2 (logical vector)
@@ -47,6 +47,7 @@ binAdd <- function(x, y, signed=FALSE, size=0) {
 #' Binary Negation (!)
 #' 
 #' @description Negates the binary number x. Negation x -> -x or -x -> x
+#' @details No floating point supported.
 #' @usage negate(x)
 #' @param x The number to be negated. A logical vector is expected.
 #' @return The negated number of x. Returns a logical vector with signed=TRUE

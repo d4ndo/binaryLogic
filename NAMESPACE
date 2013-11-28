@@ -1,7 +1,7 @@
-export(Byte)
 export(bin2dec)
 export(binAdd)
 export(binPrefix2Byte)
+export(Byte)
 export(dec2bin)
 export(negate)
 export(rotate)
