@@ -1,6 +1,15 @@
 #' Binary prefix to Byte. (KiB,MiB,..)
 #' 
 #' @description Amount of Bytes needed to fit in n * KiB, MiB ..etc.
+#' @details
+#' KiB <- KibiByte
+#' MiB <- MebiByte
+#' GiB <- GibiByte
+#' TiB <- TebiByte
+#' PiB <- PebiByte
+#' EiB <- ExiByte
+#' ZiB <- ZebiByte
+#' YiB <- YobiByte 
 #' @usage binPrefix2Byte(n, prefix="KiB")
 #' @param n vector of numeric values
 #' @param prefix binary prefix * Byte. Expeting a »string«

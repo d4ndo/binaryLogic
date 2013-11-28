@@ -15,6 +15,11 @@
 \description{
   Amount of Bytes needed to fit in n * KiB, MiB ..etc.
 }
+\details{
+  KiB <- KibiByte MiB <- MebiByte GiB <- GibiByte TiB <-
+  TebiByte PiB <- PebiByte EiB <- ExiByte ZiB <- ZebiByte
+  YiB <- YobiByte
+}
 \examples{
 binPrefix2Byte(c(0.5,1:10),"KiB")
 as.integer(dec2bin(binPrefix2Byte(1,"KiB")*Byte()))
