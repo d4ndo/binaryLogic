@@ -58,6 +58,7 @@ binAdd <- function(x, y, signed=FALSE, size=0) {
 #' @export
 negate <- function(x) {
     if (missing(x)) stop("x is missing.")
+    stopifnot(is.logical(x))
     if(length(x)%%Byte() != 0) {
         MAX <- (trunc((length(x)/Byte())) +1) * Byte()
         a <- rep(FALSE, MAX - length(x))
@@ -85,7 +86,7 @@ negate <- function(x) {
 shiftLeft <- function(x, size) {
     if (missing(x)) stop("x is missing.")
     stopifnot(is.logical(x))
-    stopifnot(size != 0)
+    stopifnot(size > 0)
     if(size > length(x)) stop("size is larger than length of x")
     delta <- length(x)-size
     for(i in 1:size)
@@ -116,7 +117,7 @@ shiftLeft <- function(x, size) {
 shiftRight <- function(x, size) {
     if (missing(x)) stop("x is missing.")
     stopifnot(is.logical(x))
-    stopifnot(size != 0)
+    stopifnot(size > 0)
     if(size > length(x)) stop("size is larger than length of x")
     delta <- length(x)-size
     x <- x[length(x):1]
