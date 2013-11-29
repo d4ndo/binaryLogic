@@ -21,6 +21,10 @@
 \description{
   Converts a binary number to a decimal or hex number.
 }
+\details{
+  No floating-point support. Little Endian (LSB) ---> (MSB)
+  Big Endian (MSB) <--- (LSB)
+}
 \examples{
 bin2dec(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE))
 bin2dec(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE), hex=TRUE)
