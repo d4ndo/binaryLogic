@@ -22,6 +22,6 @@
 }
 \examples{
 binPrefix2Byte(c(0.5,1:10),"KiB")
-as.integer(dec2bin(binPrefix2Byte(1,"KiB")*Byte()))
+dec2bin(binPrefix2Byte(1,"KiB")*Byte())
 }
 

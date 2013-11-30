@@ -16,7 +16,7 @@
 #' @return The number of bytes fitting in n * binary prefix * Byte
 #' @examples
 #' binPrefix2Byte(c(0.5,1:10),"KiB")
-#' as.integer(dec2bin(binPrefix2Byte(1,"KiB")*Byte()))
+#' dec2bin(binPrefix2Byte(1,"KiB")*Byte())
 #' @export
 binPrefix2Byte <- function(n, prefix="KiB") {
     if(missing(n)) stop("Missing n")
@@ -33,7 +33,7 @@ binPrefix2Byte <- function(n, prefix="KiB") {
                 EiB = 2^60,
                 ZiB = 2^70,
                 YiB = 2^80)
-
+    
     ret = n * prefix
     if (any(is.null(ret))) stop("Unknown binary prefix")
     if (isTRUE(all.equal(ret, round(ret)))) {
