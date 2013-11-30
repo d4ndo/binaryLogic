@@ -12,3 +12,4 @@ Collate:
     'binPrefix2Byte.R'
     'binOperators.R'
     'binConvert.R'
+    'BinaryS3.R'
