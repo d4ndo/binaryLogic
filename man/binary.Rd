@@ -11,7 +11,7 @@
   a binary vector of length n
 }
 \description{
-  Create objects of type "binary".
+  Create objects of type "binary" vector.
 }
 \details{
   No floating point supported.

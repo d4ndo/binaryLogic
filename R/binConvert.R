@@ -76,7 +76,7 @@ dec2bin <- function(num, littleEndian=FALSE, signed=FALSE, size=2) {
 #' @export
 bin2dec <- function(bin, littleEndian=FALSE, signed=FALSE, hex=FALSE) {
     if (missing(bin)) stop("bin is missing.")
-    stopifnot(is.logical(bin) | is.binary(x))
+    stopifnot(is.logical(bin) | is.binary(bin))
     bin <- as.integer(bin)
     i = length(bin) - 1
     numeric = 0
