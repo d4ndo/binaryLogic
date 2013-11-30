@@ -8,7 +8,7 @@
   \item{x}{The binary number to fill with bits. (binary or
   logical vector).}
 
-  \item{value.}{fill with FALSE or fill with TRUE.}
+  \item{value}{Fill with FALSE or fill with TRUE.}
 
   \item{littleEndian}{if TRUE. Big Endian if FALSE.}
 

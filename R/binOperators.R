@@ -173,7 +173,7 @@ rotate <- function(x, size) {
 #' @details No floating point supported.
 #' @usage fillBits(x, value=FALSE, littleEndian=FALSE, size=0)
 #' @param x The binary number to fill with bits. (binary or logical vector).
-#' @param value. fill with FALSE or fill with TRUE.
+#' @param value Fill with FALSE or fill with TRUE.
 #' @param littleEndian if TRUE. Big Endian if FALSE.
 #' @param size in Byte. 0 = auto (smallest possible byte).
 #' @return binary number. A binary / logical vector with the desired size.
