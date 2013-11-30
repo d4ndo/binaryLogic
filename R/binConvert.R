@@ -11,13 +11,12 @@
 #' @param littleEndian if TRUE. Big Endian if FALSE.
 #' @param signed  TRUE or FALSE. Unsigned by default. (two's complement)
 #' @param size    Needed if signed is set. (by default 2 Byte)
-#' @return The binary number. Returns a logical vector.
+#' @return The binary number. Returns a binary and logical vector.
 #' @examples
 #' dec2bin(0xfa)
-#' as.integer(dec2bin(0xfa))
 #' dec2bin(3)
 #' dec2bin(-1, signed=TRUE, size=1)
-#' @seealso base::as.logical , base::is.logical, base::as.integer
+#' @seealso binaryLogic::as.binary, binaryLogic::is.binary, base::as.logical, base::is.logical, base::raw
 #' @export
 dec2bin <- function(num, littleEndian=FALSE, signed=FALSE, size=2) {
     if (missing(num)) stop("num is missing.")
@@ -47,10 +46,14 @@ dec2bin <- function(num, littleEndian=FALSE, signed=FALSE, size=2) {
             ret <- binAdd(ret,TRUE)
         }
         if(littleEndian) ret <- ret[length(ret):1]
+        class(ret) <- c("binary")
         return(ret)
     }
     if(littleEndian) rest <- rest[length(rest):1]
-    return(as.logical(rest))
+    #r <- as.logical(rest)
+    #class(r) <- c("bin", class(r))
+    class(rest) <- c("binary")
+    return(rest)
 }
 
 #' Converts a binary number to a decimal or hex number.
@@ -60,20 +63,20 @@ dec2bin <- function(num, littleEndian=FALSE, signed=FALSE, size=2) {
 #' Little Endian    (LSB) ---> (MSB)
 #' Big Endian       (MSB) <--- (LSB)
 #' @usage bin2dec(bin, littleEndian=FALSE, signed=FALSE, hex=FALSE)
-#' @param bin      binary number. Any logical vector.
+#' @param bin      binary number. Any logical or binary vector.
 #' @param littleEndian if TRUE. Big Endian if FALSE.
 #' @param signed   TRUE or FALSE. Unsigned by default. (two komplement)
 #' @param hex      TRUE or FALSE: if TRUE it returns an hex value. by default = FALSE
 #' @return The decimal or hex number »integer«.
 #' @examples
+#' bin2dec(as.binary(c(1,0,1,1,1,0,1,1)))
 #' bin2dec(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE))
 #' bin2dec(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE), hex=TRUE)
-#' bin2dec(as.logical(c(1,0,1,1,1,0,1,1)), hex=TRUE)
-#' @seealso base::as.logical , base::is.logical, base::as.integer, base::raw
+#' @seealso binaryLogic::as.binary, binaryLogic::is.binary, base::as.logical, base::is.logical, base::raw
 #' @export
 bin2dec <- function(bin, littleEndian=FALSE, signed=FALSE, hex=FALSE) {
     if (missing(bin)) stop("bin is missing.")
-    stopifnot(is.logical(bin))
+    stopifnot(is.logical(bin) | is.binary(x))
     bin <- as.integer(bin)
     i = length(bin) - 1
     numeric = 0
@@ -102,10 +105,10 @@ bin2dec <- function(bin, littleEndian=FALSE, signed=FALSE, hex=FALSE) {
 #' @param x binary number. Any logical vector.
 #' @return switch little-endian to big-endian and vice versa.
 #' @examples
-#' x <- c(TRUE,TRUE,FALSE,FALSE); x
+#' x <- as.binary(c(1,1,0,0)); x
 #' y <- switchEndianess(x); y
 #' switchEndianess(y)
-#' @seealso base::as.logical , base::is.logical, base::as.integer, base::raw
+#' @seealso binaryLogic::as.binary, binaryLogic::is.binary, base::as.logical, base::is.logical, base::raw
 #' @export
 switchEndianess <- function(x) {
     return(x[length(x):1])

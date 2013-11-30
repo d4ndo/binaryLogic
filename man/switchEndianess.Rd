@@ -14,12 +14,12 @@
   switch little-endian to big-endian and vice versa.
 }
 \examples{
-x <- c(TRUE,TRUE,FALSE,FALSE); x
+x <- as.binary(c(1,1,0,0)); x
 y <- switchEndianess(x); y
 switchEndianess(y)
 }
 \seealso{
-  base::as.logical , base::is.logical, base::as.integer,
-  base::raw
+  binaryLogic::as.binary, binaryLogic::is.binary,
+  base::as.logical, base::is.logical, base::raw
 }
 

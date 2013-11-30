@@ -15,7 +15,7 @@
   \item{size}{Needed if signed is set. (by default 2 Byte)}
 }
 \value{
-  The binary number. Returns a logical vector.
+  The binary number. Returns a binary and logical vector.
 }
 \description{
   Converts a decimal or hex number to a binary number.
@@ -28,11 +28,11 @@
 }
 \examples{
 dec2bin(0xfa)
-as.integer(dec2bin(0xfa))
 dec2bin(3)
 dec2bin(-1, signed=TRUE, size=1)
 }
 \seealso{
-  base::as.logical , base::is.logical, base::as.integer
+  binaryLogic::as.binary, binaryLogic::is.binary,
+  base::as.logical, base::is.logical, base::raw
 }
 
