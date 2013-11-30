@@ -5,12 +5,12 @@
   negate(x)
 }
 \arguments{
-  \item{x}{The number to be negated. A logical vector is
-  expected.}
+  \item{x}{The number to be negated. A binary or logical
+  vector is expected.}
 }
 \value{
-  The negated number of x. Returns a logical vector with
-  signed=TRUE
+  The negated number of x. Returns a binary/logical vector
+  with signed=TRUE
 }
 \description{
   Negates the binary number x. Negation x -> -x or -x -> x
@@ -19,7 +19,7 @@
   No floating point supported.
 }
 \examples{
-negate(c(TRUE,FALSE,TRUE))
+negate(as.binary(c(1,0,1)))
 bin2dec(negate(dec2bin(-5, signed=TRUE)))
 }
 \seealso{

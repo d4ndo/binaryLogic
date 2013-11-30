@@ -5,9 +5,9 @@
   binAdd(x, y, signed=FALSE, size=0)
 }
 \arguments{
-  \item{x}{summand 1 (logical vector)}
+  \item{x}{summand 1 (binary or logical vector)}
 
-  \item{y}{summand 2 (logical vector)}
+  \item{y}{summand 2 (binary or logical vector)}
 
   \item{signed}{TRUE or FALSE. Returns a signed number. see
   example}
@@ -16,7 +16,7 @@
   auto}
 }
 \value{
-  The sum of x and y. Returns a logical vector.
+  The sum of x and y. Returns a binary/logical vector.
 }
 \description{
   Adds two binary numbers. (x + y)

@@ -5,20 +5,21 @@
   shiftLeft(x, size)
 }
 \arguments{
-  \item{x}{The binary number to shift. (logical vector).}
+  \item{x}{The binary number to shift. (binary or logical
+  vector).}
 
   \item{size}{The number of places to shift.}
 }
 \value{
   Pushes 0's(FALSE) to the vector from right(LSB) to
   left(MSB). Everything on right(MSB) side drops out.
-  Returns a logical vector
+  Returns a binary/logical vector
 }
 \description{
   Logical left shift x << size
 }
 \examples{
-x <- c(TRUE,FALSE,FALSE,TRUE,TRUE,TRUE,FALSE,TRUE); x
+x <- as.binary(c(1,0,0,1,1,1,0,1)); x
 shiftLeft(x,1)
 shiftLeft(x,2)
 }

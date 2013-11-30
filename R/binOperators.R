@@ -3,11 +3,11 @@
 #' @description Adds two binary numbers. (x + y)
 #' @details Little-Endian is not supported at the moment. No floating point supported.
 #' @usage binAdd(x, y, signed=FALSE, size=0)
-#' @param x summand 1 (logical vector)
-#' @param y summand 2 (logical vector)
+#' @param x summand 1 (binary or logical vector)
+#' @param y summand 2 (binary or logical vector)
 #' @param signed TRUE or FALSE. Returns a signed number. see example
 #' @param size in Byte. Is needed if signed is set. 0 = auto
-#' @return The sum of x and y. Returns a logical vector.
+#' @return The sum of x and y. Returns a binary/logical vector.
 #' @examples
 #' binAdd(as.logical(c(0,1)),as.logical(c(1,0)))
 #' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
@@ -41,6 +41,7 @@ binAdd <- function(x, y, signed=FALSE, size=0) {
         }
     }
     if(temp[2] & !signed) ret <- c(T,ret)
+    class(ret) <- c("binary")
     return(ret)
 }
 
@@ -49,16 +50,16 @@ binAdd <- function(x, y, signed=FALSE, size=0) {
 #' @description Negates the binary number x. Negation x -> -x or -x -> x
 #' @details No floating point supported.
 #' @usage negate(x)
-#' @param x The number to be negated. A logical vector is expected.
-#' @return The negated number of x. Returns a logical vector with signed=TRUE
+#' @param x The number to be negated. A binary or logical vector is expected.
+#' @return The negated number of x. Returns a binary/logical vector with signed=TRUE
 #' @examples
-#' negate(c(TRUE,FALSE,TRUE))
+#' negate(as.binary(c(1,0,1)))
 #' bin2dec(negate(dec2bin(-5, signed=TRUE)))
 #' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
 #' @export
 negate <- function(x) {
     if (missing(x)) stop("x is missing.")
-    stopifnot(is.logical(x))
+    stopifnot(is.logical(x) | is.binary(x))
     if(length(x)%%Byte() != 0) {
         MAX <- (trunc((length(x)/Byte())) +1) * Byte()
         a <- rep(FALSE, MAX - length(x))
@@ -73,19 +74,19 @@ negate <- function(x) {
 #' 
 #' @description Logical left shift x << size
 #' @usage shiftLeft(x, size)
-#' @param x The binary number to shift. (logical vector).
+#' @param x The binary number to shift. (binary or logical vector).
 #' @param size The number of places to shift.
 #' @return Pushes 0's(FALSE) to the vector from right(LSB) to left(MSB).
-#' Everything on right(MSB) side drops out. Returns a logical vector
+#' Everything on right(MSB) side drops out. Returns a binary/logical vector
 #' @examples
-#' x <- c(TRUE,FALSE,FALSE,TRUE,TRUE,TRUE,FALSE,TRUE); x
+#' x <- as.binary(c(1,0,0,1,1,1,0,1)); x
 #' shiftLeft(x,1)
 #' shiftLeft(x,2)
 #' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
 #' @export
 shiftLeft <- function(x, size) {
     if (missing(x)) stop("x is missing.")
-    stopifnot(is.logical(x))
+    stopifnot(is.logical(x) | is.binary(x))
     stopifnot(size > 0)
     if(size > length(x)) stop("size is larger than length of x")
     delta <- length(x)-size
@@ -96,7 +97,7 @@ shiftLeft <- function(x, size) {
         }
     }
     x[(delta+1):length(x)] <- FALSE
-
+    class(x) <- c("binary", class(x))
     return(x)
 }
 
@@ -104,19 +105,19 @@ shiftLeft <- function(x, size) {
 #' 
 #' @description Logical right shift 1 >> size
 #' @usage shiftRight(x, size)
-#' @param x The binary number to shift. (logical vector).
+#' @param x The binary number to shift. (binary or logical vector).
 #' @param size The number of places to shift.
 #' @return Pushes 0's(FALSE) to the vector from left(MSB) to right(LSB).
-#' Everything on right(LSB) side drops out. Returns a logical vector
+#' Everything on right(LSB) side drops out. Returns a binary/logical vector
 #' @examples
-#' x <- c(TRUE,FALSE,FALSE,TRUE,TRUE,TRUE,FALSE,TRUE); x
+#' x <- as.binary(c(1,0,0,1,1,1,0,1)); x
 #' shiftRight(x,1)
 #' shiftRight(x,2)
 #' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
 #' @export
 shiftRight <- function(x, size) {
     if (missing(x)) stop("x is missing.")
-    stopifnot(is.logical(x))
+    stopifnot(is.logical(x) | is.binary(x))
     stopifnot(size > 0)
     if(size > length(x)) stop("size is larger than length of x")
     delta <- length(x)-size
@@ -128,27 +129,28 @@ shiftRight <- function(x, size) {
         }
     }
     x[(delta+1):length(x)] <- FALSE
-
-    return(x[length(x):1])
+    x <- x[length(x):1]
+    class(x) <- c("binary", class(x))
+    return(x)
 }
 
 #' Rotate no carry ()
 #' 
 #' @description A circular shift
 #' @usage rotate(x, size)
-#' @param x The binary number to rotate. (logical vector).
+#' @param x The binary number to rotate. (binary or logical vector).
 #' @param size The number of places to rotate.
 #' @return rotates the vector from left to right. 
-#' The value from MSB is used to fill up the vector at LSB. Returns a logical vector.
+#' The value from MSB is used to fill up the vector at LSB. Returns a binary/logical vector.
 #' @examples
-#' x <- c(TRUE,FALSE,FALSE,TRUE,TRUE,TRUE,FALSE,TRUE); x
+#' x <- as.binary(c(1,0,0,1,1,1,0,1)); x
 #' rotate(x,1)
 #' rotate(x,2)
 #' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
 #' @export
 rotate <- function(x, size) {
     if (missing(x)) stop("x is missing.")
-    stopifnot(is.logical(x))
+    stopifnot(is.logical(x) | is.binary(x))
     stopifnot(size > 0)
     if(size > length(x)) stop("size is larger than length of x")
     delta <- length(x)-size
@@ -161,7 +163,7 @@ rotate <- function(x, size) {
         }
     }
     x[(delta+1):length(x)] <- tmp[1:size]
-
+    class(x) <- c("binary", class(x))
     return(x)
 }
 
@@ -170,20 +172,20 @@ rotate <- function(x, size) {
 #' @description Fills the number with Bits to the size in Byte.
 #' @details No floating point supported.
 #' @usage fillBits(x, value=FALSE, littleEndian=FALSE, size=0)
-#' @param x The binary number to fill with bits. (logical vector).
+#' @param x The binary number to fill with bits. (binary or logical vector).
 #' @param value. fill with FALSE or fill with TRUE.
 #' @param littleEndian if TRUE. Big Endian if FALSE.
 #' @param size in Byte. 0 = auto (smallest possible byte).
-#' @return binary number. A logical vector with the desired size.
+#' @return binary number. A binary / logical vector with the desired size.
 #' @examples
-#' as.numeric(fillBits(as.logical(c(0,0)), value=TRUE))
+#' as.numeric(fillBits(as.binary(c(0,0)), value=TRUE))
 #' as.numeric(fillBits(as.logical(c(1,1)), size=2))
-#' fillBits(c(TRUE,FALSE,TRUE), littleEndian=TRUE, value=FALSE, size=2)
+#' fillBits(as.binary(c(TRUE,FALSE,TRUE)), littleEndian=TRUE, value=FALSE, size=2)
 #' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
 #' @export
 fillBits <- function(x, value=FALSE, littleEndian=FALSE, size=0) {
     if(missing(x)) stop("x is missing")
-    stopifnot(is.logical(x))
+    stopifnot(is.logical(x) | is.binary(x))
     if(size == 0 & length(x)%%Byte() == 0) return(x)
     if(size > 0 & length(x) >= size*Byte()) return(x)
 
@@ -199,5 +201,6 @@ fillBits <- function(x, value=FALSE, littleEndian=FALSE, size=0) {
     } else {
         x <- c(append,x)
     }
+    class(x) <- c("binary", class(x))    
     return(x)
 }
