@@ -25,8 +25,8 @@
   No floating point supported.
 }
 \examples{
-as.numeric(fillBits(as.binary(c(0,0)), value=TRUE))
-as.numeric(fillBits(as.logical(c(1,1)), size=2))
+fillBits(as.binary(c(0,0)), value=TRUE)
+fillBits(as.logical(c(1,1)), size=2)
 fillBits(as.binary(c(TRUE,FALSE,TRUE)), littleEndian=TRUE, value=FALSE, size=2)
 }
 \seealso{
