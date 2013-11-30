@@ -24,15 +24,17 @@ binPrefix2Byte <- function(n, prefix="KiB") {
     stopifnot(all(n >= 0 | is.na(n)))
     ret <- NULL
     
-    if (prefix=="KiB") ret = n * (2^10)
-    if (prefix=="MiB") ret = n * (2^20)
-    if (prefix=="GiB") ret = n * (2^30)
-    if (prefix=="TiB") ret = n * (2^40)
-    if (prefix=="PiB") ret = n * (2^50)
-    if (prefix=="EiB") ret = n * (2^60)
-    if (prefix=="ZiB") ret = n * (2^70)
-    if (prefix=="YiB") ret = n * (2^80)
-    
+    prefix <- switch(prefix,
+                KiB = 2^10,
+                MiB = 2^20,
+                GiB = 2^30,
+                TiB = 2^40,
+                PiB = 2^50,
+                EiB = 2^60,
+                ZiB = 2^70,
+                YiB = 2^80)
+
+    ret = n * prefix
     if (any(is.null(ret))) stop("Unknown binary prefix")
     if (isTRUE(all.equal(ret, round(ret)))) {
         return(ret)
