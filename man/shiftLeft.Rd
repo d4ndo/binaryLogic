@@ -2,13 +2,13 @@
 \alias{shiftLeft}
 \title{Binary Left Shift (<<)}
 \usage{
-  shiftLeft(x, size)
+  shiftLeft(x, n)
 }
 \arguments{
   \item{x}{The binary number to shift. (binary or logical
   vector).}
 
-  \item{size}{The number of places to shift.}
+  \item{n}{The number of bits to shift.}
 }
 \value{
   Pushes 0's(FALSE) to the vector from right(LSB) to
@@ -16,7 +16,7 @@
   Returns a binary/logical vector
 }
 \description{
-  Logical left shift x << size
+  Logical left shift x << n
 }
 \examples{
 x <- as.binary(c(1,0,0,1,1,1,0,1)); x

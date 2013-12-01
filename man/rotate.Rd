@@ -2,13 +2,13 @@
 \alias{rotate}
 \title{Rotate no carry ()}
 \usage{
-  rotate(x, size)
+  rotate(x, n)
 }
 \arguments{
   \item{x}{The binary number to rotate. (binary or logical
   vector).}
 
-  \item{size}{The number of places to rotate.}
+  \item{n}{The number of bits to rotate.}
 }
 \value{
   rotates the vector from left to right. The value from MSB

@@ -71,10 +71,10 @@ negate <- function(x) {
 
 #' Binary Left Shift (<<)
 #' 
-#' @description Logical left shift x << size
-#' @usage shiftLeft(x, size)
+#' @description Logical left shift x << n
+#' @usage shiftLeft(x, n)
 #' @param x The binary number to shift. (binary or logical vector).
-#' @param size The number of places to shift.
+#' @param n The number of bits to shift.
 #' @return Pushes 0's(FALSE) to the vector from right(LSB) to left(MSB).
 #' Everything on right(MSB) side drops out. Returns a binary/logical vector
 #' @examples
@@ -83,13 +83,13 @@ negate <- function(x) {
 #' shiftLeft(x,2)
 #' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
 #' @export
-shiftLeft <- function(x, size) {
+shiftLeft <- function(x, n) {
     if (missing(x)) stop("x is missing.")
     stopifnot(is.logical(x) | is.binary(x))
-    stopifnot(size > 0)
-    if(size > length(x)) stop("size is larger than length of x")
-    delta <- length(x)-size
-    for(i in 1:size)
+    stopifnot(n > 0)
+    if(n > length(x)) stop("n is larger than length of x")
+    delta <- length(x) - n
+    for(i in 1:n)
     {
         for(i in 1:length(x)){
         x[i] <- x[i+1]
@@ -101,10 +101,10 @@ shiftLeft <- function(x, size) {
 
 #' Binary Right Shift (>>)
 #' 
-#' @description Logical right shift 1 >> size
-#' @usage shiftRight(x, size)
+#' @description Logical right shift 1 >> n
+#' @usage shiftRight(x, n)
 #' @param x The binary number to shift. (binary or logical vector).
-#' @param size The number of places to shift.
+#' @param n The number of bits to shift.
 #' @return Pushes 0's(FALSE) to the vector from left(MSB) to right(LSB).
 #' Everything on right(LSB) side drops out. Returns a binary/logical vector
 #' @examples
@@ -113,14 +113,14 @@ shiftLeft <- function(x, size) {
 #' shiftRight(x,2)
 #' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
 #' @export
-shiftRight <- function(x, size) {
+shiftRight <- function(x, n) {
     if (missing(x)) stop("x is missing.")
     stopifnot(is.logical(x) | is.binary(x))
-    stopifnot(size > 0)
-    if(size > length(x)) stop("size is larger than length of x")
-    delta <- length(x)-size
+    stopifnot(n > 0)
+    if(n > length(x)) stop("n is larger than length of x")
+    delta <- length(x) - n
     x <- x[length(x):1]
-    for(i in 1:size)
+    for(i in 1:n)
     {
         for(i in 1:length(x)){
         x[i] <- x[i+1]
@@ -134,9 +134,9 @@ shiftRight <- function(x, size) {
 #' Rotate no carry ()
 #' 
 #' @description A circular shift
-#' @usage rotate(x, size)
+#' @usage rotate(x, n)
 #' @param x The binary number to rotate. (binary or logical vector).
-#' @param size The number of places to rotate.
+#' @param n The number of bits to rotate.
 #' @return rotates the vector from left to right. 
 #' The value from MSB is used to fill up the vector at LSB. Returns a binary/logical vector.
 #' @examples
@@ -145,21 +145,21 @@ shiftRight <- function(x, size) {
 #' rotate(x,2)
 #' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
 #' @export
-rotate <- function(x, size) {
+rotate <- function(x, n) {
     if (missing(x)) stop("x is missing.")
     stopifnot(is.logical(x) | is.binary(x))
-    stopifnot(size > 0)
-    if(size > length(x)) stop("size is larger than length of x")
-    delta <- length(x)-size
+    stopifnot(n > 0)
+    if(n > length(x)) stop("n is larger than length of x")
+    delta <- length(x) - n
 
-    tmp <- x[1:size]
-    for(i in 1:size)
+    tmp <- x[1:n]
+    for(i in 1:n)
     {
         for(i in 1:length(x)){
         x[i] <- x[i+1]
         }
     }
-    x[(delta+1):length(x)] <- tmp[1:size]
+    x[(delta+1):length(x)] <- tmp[1:n]
     return(is.binary(x))
 }
 
