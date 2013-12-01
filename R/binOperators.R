@@ -41,7 +41,7 @@ binAdd <- function(x, y, signed=FALSE, size=0) {
         }
     }
     if(temp[2] & !signed) ret <- c(T,ret)
-    return(is.binary(ret))
+    return(as.binary(ret))
 }
 
 #' Binary Negation (!)
@@ -96,7 +96,7 @@ shiftLeft <- function(x, n) {
         }
     }
     x[(delta+1):length(x)] <- FALSE
-    return(is.binary(x))
+    return(as.binary(x))
 }
 
 #' Binary Right Shift (>>)
@@ -128,7 +128,7 @@ shiftRight <- function(x, n) {
     }
     x[(delta+1):length(x)] <- FALSE
     x <- x[length(x):1]
-    return(is.binary(x))
+    return(as.binary(x))
 }
 
 #' Rotate no carry ()
@@ -160,7 +160,7 @@ rotate <- function(x, n) {
         }
     }
     x[(delta+1):length(x)] <- tmp[1:n]
-    return(is.binary(x))
+    return(as.binary(x))
 }
 
 #' Fill Bits (000..)
@@ -197,5 +197,5 @@ fillBits <- function(x, value=FALSE, littleEndian=FALSE, size=0) {
     } else {
         x <- c(append,x)
     }
-    return(is.binary(x))
+    return(as.binary(x))
 }
