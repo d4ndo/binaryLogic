@@ -46,14 +46,10 @@ dec2bin <- function(num, littleEndian=FALSE, signed=FALSE, size=2) {
             ret <- binAdd(ret,TRUE)
         }
         if(littleEndian) ret <- ret[length(ret):1]
-        class(ret) <- c("binary")
-        return(ret)
+        return(is.binary(ret))
     }
     if(littleEndian) rest <- rest[length(rest):1]
-    #r <- as.logical(rest)
-    #class(r) <- c("bin", class(r))
-    class(rest) <- c("binary")
-    return(rest)
+    return(is.binary(rest))
 }
 
 #' Converts a binary number to a decimal or hex number.
@@ -111,7 +107,6 @@ bin2dec <- function(bin, littleEndian=FALSE, signed=FALSE, hex=FALSE) {
 #' @seealso binaryLogic::as.binary, binaryLogic::is.binary, base::as.logical, base::is.logical, base::raw
 #' @export
 switchEndianess <- function(x) {
-    x <- x[length(x):1]
-    class(x) <- c("binary", class(x))    
-    return(x)
+    x <- x[length(x):1] 
+    return(is.binary(x))
 }
