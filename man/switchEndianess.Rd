@@ -5,7 +5,7 @@
   switchEndianess(x)
 }
 \arguments{
-  \item{x}{binary number. Any logical vector.}
+  \item{x}{binary number. Any binary or logical vector.}
 }
 \value{
   switch little-endian to big-endian and vice versa.
