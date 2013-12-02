@@ -107,10 +107,10 @@ bin2dec <- function(bin, littleEndian=FALSE, signed=FALSE, hex=FALSE) {
 #' @seealso binaryLogic::as.binary, binaryLogic::is.binary
 #' @export
 switchEndianess <- function(x) {
-    if(missing(x)) stop("x is missing")
+    if (missing(x)) stop("x is missing")
     stopifnot(is.binary(x))
     
-    if(attributes(x)$littleEndian == FALSE) {
+    if (attributes(x)$littleEndian == FALSE) {
         attr(x, "littleEndian") <- TRUE
     } else {
         attr(x, "littleEndian") <- FALSE

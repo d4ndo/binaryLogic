@@ -27,9 +27,9 @@ binAdd <- function(x, y, signed=FALSE, size=0) {
     ret = logical(MAX)
     temp = logical(MAX+1)
     ret[MAX] <- xor(x[MAX],y[MAX])
-    if(isTRUE(x[MAX]) & isTRUE(y[MAX])) temp[MAX+1] = TRUE
+    if (isTRUE(x[MAX]) & isTRUE(y[MAX])) temp[MAX+1] = TRUE
 
-    if(MAX > 2)
+    if (MAX > 2)
     {
         for(i in (MAX-1):1)
         {
@@ -40,7 +40,7 @@ binAdd <- function(x, y, signed=FALSE, size=0) {
                 (isTRUE(y[i]) & isTRUE(temp[i+2]))) temp[i+1] = TRUE
         }
     }
-    if(temp[2] & !signed) ret <- c(T,ret)
+    if (temp[2] & !signed) ret <- c(T,ret)
     return(as.binary(ret))
 }
 
@@ -59,7 +59,7 @@ binAdd <- function(x, y, signed=FALSE, size=0) {
 negate <- function(x) {
     if (missing(x)) stop("x is missing.")
     stopifnot(is.logical(x) | is.binary(x))
-    if(length(x)%%Byte() != 0) {
+    if (length(x)%%Byte() != 0) {
         MAX <- (trunc((length(x)/Byte())) +1) * Byte()
         a <- rep(FALSE, MAX - length(x))
         x <- c(a,x)
@@ -87,7 +87,7 @@ shiftLeft <- function(x, n) {
     if (missing(x)) stop("x is missing.")
     stopifnot(is.logical(x) | is.binary(x))
     stopifnot(n > 0)
-    if(n > length(x)) stop("n is larger than length of x")
+    if (n > length(x)) stop("n is larger than length of x")
     delta <- length(x) - n
     for(i in 1:n)
     {
@@ -117,7 +117,7 @@ shiftRight <- function(x, n) {
     if (missing(x)) stop("x is missing.")
     stopifnot(is.logical(x) | is.binary(x))
     stopifnot(n > 0)
-    if(n > length(x)) stop("n is larger than length of x")
+    if (n > length(x)) stop("n is larger than length of x")
     delta <- length(x) - n
     x <- x[length(x):1]
     for(i in 1:n)
@@ -149,7 +149,7 @@ rotate <- function(x, n) {
     if (missing(x)) stop("x is missing.")
     stopifnot(is.logical(x) | is.binary(x))
     stopifnot(n > 0)
-    if(n > length(x)) stop("n is larger than length of x")
+    if (n > length(x)) stop("n is larger than length of x")
     delta <- length(x) - n
 
     tmp <- x[1:n]
@@ -179,12 +179,12 @@ rotate <- function(x, n) {
 #' @seealso binaryLogic::as.binary, binaryLogic::is.binary
 #' @export
 fillBits <- function(x, value=FALSE, size=0) {
-    if(missing(x)) stop("x is missing")
+    if (missing(x)) stop("x is missing")
     stopifnot(is.binary(x))
-    if(size == 0 & length(x)%%Byte() == 0) return(x)
-    if(size > 0 & length(x) >= size*Byte()) return(x)
+    if (size == 0 & length(x)%%Byte() == 0) return(x)
+    if (size > 0 & length(x) >= size*Byte()) return(x)
 
-    if(size == 0) {
+    if (size == 0) {
         append <- binary(((trunc((length(x)/Byte())) +1) * Byte()) - length(x))
     } else {
         append <- binary(size*Byte()-length(x))
