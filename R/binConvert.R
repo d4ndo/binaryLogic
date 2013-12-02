@@ -114,6 +114,7 @@ switchEndianess <- function(x) {
         attr(x, "littleEndian") <- TRUE
     } else {
         attr(x, "littleEndian") <- FALSE
-    }    
-    return(x[length(x):1])
+    }
+
+    return(as.binary(rev(x), signed=attributes(x)$signed, littleEndian=attributes(x)$littleEndian))
 }
