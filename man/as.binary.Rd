@@ -6,6 +6,11 @@
 }
 \arguments{
   \item{x}{object to convert.}
+
+  \item{signed}{TRUE or FALSE. Unsigned by default. (two's
+  complement)}
+
+  \item{littleEndian}{if TRUE. Big Endian if FALSE.}
 }
 \value{
   a binary vector.

@@ -5,7 +5,7 @@
   binary(n)
 }
 \arguments{
-  \item{n}{length of vector.}
+  \item{n}{length of vector. Number of bits}
 }
 \value{
   a binary vector of length n
