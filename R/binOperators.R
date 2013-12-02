@@ -96,7 +96,7 @@ shiftLeft <- function(x, n) {
         }
     }
     x[(delta+1):length(x)] <- FALSE
-    return(as.binary(x))
+    return(x)
 }
 
 #' Binary Right Shift (>>)
@@ -111,7 +111,7 @@ shiftLeft <- function(x, n) {
 #' x <- as.binary(c(1,0,0,1,1,1,0,1)); x
 #' shiftRight(x,1)
 #' shiftRight(x,2)
-#' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
+#' @seealso binaryLogic::as.binary, binaryLogic::is.binary
 #' @export
 shiftRight <- function(x, n) {
     if (missing(x)) stop("x is missing.")
@@ -128,7 +128,7 @@ shiftRight <- function(x, n) {
     }
     x[(delta+1):length(x)] <- FALSE
     x <- x[length(x):1]
-    return(as.binary(x))
+    return(x)
 }
 
 #' Rotate no carry ()
@@ -160,42 +160,41 @@ rotate <- function(x, n) {
         }
     }
     x[(delta+1):length(x)] <- tmp[1:n]
-    return(as.binary(x))
+    return(x)
 }
 
 #' Fill Bits (000..)
 #' 
 #' @description Fills the number with Bits to the size in Byte.
 #' @details No floating point supported.
-#' @usage fillBits(x, value=FALSE, littleEndian=FALSE, size=0)
-#' @param x The binary number to fill with bits. (binary or logical vector).
+#' @usage fillBits(x, value=FALSE, size=0)
+#' @param x The binary number to fill with bits. (Any binary vector).
 #' @param value Fill with FALSE or fill with TRUE.
-#' @param littleEndian if TRUE. Big Endian if FALSE.
 #' @param size in Byte. 0 = auto (smallest possible byte).
-#' @return binary number. A binary / logical vector with the desired size.
+#' @return binary number. A binary vector with the desired size.
 #' @examples
-#' fillBits(as.binary(c(0,0)), value=TRUE)
-#' fillBits(as.logical(c(1,1)), size=2)
-#' fillBits(as.binary(c(TRUE,FALSE,TRUE)), littleEndian=TRUE, value=FALSE, size=2)
-#' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
+#' fillBits(as.binary(c(1,1)), size=2)
+#' fillBits(as.binary(c(0,0), signed=TRUE), value=TRUE)
+#' fillBits(as.binary(c(1,0,1), littleEndian=TRUE), value=FALSE, size=2)
+#' @seealso binaryLogic::as.binary, binaryLogic::is.binary
 #' @export
-fillBits <- function(x, value=FALSE, littleEndian=FALSE, size=0) {
+fillBits <- function(x, value=FALSE, size=0) {
     if(missing(x)) stop("x is missing")
-    stopifnot(is.logical(x) | is.binary(x))
+    stopifnot(is.binary(x))
     if(size == 0 & length(x)%%Byte() == 0) return(x)
     if(size > 0 & length(x) >= size*Byte()) return(x)
 
     if(size == 0) {
-        append <- logical(((trunc((length(x)/Byte())) +1) * Byte()) - length(x))
+        append <- binary(((trunc((length(x)/Byte())) +1) * Byte()) - length(x))
     } else {
-        append <- logical(size*Byte()-length(x))
+        append <- binary(size*Byte()-length(x))
     }
     append[1:length(append)] <- value
 
-    if (littleEndian) {
+    if (attributes(x)$littleEndian) {
         x <- c(x,append)
     } else {
         x <- c(append,x)
     }
-    return(as.binary(x))
+    return(as.binary(x, signed=attributes(x)$signed, littleEndian=attributes(x)$littleEndian))
 }
