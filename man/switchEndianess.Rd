@@ -5,7 +5,7 @@
   switchEndianess(x)
 }
 \arguments{
-  \item{x}{binary number. Any binary or logical vector.}
+  \item{x}{binary number. Any binary vector.}
 }
 \value{
   switch little-endian to big-endian and vice versa.
@@ -14,12 +14,11 @@
   switch little-endian to big-endian and vice versa.
 }
 \examples{
-x <- as.binary(c(1,1,0,0)); x
-y <- switchEndianess(x); y
+x <- as.binary(c(1,1,0,0), littleEndian=TRUE); print(x); attributes(x);
+y <- switchEndianess(x); print(y); attributes(y);
 switchEndianess(y)
 }
 \seealso{
-  binaryLogic::as.binary, binaryLogic::is.binary,
-  base::as.logical, base::is.logical, base::raw
+  binaryLogic::as.binary, binaryLogic::is.binary
 }
 
