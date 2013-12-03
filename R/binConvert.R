@@ -71,19 +71,21 @@ dec2bin <- function(num, littleEndian=FALSE, signed=FALSE, size=2) {
 bin2dec <- function(bin, hex=FALSE) {
     if (missing(bin)) stop("bin is missing.")
     stopifnot(is.binary(bin))
+    signed <- attributes(bin)$signed
+    littleEndian <- attributes(bin)$littleEndian
+    
     bin <- as.integer(bin)
     i = length(bin) - 1
     numeric = 0
     first <- TRUE
-    signed <- attributes(bin)$signed;
 
-    if (signed == TRUE)
+    if (signed)
     { 
         bin <- rev(bin) 
     }
     for(d in bin)
     {
-        if ((attributes(bin)$signed) & (first)) {
+        if ((signed) & (first)) {
             numeric <- (-1 * d * (2^i))
             i <- i - 1
         } else {
