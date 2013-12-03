@@ -2,15 +2,10 @@
 \alias{bin2dec}
 \title{Converts a binary number to a decimal or hex number.}
 \usage{
-  bin2dec(bin, littleEndian=FALSE, signed=FALSE, hex=FALSE)
+  bin2dec(bin, hex=FALSE)
 }
 \arguments{
   \item{bin}{binary number. Any logical or binary vector.}
-
-  \item{littleEndian}{if TRUE. Big Endian if FALSE.}
-
-  \item{signed}{TRUE or FALSE. Unsigned by default. (two
-  komplement)}
 
   \item{hex}{TRUE or FALSE: if TRUE it returns an hex
   value. by default = FALSE}

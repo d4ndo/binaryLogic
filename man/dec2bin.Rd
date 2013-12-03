@@ -5,7 +5,7 @@
   dec2bin(num, littleEndian=FALSE, signed=FALSE, size=2)
 }
 \arguments{
-  \item{num}{integer hex or decimal number.}
+  \item{num}{integer (hex) or (decimal) number.}
 
   \item{littleEndian}{if TRUE. Big Endian if FALSE.}
 
