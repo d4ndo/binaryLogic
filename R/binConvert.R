@@ -24,6 +24,7 @@ dec2bin <- function(num, littleEndian=FALSE, signed=FALSE, size=2) {
     if (signed & (((num > ((2^(size*Byte())/2)-1))) | (num < ((-1)*(2^(size*Byte())/2))))) {
         stop("Out of Range. Please increase the size[Byte]")
     }
+  
     size <- size*Byte()
     neg = FALSE
     if(num < 0) neg = TRUE
@@ -36,20 +37,20 @@ dec2bin <- function(num, littleEndian=FALSE, signed=FALSE, size=2) {
     }
     if (signed)
     {
-        #if (length(rest) >= size) stop("accuracy is insufficient.")
         a <- rep(TRUE, size)
         b <- rep(FALSE, size - length(rest))
-        ret <- c(b, as.logical(rest))
+        ret <- c(b, as.binary(rest))
         if (neg)
         {
             ret <- !ret
-            ret <- binAdd(ret,TRUE)
+            ret <- binAdd(as.binary(ret, signed=TRUE), as.binary(TRUE))
         }
         if(littleEndian) ret <- rev(ret)
-        return(as.binary(ret))
+        return(as.binary(ret, signed=signed, littleEndian=littleEndian))
     }
     if(littleEndian) rest <- rest[length(rest):1]
-    return(as.binary(rest))
+ 
+    return(as.binary(rest, signed=signed, littleEndian=littleEndian))
 }
 
 #' Converts a binary number to a decimal or hex number.
@@ -64,8 +65,8 @@ dec2bin <- function(num, littleEndian=FALSE, signed=FALSE, size=2) {
 #' @return The decimal or hex number »integer«.
 #' @examples
 #' bin2dec(as.binary(c(1,0,1,1,1,0,1,1)))
-#' bin2dec(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE))
-#' bin2dec(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE), hex=TRUE)
+#' bin2dec(as.binary(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE)))
+#' bin2dec(as.binary(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE)), hex=TRUE)
 #' @seealso binaryLogic::as.binary, binaryLogic::is.binary, base::as.logical, base::is.logical, base::raw
 #' @export
 bin2dec <- function(bin, hex=FALSE) {
@@ -73,6 +74,8 @@ bin2dec <- function(bin, hex=FALSE) {
     stopifnot(is.binary(bin))
     signed <- attributes(bin)$signed
     littleEndian <- attributes(bin)$littleEndian
+    
+    if(!littleEndian) { bin <- rev(bin) }
     
     bin <- as.integer(bin)
     i = length(bin) - 1
@@ -102,12 +105,11 @@ bin2dec <- function(bin, hex=FALSE) {
 #' 
 #' @description switch little-endian to big-endian and vice versa.
 #' @usage switchEndianess(x)
-#' @param x binary number. Any binary vector.
+#' @param x binary number. Any binary vector. switchEndianess(y)
 #' @return switch little-endian to big-endian and vice versa.
 #' @examples
 #' x <- as.binary(c(1,1,0,0), littleEndian=TRUE); print(x); attributes(x);
 #' y <- switchEndianess(x); print(y); attributes(y);
-#' switchEndianess(y)
 #' @seealso binaryLogic::as.binary, binaryLogic::is.binary
 #' @export
 switchEndianess <- function(x) {
@@ -120,5 +122,5 @@ switchEndianess <- function(x) {
         attr(x, "littleEndian") <- FALSE
     }
 
-    return(as.binary(rev(x), signed=attributes(x)$signed, littleEndian=attributes(x)$littleEndian))
+    return(rev(x))
 }

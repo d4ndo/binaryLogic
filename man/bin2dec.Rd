@@ -22,8 +22,8 @@
 }
 \examples{
 bin2dec(as.binary(c(1,0,1,1,1,0,1,1)))
-bin2dec(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE))
-bin2dec(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE), hex=TRUE)
+bin2dec(as.binary(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE)))
+bin2dec(as.binary(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE)), hex=TRUE)
 }
 \seealso{
   binaryLogic::as.binary, binaryLogic::is.binary,
