@@ -23,7 +23,6 @@
 }
 \examples{
 fillBits(as.binary(c(1,1)), size=2)
-fillBits(as.binary(c(0,0), signed=TRUE), value=TRUE)
 fillBits(as.binary(c(1,0,1), littleEndian=TRUE), value=FALSE, size=2)
 }
 \seealso{

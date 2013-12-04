@@ -2,30 +2,40 @@
 #' 
 #' @description Adds two binary numbers. (x + y)
 #' @details Little-Endian is not supported at the moment. No floating point supported.
-#' @usage binAdd(x, y, signed=FALSE, size=0)
-#' @param x summand 1 (binary or logical vector)
-#' @param y summand 2 (binary or logical vector)
-#' @param signed TRUE or FALSE. Returns a signed number. see example
-#' @param size in Byte. Is needed if signed is set. 0 = auto
-#' @return The sum of x and y. Returns a binary/logical vector.
+#' if x or y is signed the return value will also be signed. 
+#' @usage binAdd(x, y)
+#' @param x summand 1 (binary vector)
+#' @param y summand 2 (binary vector)
+#' @return The sum of x and y. Returns a binary vector.
 #' @examples
-#' binAdd(as.logical(c(0,1)),as.logical(c(1,0)))
-#' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
+#' binAdd(as.binary(c(0,1)),as.binary(c(1,0)))
+#' @seealso base::as.logical , base::is.logical, base::raw
 #' @export
-binAdd <- function(x, y, signed=FALSE, size=0) {
+binAdd <- function(x, y) {
+    if (missing(x)) stop("x is missing.")
+    if (missing(y)) stop("y is missing.")
+    stopifnot(is.binary(x))
+    stopifnot(is.binary(y))
+    x_signed <- attributes(x)$signed
+    x_littleEndian <- attributes(x)$littleEndian
+    y_signed <- attributes(y)$signed
+    y_littleEndian <- attributes(y)$littleEndian
+    signed <- FALSE
+    if (x_signed | y_signed) signed <- TRUE
+    
     if (length(x) >= length(y))
     {
         MAX <- length(x)
         a <- rep(FALSE,length(x)-length(y))
-        y <- c(a,y)
+        y <- as.binary(c(a,y), signed=y_signed, littleEndian=y_littleEndian)
     } else {
         MAX <- length(y)
         a <- rep(FALSE,length(y)-length(x))
-        x <- c(a,x)
+        x <- as.binary(c(a,x), signed=x_signed, littleEndian=x_littleEndian)
     }
 
-    ret = logical(MAX)
-    temp = logical(MAX+1)
+    ret = binary(MAX)
+    temp = binary(MAX+1)
     ret[MAX] <- xor(x[MAX],y[MAX])
     if (isTRUE(x[MAX]) & isTRUE(y[MAX])) temp[MAX+1] = TRUE
 
@@ -40,8 +50,8 @@ binAdd <- function(x, y, signed=FALSE, size=0) {
                 (isTRUE(y[i]) & isTRUE(temp[i+2]))) temp[i+1] = TRUE
         }
     }
-    if (temp[2] & !signed) ret <- c(T,ret)
-    return(as.binary(ret))
+    if (temp[2] & !signed) ret <- as.binary(c(T,ret), signed=TRUE, littleEndian=FALSE)
+    return(ret)
 }
 
 #' Binary Negation (!)
@@ -54,20 +64,33 @@ binAdd <- function(x, y, signed=FALSE, size=0) {
 #' @examples
 #' negate(as.binary(c(1,0,1)))
 #' bin2dec(negate(dec2bin(-5, signed=TRUE)))
-#' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
+#' @seealso base::as.logical , base::is.logical, base::raw
 #' @export
 negate <- function(x) {
     if (missing(x)) stop("x is missing.")
-    stopifnot(is.logical(x) | is.binary(x))
+    stopifnot(is.binary(x))
+    signed <- attributes(x)$signed
+    if (!signed) warning("Trying to negate an unsigned digit. treated as signed value. Returns a signed value")
+    littleEndian <- attributes(x)$littleEndian
+
+    if(littleEndian) x <- rev(x)
+    
     if (length(x)%%Byte() != 0) {
         MAX <- (trunc((length(x)/Byte())) +1) * Byte()
         a <- rep(FALSE, MAX - length(x))
-        x <- c(a,x)
+        as.binary(a, littleEndian=littleEndian)
+        # 'c.binary'(x,y) needs to be implemented
+        x <- as.binary(c(a,x))
     }
     x <- !x
-    return(binAdd(x,TRUE))
-}
+    x <- binAdd(x,as.binary(TRUE))
 
+    if(littleEndian) x <- rev(x)
+    attr(x,"signed") <- TRUE
+    attr(x,"littleEndian") <- littleEndian
+    class(x) <- c("binary", "logical")
+    return(x)
+}
 
 #' Binary Left Shift (<<)
 #' 
@@ -174,7 +197,6 @@ rotate <- function(x, n) {
 #' @return binary number. A binary vector with the desired size.
 #' @examples
 #' fillBits(as.binary(c(1,1)), size=2)
-#' fillBits(as.binary(c(0,0), signed=TRUE), value=TRUE)
 #' fillBits(as.binary(c(1,0,1), littleEndian=TRUE), value=FALSE, size=2)
 #' @seealso binaryLogic::as.binary, binaryLogic::is.binary
 #' @export
@@ -196,5 +218,5 @@ fillBits <- function(x, value=FALSE, size=0) {
     } else {
         x <- c(append,x)
     }
-    return(as.binary(x, signed=attributes(x)$signed, littleEndian=attributes(x)$littleEndian))
+    return(x)
 }

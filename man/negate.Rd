@@ -23,7 +23,6 @@ negate(as.binary(c(1,0,1)))
 bin2dec(negate(dec2bin(-5, signed=TRUE)))
 }
 \seealso{
-  base::as.logical , base::is.logical, base::as.integer
-  base::raw
+  base::as.logical , base::is.logical, base::raw
 }
 

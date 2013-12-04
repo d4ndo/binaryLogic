@@ -24,7 +24,6 @@ shiftRight(x,1)
 shiftRight(x,2)
 }
 \seealso{
-  base::as.logical , base::is.logical, base::as.integer
-  base::raw
+  binaryLogic::as.binary, binaryLogic::is.binary
 }
 
