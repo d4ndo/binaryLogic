@@ -13,3 +13,4 @@ Collate:
     'binOperators.R'
     'binConvert.R'
     'BinaryS3.R'
+    'binAdd.R'
