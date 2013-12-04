@@ -2,10 +2,15 @@
 \alias{binary}
 \title{Binary Vector}
 \usage{
-  binary(n)
+  binary(n, signed=FALSE, littleEndian=FALSE)
 }
 \arguments{
   \item{n}{length of vector. Number of bits}
+
+  \item{signed}{TRUE or FALSE. Unsigned by default. (two's
+  complement)}
+
+  \item{littleEndian}{if TRUE. Big Endian if FALSE.}
 }
 \value{
   a binary vector of length n

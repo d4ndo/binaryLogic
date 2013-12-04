@@ -6,8 +6,10 @@
 #' No floating-point support.
 #' Little Endian    (LSB) ---> (MSB)
 #' Big Endian       (MSB) <--- (LSB)
-#' @usage binary(n)
+#' @usage binary(n, signed=FALSE, littleEndian=FALSE)
 #' @param n length of vector. Number of bits
+#' @param signed  TRUE or FALSE. Unsigned by default. (two's complement)
+#' @param littleEndian if TRUE. Big Endian if FALSE.
 #' @return a binary vector of length n
 #' @seealso base::as.logical , base::is.logical, base::raw
 #' @export
