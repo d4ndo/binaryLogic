@@ -2,7 +2,7 @@
 \alias{as.binary}
 \title{as Binary Vector}
 \usage{
-  as.binary(x)
+  as.binary(x, signed=FALSE, littleEndian=FALSE)
 }
 \arguments{
   \item{x}{object to convert.}

@@ -1,11 +1,15 @@
 #' Binary Vector
 #' 
 #' @description Create objects of type "binary" vector.
-#' @details No floating point supported.
+#' @details The binary number is represented by a logical vector.
+#' The Bit order usually follows the same endianness as the byte order.
+#' No floating-point support.
+#' Little Endian    (LSB) ---> (MSB)
+#' Big Endian       (MSB) <--- (LSB)
 #' @usage binary(n)
 #' @param n length of vector. Number of bits
 #' @return a binary vector of length n
-#' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
+#' @seealso base::as.logical , base::is.logical, base::raw
 #' @export
 binary <- function(n, signed=FALSE, littleEndian=FALSE) {
     if(missing(n)) stop("n is missing.")
@@ -20,7 +24,7 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
 #' as Binary Vector
 #' 
 #' @description convert object to "binary".
-#' @usage as.binary(x)
+#' @usage as.binary(x, signed=FALSE, littleEndian=FALSE)
 #' @param x object to convert.
 #' @param signed  TRUE or FALSE. Unsigned by default. (two's complement) 
 #' @param littleEndian if TRUE. Big Endian if FALSE.
@@ -28,12 +32,14 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
 #' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
 #' @export
 as.binary <- function(x, signed=FALSE, littleEndian=FALSE){
-    if(!inherits(x, "binary")) {
-        class(x) <- c("binary", class(x))
+    if (missing(x)) stop("x is missing")
+
+    if (!inherits(x, "binary")) {
+        class(x) <- c("binary", "logical")
         attr(x, "signed") <- signed
         attr(x, "littleEndian") <- littleEndian
-        if (signed) { x <- fillBits(x) }        
-    } else {
+        if (signed) x <- fillBits(x)
+    } else { 
         if (signed) {
             attr(x, "signed") <- TRUE
             x <- fillBits(x)
@@ -47,7 +53,7 @@ as.binary <- function(x, signed=FALSE, littleEndian=FALSE){
             }
         } else {
             if (attributes(x)$littleEndian)
-            {
+            {       
                 switchEndianess(x)
             }
         }
@@ -87,6 +93,30 @@ print.binary <- function(x,...) {
     return(all(!xor(x,y)))
 }
 
-#'+.bin' <- function(x,y) {
-#    print("TEST")    
+'!.binary' <- function(x) {
+    signed <- attributes(x)$signed
+    littleEndian <- attributes(x)$littleEndian
+    
+    ret <- NextMethod(.Generic)
+    
+    attr(ret, "signed") <- signed
+    attr(ret, "littleEndian") <- littleEndian
+    class(ret) <- c("binary", "logical")
+    return(ret)
+}
+
+'[.binary' <- function(x, i, j, drop=TRUE) {
+    signed <- attributes(x)$signed
+    littleEndian <- attributes(x)$littleEndian
+
+    ret <- NextMethod(.Generic, drop=drop)
+
+    attr(ret, "signed") <- signed
+    attr(ret, "littleEndian") <- littleEndian
+    class(ret) <- c("binary", "logical")
+    return(ret)
+}
+
+#'>.logical' <- function(x,y) {
+#    print("TEST")
 #}
