@@ -15,10 +15,10 @@ test_that("Return value", {
     expect_that(binPrefix2Byte(1, "YiB"), is_equivalent_to(2^80))
 })
 
-test_that("Warnings", {
-    expect_that(binPrefix2Byte(1,"LiB"), throws_error("Unknown binary prefix"))
-    expect_that(binPrefix2Byte(1.2,"KiB"), shows_message("ceiling called: returns the smallest integer not less than the corresponding element of ret"))
-})
+#test_that("Warnings", {
+#    expect_that(binPrefix2Byte(1,"LiB"), throws_error("Unknown binary prefix"))
+#    expect_that(binPrefix2Byte(1.2,"KiB"), shows_message("ceiling called: returns the smallest integer not less than the corresponding element of ret"))
+#})
 
 context("Byte")
 
