@@ -74,12 +74,14 @@ is.binary <- function(x) {
     return(inherits(x, "binary"))
 }
 
+#' @export
 print.binary <- function(x,...) {
     x <- ifelse(x, as.integer(1), as.integer(0))
     attributes(x) <- NULL
     print.default(x,...)
 }
 
+#' @export
 '==.binary' <- function(x,y) {
     if(attributes(x)$littleEndian) x <- switchEndianess(x)
     if(attributes(y)$littleEndian) y <- switchEndianess(y)
@@ -102,10 +104,12 @@ print.binary <- function(x,...) {
     return(all(!xor(x,y)))
 }
 
+#' @export
 '!=.binary' <- function(x,y) {
     return(!(x==y))
 }
 
+#' @export
 '!.binary' <- function(x) {
     signed <- attributes(x)$signed
     littleEndian <- attributes(x)$littleEndian
@@ -118,6 +122,7 @@ print.binary <- function(x,...) {
     return(ret)
 }
 
+#' @export
 '[.binary' <- function(x, i, j, drop=TRUE) {
     signed <- attributes(x)$signed
     littleEndian <- attributes(x)$littleEndian
