@@ -2,15 +2,15 @@
 \alias{dec2bin}
 \title{Converts a decimal or hex number to a binary digit.}
 \usage{
-  dec2bin(num, littleEndian=FALSE, signed=FALSE, size=2)
+  dec2bin(num, signed=FALSE, littleEndian=FALSE, size=2)
 }
 \arguments{
   \item{num}{integer (hex) or (decimal) number.}
 
-  \item{littleEndian}{if TRUE. Big Endian if FALSE.}
-
   \item{signed}{TRUE or FALSE. Unsigned by default. (two's
   complement)}
+
+  \item{littleEndian}{if TRUE. Big Endian if FALSE.}
 
   \item{size}{Needed if signed is set. (by default 2 Byte)}
 }
