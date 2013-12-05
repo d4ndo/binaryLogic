@@ -44,6 +44,23 @@ binPrefix2Byte <- function(n, prefix="KiB") {
     }
 }
 
+#' Minimum number of »Byte« needed to hold n »Bit«
+#' 
+#' @description A simple helper function 
+#' that returns the minimum number of Byte needed to hold the amount of n Bit.
+#' @usage bytesNeeded(n)
+#' @param n The number of Bit.
+#' @return The number of minimum Byte needed to hold n Bit.
+#' @export
+bytesNeeded <- function(n) {
+    if (n %% Byte() ==0)
+    { 
+        return (n %/% Byte())
+    } else {
+        return (n %/% Byte()+1)
+    }
+}
+
 #' A simple helper function to return the size of one Byte
 #' 
 #' @description Used to increase readabilaty
