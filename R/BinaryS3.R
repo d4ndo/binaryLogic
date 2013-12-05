@@ -35,13 +35,12 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
 #' @export
 as.binary <- function(x, signed=FALSE, littleEndian=FALSE){
     if (missing(x)) stop("x is missing")
-
     if (!inherits(x, "binary")) {
         class(x) <- c("binary", "logical")
         attr(x, "signed") <- signed
         attr(x, "littleEndian") <- littleEndian
         if (signed) x <- fillBits(x)
-    } else { 
+    } else {
         if (signed) {
             attr(x, "signed") <- TRUE
             x <- fillBits(x)
@@ -82,17 +81,29 @@ print.binary <- function(x,...) {
 }
 
 '==.binary' <- function(x,y) {
+    if(attributes(x)$littleEndian) x <- switchEndianess(x)
+    if(attributes(y)$littleEndian) y <- switchEndianess(y)
+  
     if(length(x) >= length(y)) {
-        MAX <- length(x)
-        delta <- length(x) - length(y)
-        fillBits(y, delta)
+        delta <- bytesNeeded(length(x))
+        if (attributes(y)$signed) {
+            y <- fillBits(y, value=TRUE, size=delta)
+        } else {
+            y <- fillBits(y, value=FALSE, size=delta)
+        }
     } else {
-        MAX <- length(y)
-        delta <- length(y) - length(x)
-        fillBits(x, delta)
+        delta <- bytesNeeded(length(y))
+        if (attributes(x)$signed) {
+            x <- fillBits(x, value=TRUE, size=delta)
+        } else {
+            x <- fillBits(x, value=FALSE, size=delta)
+        }
     }
-
     return(all(!xor(x,y)))
+}
+
+'!=.binary' <- function(x,y) {
+    return(!(x==y))
 }
 
 '!.binary' <- function(x) {
@@ -118,6 +129,18 @@ print.binary <- function(x,...) {
     class(ret) <- c("binary", "logical")
     return(ret)
 }
+
+#'c.binary' <- function(..., recursive=FALSE) {
+#    signed <- attributes(x)$signed
+#    littleEndian <- attributes(x)$littleEndian
+#    
+#    ret <- NextMethod(.Generic, recursive=recursive)
+#    
+#    attr(ret, "signed") <- signed
+#    attr(ret, "littleEndian") <- littleEndian
+#    class(ret) <- c("binary", "logical")
+#    return(ret)
+#}
 
 #'>.logical' <- function(x,y) {
 #    print("TEST")
