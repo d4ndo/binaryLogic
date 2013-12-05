@@ -21,6 +21,8 @@
   will also be signed.
 }
 \examples{
+five <- dec2bin(5); ten <- dec2bin(10);
+bin2dec(binAdd(ten, five))
 binAdd(as.binary(c(0,1)),as.binary(c(1,0)))
 }
 \seealso{
