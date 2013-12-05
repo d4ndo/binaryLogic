@@ -9,8 +9,8 @@ Depends:
 License: GPL-3
 LazyData: true
 Collate:
-    'binPrefix2Byte.R'
     'binOperators.R'
     'binConvert.R'
     'BinaryS3.R'
     'binAdd.R'
+    'binHelper.R'
