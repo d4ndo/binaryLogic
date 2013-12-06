@@ -32,7 +32,7 @@ two <- dec2bin(2); as.logical(two); two == two;
 
 [1] TRUE TRUE
 
-as.binary(two)
+as.binary(two); two == two;
 
 [1] TRUE
 
