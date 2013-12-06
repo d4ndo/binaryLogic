@@ -8,13 +8,13 @@ test_that("Return value", {
     expect_that(dec2bin(0), is_equivalent_to(as.binary(c(0))))
     expect_that(dec2bin(0, signed=TRUE, size=1), is_equivalent_to(as.binary(c(0,0,0,0,0,0,0,0))))
     expect_that(dec2bin(0, littleEndian=TRUE, signed=TRUE, size=1), is_equivalent_to(as.binary(c(0,0,0,0,0,0,0,0))))
-    expect_that(dec2bin(1), is_equivalent_to(as.binary(c(1))))
+    expect_that(dec2bin(1), is_equivalent_to(as.binary(c(1), signed=FALSE, littleEndian=FALSE)))
     expect_that(dec2bin(1, signed=TRUE, size=1), is_equivalent_to(as.binary(c(0,0,0,0,0,0,0,1))))
-    expect_that(dec2bin(1, littleEndian=TRUE, signed=TRUE, size=1), is_equivalent_to(as.binary(c(1,0,0,0,0,0,0,0))))
+    expect_that(dec2bin(1, littleEndian=TRUE, signed=TRUE, size=1), is_equivalent_to(as.binary(c(1,0,0,0,0,0,0,0), signed=TRUE, littleEndian=TRUE)))
     expect_that(dec2bin(-1,signed=TRUE), is_equivalent_to(as.binary(c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1))))
     expect_that(dec2bin(-1, littleEndian=TRUE, signed=TRUE, size=2), is_equivalent_to(as.binary(c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1))))
-    expect_that(dec2bin(8, signed=TRUE, size=1) , is_equivalent_to(as.binary(c(0,0,0,0,1,0,0,0))))
-    expect_that(dec2bin(8, littleEndian=TRUE, signed=TRUE, size=1) , is_equivalent_to(as.binary(c(0,0,0,1,0,0,0,0))))
+    expect_that(dec2bin(8, signed=TRUE, size=1) , is_equivalent_to(as.binary(c(0,0,0,0,1,0,0,0), signed=TRUE)))
+    expect_that(dec2bin(8, littleEndian=TRUE, signed=TRUE, size=1) , is_equivalent_to(as.binary(c(0,0,0,1,0,0,0,0), signed=TRUE, littleEndian=TRUE)))
 })
 
 test_that("Warnings", {
@@ -43,3 +43,16 @@ test_that("Return value", {
 test_that("Warnings", {
     expect_that(bin2dec(), throws_error("bin is missing."))
 })
+
+
+context("dec2bin and bin2dec")
+
+# in work !
+inputtest <- function(s)
+{
+    for(i in s) {
+        x <- binaryLogic::bin2dec(binaryLogic::dec2bin(i, signed=TRUE))
+        if  (x != i) return(1)
+    }
+    return(0)
+}
