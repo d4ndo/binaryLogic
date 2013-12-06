@@ -28,9 +28,7 @@ The »binaryLogic::binary« class inherits from the »base::logical« class. Thi
 
 e.G. 
 
-two <- dec2bin(2)
-as.logical(two)
-two == two
+two <- dec2bin(2); as.logical(two); two == two;
 
 [1] TRUE TRUE
 
