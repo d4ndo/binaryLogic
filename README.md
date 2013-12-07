@@ -24,16 +24,25 @@ $ bin2dec(the_answer_to_the_ultimate_question_of_life_the_universe_and_everythin
 Information
 -----------
 
-The »binaryLogic::binary« class inherits from the »base::logical« class. This brings some benefits. It is no problem to switch from logical to binary and vice versa.
+The »binaryLogic::binary« class inherits from the »base::logical« class. This brings some benefits. It is no problem to switch from logical to binary and vice versa. Some function from Package binaryLogic can also be used on logical vectors like shiftLeft, shiftRight, rotate (see help).
 
+Some operators have a different behavior and some are the same.
 e.g. 
 
-two <- dec2bin(2); as.logical(two); two == two;
+two <- dec2bin(2); two <- as.logical(two); two == two;
 
 [1] TRUE TRUE
 
-as.binary(two); two == two;
+The logical == operator compares every element of the vector (Bitwise comparison).
+
+two <- as.binary(two); two == two;
 
 [1] TRUE
 
-Some function from Package binaryLogic can also be used on logical vectors like shiftLeft, shiftRight, rotate (see help).
+The binary == operator compares the value. Even different endianess.
+
+two_B <- as.binary(two, littleEndian=FALSE); two_L <- as.binary(two, littleEndian=TRUE);  two_B == two_L;
+
+[1] TRUE
+
+
