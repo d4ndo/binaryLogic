@@ -82,8 +82,29 @@ print.binary <- function(x,...) {
     print.default(x,...)
 }
 
+######## BINARY OPERATOR ########
+# Group Generic "Ops"
+
+Ops.binary <- function(e1, e2)
+{
+    boolean <- switch(.Generic,  '+' =, '-' =, '*' =, '/' =, '^' =, '%%' =, '%/%' =, 
+                                 '&' =, '|' =, '!' =, 
+                                 '==' =, '!=' =, '<' =, '<=' =, '>' =, '>=' = TRUE, FALSE)
+    if(boolean) {
+        l1 <- saveAttributes(e1)
+        l2 <- saveAttributes(e2)
+        
+        cat("Ops ", class(e1), "\n")
+        ret <- NextMethod(.Generic)
+        
+        loadAttributes(ret,l1)
+        return(ret)
+    }
+}
+
 #' @export
 '==.binary' <- function(x,y) {
+    # attributes are saved @ group generic Ops.  
     if (attributes(x)$littleEndian) x <- switchEndianess(x)
     if (attributes(y)$littleEndian) y <- switchEndianess(y)
   
@@ -107,33 +128,32 @@ print.binary <- function(x,...) {
 
 #' @export
 '!=.binary' <- function(x,y) {
+    # attributes are saved @ group generic Ops.
     return(!(x==y))
 }
 
 #' @export
-'!.binary' <- function(x) {
-    signed <- attributes(x)$signed
-    littleEndian <- attributes(x)$littleEndian
-    
-    ret <- NextMethod(.Generic)
-    
-    attr(ret, "signed") <- signed
-    attr(ret, "littleEndian") <- littleEndian
-    class(ret) <- c("binary", "logical")
-    return(ret)
-}
-
-#' @export
 '[.binary' <- function(x, i, j, drop=TRUE) {
-    signed <- attributes(x)$signed
-    littleEndian <- attributes(x)$littleEndian
+    # this should not become a group generic. This function is an internal generic.
+    l <- saveAttributes(x)
 
     ret <- NextMethod(.Generic, drop=drop)
 
-    attr(ret, "signed") <- signed
-    attr(ret, "littleEndian") <- littleEndian
-    class(ret) <- c("binary", "logical")
+    loadAttributes(x,l)
     return(ret)
+}
+
+#Helper function
+saveAttributes <- function(x) {
+    l <- list(class="binary", signed=attr(x,"signed"), littleEndian=attr(x,"littleEndian"))
+    return(l)
+}
+
+#Helper function
+loadAttributes <- function(x,l) {
+    class(x) <- l$class
+    attr(x, "signed") <- l$signed
+    attr(x, "littleEndian") <- l$littleEndian
 }
 
 #'%<<%.binary' <- function(x,y) {
