@@ -2,7 +2,7 @@
 #' 
 #' @description Adds two binary numbers. (x + y)
 #' @details Little-Endian is not supported at the moment. No floating point supported.
-#' if x or y is signed the return value will also be signed. 
+#' if x or y is signed the return value will also be signed.
 #' @usage binAdd(x, y)
 #' @param x summand 1 (binary vector)
 #' @param y summand 2 (binary vector)
@@ -14,6 +14,7 @@
 #' @seealso base::as.logical , base::is.logical, base::raw
 #' @export
 binAdd <- function(x, y) {
+    #maybe this function should become internal generic (written in C).
     if (missing(x)) stop("x is missing.")
     if (missing(y)) stop("y is missing.")
     stopifnot(is.binary(x))
