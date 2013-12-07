@@ -26,7 +26,7 @@ Information
 
 The »binaryLogic::binary« class inherits from the »base::logical« class. This brings some benefits. It is no problem to switch from logical to binary and vice versa.
 
-e.G. 
+e.g. 
 
 two <- dec2bin(2); as.logical(two); two == two;
 
