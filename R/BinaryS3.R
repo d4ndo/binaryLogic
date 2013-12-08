@@ -4,14 +4,16 @@
 #' @details The binary number is represented by a logical vector.
 #' The Bit order usually follows the same endianness as the byte order.
 #' No floating-point support.
-#' Little Endian    (LSB) ---> (MSB)
-#' Big Endian       (MSB) <--- (LSB)
+#' \itemize{
+#' \item Little Endian    (LSB) ---> (MSB)
+#' \item Big Endian       (MSB) <--- (LSB)
+#' }
 #' @usage binary(n, signed=FALSE, littleEndian=FALSE)
 #' @param n length of vector. Number of bits
 #' @param signed  TRUE or FALSE. Unsigned by default. (two's complement)
 #' @param littleEndian if TRUE. Big Endian if FALSE.
 #' @return a binary vector of length n
-#' @seealso base::as.logical , base::is.logical, base::raw
+#' @seealso \link{as.binary} and \link{is.binary}
 #' @export
 binary <- function(n, signed=FALSE, littleEndian=FALSE) {
     if(missing(n)) stop("n is missing.")
@@ -31,7 +33,7 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
 #' @param signed  TRUE or FALSE. Unsigned by default. (two's complement) 
 #' @param littleEndian if TRUE. Big Endian if FALSE.
 #' @return a binary vector.
-#' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
+#' @seealso \link{is.binary} and \link{binary}
 #' @export
 as.binary <- function(x, signed=FALSE, littleEndian=FALSE){
     if (missing(x)) stop("x is missing")
@@ -69,7 +71,7 @@ as.binary <- function(x, signed=FALSE, littleEndian=FALSE){
 #' @usage is.binary(x)
 #' @param x object to test.
 #' @return TRUE or FALSE.
-#' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
+#' @seealso \link{as.binary} and \link{binary}
 #' @export
 is.binary <- function(x) {
     return(inherits(x, "binary"))
@@ -87,19 +89,32 @@ print.binary <- function(x,...) {
 
 Ops.binary <- function(e1, e2)
 {
-    boolean <- switch(.Generic,  '+' =, '-' =, '*' =, '/' =, '^' =, '%%' =, '%/%' =, 
-                                 '&' =, '|' =, '!' =, 
-                                 '==' =, '!=' =, '<' =, '<=' =, '>' =, '>=' = TRUE, FALSE)
+    boolean <- switch(.Generic,  '+' =, '-' =, '*' =, '/' =, '^' =, '%%' =, '%/%' = TRUE, FALSE)
+
     if(boolean) {
         l1 <- saveAttributes(e1)
-        l2 <- saveAttributes(e2)
         
-        cat("Ops ", class(e1), "\n")
         ret <- NextMethod(.Generic)
         
-        loadAttributes(ret,l1)
-        return(ret)
+        x <- loadAttributes(ret,l1)
+        return(x)
     }
+    
+    boolean <- switch(.Generic,  '&' =, '|' =, '!' = TRUE, FALSE)
+    if(boolean) {
+        l1 <- saveAttributes(e1)
+        
+        ret <- NextMethod(.Generic)
+        
+        x <- loadAttributes(ret,l1)
+        return(x)
+    }
+}
+
+#' @export
+'+.binary' <- function(x,y) {
+    ret <- binAdd(x, y)
+    return(ret)
 }
 
 #' @export
@@ -136,11 +151,23 @@ Ops.binary <- function(e1, e2)
 '[.binary' <- function(x, i, j, drop=TRUE) {
     # this should not become a group generic. This function is an internal generic.
     l <- saveAttributes(x)
-
+    
     ret <- NextMethod(.Generic, drop=drop)
+    
+    x <- loadAttributes(ret,l)
+    return(x)
+}
 
-    loadAttributes(x,l)
-    return(ret)
+#' @export
+rev.binary <- function(x) {
+    # this should not become a group generic. This function is an internal generic.
+    l <- saveAttributes(x)
+    
+    x <- x[length(x):1]
+    #ret <- NextMethod(.Generic)
+
+    x <- loadAttributes(x,l)
+    return(x)
 }
 
 #Helper function
@@ -154,6 +181,7 @@ loadAttributes <- function(x,l) {
     class(x) <- l$class
     attr(x, "signed") <- l$signed
     attr(x, "littleEndian") <- l$littleEndian
+    return(x)
 }
 
 #'%<<%.binary' <- function(x,y) {
