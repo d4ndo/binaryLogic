@@ -12,7 +12,9 @@
 #' @param n length of vector. Number of bits
 #' @param signed  TRUE or FALSE. Unsigned by default. (two's complement)
 #' @param littleEndian if TRUE. Big Endian if FALSE.
-#' @return a binary vector of length n
+#' @return a binary vector of length n. By default filled with zeros(0).
+#' @examples
+#' b <- binary(8)
 #' @seealso \link{as.binary} and \link{is.binary}
 #' @export
 binary <- function(n, signed=FALSE, littleEndian=FALSE) {
@@ -90,22 +92,21 @@ print.binary <- function(x,...) {
 Ops.binary <- function(e1, e2)
 {
     boolean <- switch(.Generic,  '+' =, '-' =, '*' =, '/' =, '^' =, '%%' =, '%/%' = TRUE, FALSE)
-
     if(boolean) {
         l1 <- saveAttributes(e1)
-        
         ret <- NextMethod(.Generic)
-        
         x <- loadAttributes(ret,l1)
         return(x)
     }
-    
-    boolean <- switch(.Generic,  '&' =, '|' =, '!' = TRUE, FALSE)
+    boolean <- switch(.Generic,  '&' =, '|' = TRUE, FALSE)
+    if(boolean) {
+        ret <- NextMethod(.Generic)
+        return(ret)
+    }
+    boolean <- switch(.Generic,  '!' = TRUE, FALSE)
     if(boolean) {
         l1 <- saveAttributes(e1)
-        
         ret <- NextMethod(.Generic)
-        
         x <- loadAttributes(ret,l1)
         return(x)
     }
@@ -144,7 +145,7 @@ Ops.binary <- function(e1, e2)
 #' @export
 '!=.binary' <- function(x,y) {
     # attributes are saved @ group generic Ops.
-    return(!(x==y))
+    return(!(x == y))
 }
 
 #' @export

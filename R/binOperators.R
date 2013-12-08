@@ -142,7 +142,7 @@ rotate <- function(x, n) {
 #' @examples
 #' fillBits(as.binary(c(1,1)), size=2)
 #' fillBits(as.binary(c(1,0,1)), value=FALSE, size=2)
-#' @seealso binaryLogic::as.binary, binaryLogic::is.binary
+#' @seealso \link{bytesNeeded} or \link{binPrefix2Bytes} or \link{Byte}
 #' @export
 fillBits <- function(x, value=FALSE, size=0) {
     if (missing(x)) stop("x is missing")

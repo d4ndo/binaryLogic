@@ -10,4 +10,8 @@
 \description{
   Used to increase readabilaty
 }
+\seealso{
+  \link{bytesNeeded} or \link{fillBits} or
+  \link{binPrefix2Byte}
+}
 

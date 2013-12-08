@@ -14,4 +14,7 @@
   A simple helper function that returns the minimum number
   of Byte needed to hold the amount of n Bit.
 }
+\seealso{
+  \link{fillBits} or \link{binPrefix2Byte} or \link{Byte}
+}
 

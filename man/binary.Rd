@@ -13,7 +13,8 @@
   \item{littleEndian}{if TRUE. Big Endian if FALSE.}
 }
 \value{
-  a binary vector of length n
+  a binary vector of length n. By default filled with
+  zeros(0).
 }
 \description{
   Create objects of type "binary" vector.
@@ -24,6 +25,9 @@
   order. No floating-point support. \itemize{ \item Little
   Endian (LSB) ---> (MSB) \item Big Endian (MSB) <--- (LSB)
   }
+}
+\examples{
+b <- binary(8)
 }
 \seealso{
   \link{as.binary} and \link{is.binary}
