@@ -14,7 +14,6 @@
   test for object "binary".
 }
 \seealso{
-  base::as.logical , base::is.logical, base::as.integer
-  base::raw
+  \link{as.binary} and \link{binary}
 }
 

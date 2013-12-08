@@ -19,7 +19,6 @@
   convert object to "binary".
 }
 \seealso{
-  base::as.logical , base::is.logical, base::as.integer
-  base::raw
+  \link{is.binary} and \link{binary}
 }
 

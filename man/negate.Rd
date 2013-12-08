@@ -19,7 +19,7 @@
   No floating point supported.
 }
 \examples{
-negate(as.binary(c(1,0,1)))
+negate(dec2bin(2, signed=TRUE))
 bin2dec(negate(dec2bin(-5, signed=TRUE)))
 }
 \seealso{

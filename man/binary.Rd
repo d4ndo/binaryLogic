@@ -21,10 +21,11 @@
 \details{
   The binary number is represented by a logical vector. The
   Bit order usually follows the same endianness as the byte
-  order. No floating-point support. Little Endian (LSB)
-  ---> (MSB) Big Endian (MSB) <--- (LSB)
+  order. No floating-point support. \itemize{ \item Little
+  Endian (LSB) ---> (MSB) \item Big Endian (MSB) <--- (LSB)
+  }
 }
 \seealso{
-  base::as.logical , base::is.logical, base::raw
+  \link{as.binary} and \link{is.binary}
 }
 

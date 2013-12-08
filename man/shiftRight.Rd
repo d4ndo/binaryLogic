@@ -24,6 +24,6 @@ shiftRight(x,1)
 shiftRight(x,2)
 }
 \seealso{
-  binaryLogic::as.binary, binaryLogic::is.binary
+  \link{shiftLeft} and \link{rotate}
 }
 

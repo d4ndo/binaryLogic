@@ -23,8 +23,9 @@
 \details{
   The binary number is represented by a logical vector. The
   Bit order usually follows the same endianness as the byte
-  order. No floating-point support. Little Endian (LSB)
-  ---> (MSB) Big Endian (MSB) <--- (LSB)
+  order. No floating-point support. \itemize{ \item Little
+  Endian (LSB) ---> (MSB) \item Big Endian (MSB) <--- (LSB)
+  }
 }
 \examples{
 dec2bin(0xfa)
@@ -32,7 +33,6 @@ dec2bin(3)
 dec2bin(-1, signed=TRUE, size=1)
 }
 \seealso{
-  binaryLogic::as.binary, binaryLogic::is.binary,
-  base::as.logical, base::is.logical, base::raw
+  \link{bin2dec} and \link{binary} or \link{logical}
 }
 

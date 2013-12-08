@@ -24,7 +24,6 @@ rotate(x,1)
 rotate(x,2)
 }
 \seealso{
-  base::as.logical , base::is.logical, base::as.integer
-  base::raw
+  \link{shiftLeft} and \link{shiftRight}
 }
 
