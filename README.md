@@ -10,7 +10,7 @@ Convert, negate, shift and rotate binary digits.
 Getting started
 ---------------
 
-Starting with a simple »decimal to binary« conversion and vice versa.
+Starting with a simple conversion. »decimal to binary« and vice versa.
 
 $ the_answer_to_the_ultimate_question_of_life_the_universe_and_everything <- dec2bin(42)
 
