@@ -6,7 +6,7 @@
 #' @param x The number to be negated. A binary or logical vector is expected.
 #' @return The negated number of x. Returns a binary/logical vector with signed=TRUE
 #' @examples
-#' negate(as.binary(c(1,0,1)))
+#' negate(dec2bin(2, signed=TRUE))
 #' bin2dec(negate(dec2bin(-5, signed=TRUE)))
 #' @seealso base::as.logical , base::is.logical, base::raw
 #' @export
@@ -22,12 +22,12 @@ negate <- function(x) {
     if (length(x)%%Byte() != 0) {
         MAX <- (trunc((length(x)/Byte())) +1) * Byte()
         a <- rep(FALSE, MAX - length(x))
-        as.binary(a, littleEndian=littleEndian)
+        a <- as.binary(a, littleEndian=littleEndian)
         # 'c.binary'(x,y) needs to be implemented
         x <- as.binary(c(a,x))
     }
     x <- !x
-    x <- binAdd(x,as.binary(TRUE))
+    x <- binAdd(as.binary(x),as.binary(TRUE))
 
     if(littleEndian) x <- rev(x)
     attr(x,"signed") <- TRUE
@@ -48,7 +48,7 @@ negate <- function(x) {
 #' x <- as.binary(c(1,0,0,1,1,1,0,1)); x
 #' shiftLeft(x,1)
 #' shiftLeft(x,2)
-#' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
+#' @seealso \link{shiftRight} and \link{rotate} 
 #' @export
 shiftLeft <- function(x, n) {
     if (missing(x)) stop("x is missing.")
@@ -78,7 +78,7 @@ shiftLeft <- function(x, n) {
 #' x <- as.binary(c(1,0,0,1,1,1,0,1)); x
 #' shiftRight(x,1)
 #' shiftRight(x,2)
-#' @seealso binaryLogic::as.binary, binaryLogic::is.binary
+#' @seealso \link{shiftLeft} and \link{rotate} 
 #' @export
 shiftRight <- function(x, n) {
     if (missing(x)) stop("x is missing.")
@@ -86,7 +86,7 @@ shiftRight <- function(x, n) {
     stopifnot(n > 0)
     if (n > length(x)) stop("n is larger than length of x")
     delta <- length(x) - n
-    x <- x[length(x):1]
+    x <- rev(x)
     for(i in 1:n)
     {
         for(i in 1:length(x)){
@@ -94,7 +94,7 @@ shiftRight <- function(x, n) {
         }
     }
     x[(delta+1):length(x)] <- FALSE
-    x <- x[length(x):1]
+    x <- rev(x)
     return(x)
 }
 
@@ -110,7 +110,7 @@ shiftRight <- function(x, n) {
 #' x <- as.binary(c(1,0,0,1,1,1,0,1)); x
 #' rotate(x,1)
 #' rotate(x,2)
-#' @seealso base::as.logical , base::is.logical, base::as.integer base::raw
+#' @seealso \link{shiftLeft} and \link{shiftRight} 
 #' @export
 rotate <- function(x, n) {
     if (missing(x)) stop("x is missing.")
@@ -141,7 +141,7 @@ rotate <- function(x, n) {
 #' @return binary number. A binary vector with the desired size.
 #' @examples
 #' fillBits(as.binary(c(1,1)), size=2)
-#' fillBits(as.binary(c(1,0,1), littleEndian=TRUE), value=FALSE, size=2)
+#' fillBits(as.binary(c(1,0,1)), value=FALSE, size=2)
 #' @seealso binaryLogic::as.binary, binaryLogic::is.binary
 #' @export
 fillBits <- function(x, value=FALSE, size=0) {
@@ -172,9 +172,9 @@ fillBits <- function(x, value=FALSE, size=0) {
 #' @param x binary number. Any binary vector. switchEndianess(y)
 #' @return switch little-endian to big-endian and vice versa.
 #' @examples
-#' x <- as.binary(c(1,1,0,0), littleEndian=TRUE); print(x); attributes(x);
+#' x <- as.binary(c(1,1,0,0)); print(x); attributes(x);
 #' y <- switchEndianess(x); print(y); attributes(y);
-#' @seealso binaryLogic::as.binary, binaryLogic::is.binary
+#' @seealso /link{as.binary} binaryLogic::is.binary
 #' @export
 switchEndianess <- function(x) {
     if (missing(x)) stop("x is missing")
