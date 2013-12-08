@@ -1,7 +1,15 @@
 library(testthat)
 library(binaryLogic)
 
-context("dec2bin")
+context("Test dec2bin")
+
+test_that("Lost Attributes", {
+    expect_that(attr(dec2bin(1), "class"), equals(c("binary","logical")))
+    expect_that(attr(dec2bin(1), "signed"), equals(FALSE))
+    expect_that(attr(dec2bin(1), "littleEndian"), equals(FALSE))
+    expect_that(attr(dec2bin(1, signed=TRUE), "signed"), equals(TRUE))
+    expect_that(attr(dec2bin(1, littleEndian=TRUE), "littleEndian"), equals(TRUE))
+})
 
 test_that("Return value", {
     expect_that(dec2bin(0), is_a("binary"))
@@ -18,14 +26,16 @@ test_that("Return value", {
 })
 
 test_that("Warnings", {
+    expect_that(dec2bin(), throws_error())
     expect_that(dec2bin(), throws_error("num is missing."))
     expect_that(dec2bin(-2), throws_error("Negative number is not possible with unsigned method."))
     #expect_that(dec2bin(2^15, signed=TRUE), throws_error("Out of Range. Please increase the size[Byte]"))
 })
 
+
 # need some testing for attributes
 
-context("bin2dec")
+context("Test bin2dec")
 
 test_that("Return value", {
     expect_that(bin2dec(as.binary(c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1), signed=TRUE)), is_equivalent_to(-1))
@@ -45,7 +55,7 @@ test_that("Warnings", {
 })
 
 
-context("dec2bin and bin2dec")
+context("Test both (dec2bin, bin2dec)")
 
 # in work !
 inputtest <- function(s)
@@ -56,3 +66,8 @@ inputtest <- function(s)
     }
     return(0)
 }
+
+test_that("Range", {
+    expect_that(inputtest(-64:64), equals(0))
+})
+

@@ -1,7 +1,7 @@
 library(testthat)
 library(binaryLogic)
 
-context("binPrefix2Byte")
+context("Test binPrefix2Byte")
 
 test_that("Return value", {
     expect_that(binPrefix2Byte(0.5, "KiB"), is_equivalent_to(512))
@@ -20,7 +20,7 @@ test_that("Return value", {
 #    expect_that(binPrefix2Byte(1.2,"KiB"), shows_message("ceiling called: returns the smallest integer not less than the corresponding element of ret"))
 #})
 
-context("Byte")
+context("Test Byte")
 
 test_that("Return value", {
     expect_that(Byte(), is_identical_to(8))
