@@ -52,6 +52,9 @@ binPrefix2Byte <- function(n, prefix="KiB") {
 #' @usage bytesNeeded(n)
 #' @param n The number of Bit.
 #' @return The number of minimum Byte needed to hold n Bit.
+#' @examples
+#' ten <- dec2bin(10)
+#' bytesNeeded(length(ten))
 #' @seealso \link{fillBits} or \link{binPrefix2Byte} or \link{Byte}
 #' @export
 bytesNeeded <- function(n) {
