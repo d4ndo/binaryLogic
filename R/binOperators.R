@@ -14,7 +14,7 @@ negate <- function(x) {
     if (missing(x)) stop("x is missing.")
     stopifnot(is.binary(x))
     signed <- attributes(x)$signed
-    if (!signed) warning("Trying to negate an unsigned digit. treated as signed value. Returns a signed value")
+    #if (!signed) warning("Trying to negate an unsigned digit. treated as signed value. Returns a signed value")
     littleEndian <- attributes(x)$littleEndian
 
     if(littleEndian) x <- rev(x)
@@ -147,6 +147,7 @@ rotate <- function(x, n) {
 fillBits <- function(x, value=FALSE, size=0) {
     if (missing(x)) stop("x is missing")
     stopifnot(is.binary(x))
+    l <- saveAttributes(x)    
     if (size == 0 & length(x)%%Byte() == 0) return(x)
     if (size > 0 & length(x) >= size*Byte()) return(x)
 
@@ -162,6 +163,7 @@ fillBits <- function(x, value=FALSE, size=0) {
     } else {
         x <- c(append,x)
     }
+    x <- loadAttributes(x,l)    
     return(x)
 }
 

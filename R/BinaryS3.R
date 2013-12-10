@@ -100,8 +100,10 @@ Ops.binary <- function(e1, e2)
     }
     boolean <- switch(.Generic,  '&' =, '|' = TRUE, FALSE)
     if(boolean) {
+        l1 <- saveAttributes(e1)
         ret <- NextMethod(.Generic)
-        return(ret)
+        x <- loadAttributes(ret, l1)
+        return(x)
     }
     boolean <- switch(.Generic,  '!' = TRUE, FALSE)
     if(boolean) {
@@ -119,11 +121,17 @@ Ops.binary <- function(e1, e2)
 }
 
 #' @export
+'-.binary' <- function(x,y) {
+    ret <- binAdd(x, negate(y))
+    return(ret)
+}
+
+#' @export
 '==.binary' <- function(x,y) {
     # attributes are saved @ group generic Ops.  
     if (attributes(x)$littleEndian) x <- switchEndianess(x)
     if (attributes(y)$littleEndian) y <- switchEndianess(y)
-  
+    
     if (length(x) > length(y)) {
         delta <- bytesNeeded(length(x))
         if (attributes(y)$signed) {
