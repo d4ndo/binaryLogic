@@ -2,12 +2,22 @@
 #' 
 #' @description Create objects of type "binary" vector.
 #' @details The binary number is represented by a logical vector.
-#' The Bit order usually follows the same endianness as the byte order.
-#' No floating-point support.
+#' The Bit order usually follows the same endianess as the byte order.
+#' How to read:
 #' \itemize{
 #' \item Little Endian    (LSB) ---> (MSB)
 #' \item Big Endian       (MSB) <--- (LSB)
 #' }
+#' The »Big Endian« endianess stores its MSB at the 
+#' lowest adress and the »Little Endian« endianess stores its MSB at the highest adress.
+#' 
+#' e.g. b <-binary(8).
+#' \itemize{
+#' \item »Little Endian« : MSB is at b[1] and LSB is at b[8].
+#' \item »Big Endian« : LSB is at b[1] and MSB is at b[8].
+#' }
+#' Additional information: A vector in GNU R starts at 1 and not 0 like in C.
+#' No floating-point support.
 #' @usage binary(n, signed=FALSE, littleEndian=FALSE)
 #' @param n length of vector. Number of bits
 #' @param signed  TRUE or FALSE. Unsigned by default. (two's complement)
@@ -15,7 +25,7 @@
 #' @return a binary vector of length n. By default filled with zeros(0).
 #' @examples
 #' b <- binary(8)
-#' @seealso \link{as.binary} and \link{is.binary}
+#' @seealso \link{as.binary} and \link{is.binary}. To convert a binary to raw please use \link{as.raw} (pay attention to the endianness).
 #' @export
 binary <- function(n, signed=FALSE, littleEndian=FALSE) {
     if(missing(n)) stop("n is missing.")
@@ -84,6 +94,39 @@ print.binary <- function(x,...) {
     x <- ifelse(x, as.integer(1), as.integer(0))
     attributes(x) <- NULL
     print.default(x,...)
+}
+
+#' @export
+as.raw.binary <- function(x){
+    l <- saveAttributes(x)
+    x <- fillBits(x, size=bytesNeeded(length(x)))
+    rawbyte <- binary(8)
+    if (l$littleEndian) {
+        rawbyte <- x[4:1]
+        rawbyte <- c(rawbyte, x[8:5])
+    } else {
+        rawbyte <- x[1:8]
+    }
+    #in raw mode it does not matter, if signed or not.
+    temp <- paste0("0x", bin2dec(as.binary(rawbyte, signed=FALSE, littleEndian=FALSE), hex=TRUE))
+    if( bytesNeeded(length(x)) > 1) {
+        for(i in 1:(bytesNeeded(length(x))-1))
+        {
+            if (l$littleEndian) {
+                rawbyte <- x[((i+1)*Byte()-4):(i*Byte()+1)]
+                rawbyte <- c(rawbyte, x[((i+1)*Byte()):((i+1)*Byte()-3)])
+            } else {
+                rawbyte <- x[(i*Byte()+1):((i+1)*Byte())]
+            }
+            temp <- c(temp, paste0("0x", 
+                            bin2dec(as.binary(rawbyte, 
+                                            signed=FALSE, 
+                                            littleEndian=FALSE)
+                                    ,hex=TRUE)))
+        }
+    }
+    x <- temp
+    NextMethod(.Generic)
 }
 
 ######## BINARY OPERATOR ########

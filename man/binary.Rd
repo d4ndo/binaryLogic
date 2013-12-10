@@ -22,14 +22,24 @@
 \details{
   The binary number is represented by a logical vector. The
   Bit order usually follows the same endianness as the byte
-  order. No floating-point support. \itemize{ \item Little
-  Endian (LSB) ---> (MSB) \item Big Endian (MSB) <--- (LSB)
-  }
+  order. How to read: \itemize{ \item Little Endian (LSB)
+  ---> (MSB) \item Big Endian (MSB) <--- (LSB) } The »Big
+  Endian« endianess stores its MSB at the lowest adress and
+  the »Little Endian« endianess stores its MSB at the
+  highest adress.
+
+  e.g. b <-binary(8). \itemize{ \item »Little Endian« : MSB
+  is at b[1] and LSB is at b[8]. \item »Big Endian« : LSB
+  is at b[1] and MSB is at b[8]. } Additional information:
+  A vector in GNU R starts at 1 and not 0 like in C. No
+  floating-point support.
 }
 \examples{
 b <- binary(8)
 }
 \seealso{
-  \link{as.binary} and \link{is.binary}
+  \link{as.binary} and \link{is.binary}. To convert a
+  binary to raw please use \link{as.raw} (pay attention to
+  the endianness).
 }
 

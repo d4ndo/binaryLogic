@@ -1,4 +1,5 @@
 export(as.binary)
+export(as.raw.binary)
 export(bin2dec)
 export(binAdd)
 export(binary)
