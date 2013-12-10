@@ -26,7 +26,7 @@ Information
 
 The »binaryLogic::binary« class inherits from the »base::logical« class. This brings some benefits. It is no problem to switch from logical to binary and vice versa. Some function from Package binaryLogic can also be used on logical vectors like shiftLeft, shiftRight, rotate (see help).
 
-Some operators have a different behavior and some are the same.
+Some operators have a different behavior.
 e.g. 
 
 two <- dec2bin(2); two <- as.logical(two); two == two;
