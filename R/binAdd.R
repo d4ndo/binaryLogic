@@ -24,7 +24,7 @@ binAdd <- function(x, y) {
     y_signed <- attributes(y)$signed
     y_littleEndian <- attributes(y)$littleEndian
     signed <- FALSE
-    if (x_signed | y_signed) signed <- TRUE
+    if (x_signed || y_signed) signed <- TRUE
     
     if (length(x) >= length(y))
     {
@@ -39,18 +39,18 @@ binAdd <- function(x, y) {
     ret = binary(MAX)
     temp = binary(MAX+1)
     ret[MAX] <- xor(x[MAX],y[MAX])
-    if ((isTRUE(as.logical(x[MAX])) & isTRUE(as.logical(y[MAX])))) temp[MAX+1] <- TRUE
+    if ((isTRUE(as.logical(x[MAX])) && isTRUE(as.logical(y[MAX])))) temp[MAX+1] <- TRUE
     if (MAX > 2)
     {
         for(i in (MAX-1):1)
         {
             ret[i] <- xor(x[i],y[i])
             ret[i] <- xor(ret[i],temp[i+2])
-            if(((isTRUE(as.logical(x[i])) & isTRUE(as.logical(y[i]))) | 
-                   (isTRUE(as.logical(x[i])) & isTRUE(as.logical(temp[i+2]))) | 
-                   (isTRUE(as.logical(y[i])) & isTRUE(as.logical(temp[i+2]))))) temp[i+1] <- TRUE
+            if(((isTRUE(as.logical(x[i])) && isTRUE(as.logical(y[i]))) || 
+                   (isTRUE(as.logical(x[i])) && isTRUE(as.logical(temp[i+2]))) ||
+                   (isTRUE(as.logical(y[i])) && isTRUE(as.logical(temp[i+2]))))) temp[i+1] <- TRUE
         }
     }
-    if (temp[2] & !signed) ret <- as.binary(c(T,ret), signed=TRUE, littleEndian=FALSE)
+    if (temp[2] && !signed) ret <- as.binary(c(T,ret), signed=TRUE, littleEndian=FALSE)
     return(ret)
 }
