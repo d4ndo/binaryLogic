@@ -27,7 +27,6 @@ test_that("Return value", {
 
 test_that("Warnings", {
     expect_that(dec2bin(), throws_error())
-    expect_that(dec2bin(), throws_error("num is missing."))
     expect_that(dec2bin(-2), throws_error("Negative number is not possible with unsigned method."))
     #expect_that(dec2bin(2^15, signed=TRUE), throws_error("Out of Range. Please increase the size[Byte]"))
 })
@@ -51,7 +50,7 @@ test_that("Return value", {
 })
 
 test_that("Warnings", {
-    expect_that(bin2dec(), throws_error("bin is missing."))
+    expect_that(bin2dec(), throws_error())
 })
 
 

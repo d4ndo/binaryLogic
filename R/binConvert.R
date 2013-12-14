@@ -21,12 +21,12 @@
 #' @seealso \link{bin2dec} and \link{binary} or \link{logical}
 #' @export
 dec2bin <- function(num, signed=FALSE, littleEndian=FALSE, size=2) {
-    if (missing(num)) stop("num is missing.")
-    if (num < 0 & !signed) stop("Negative number is not possible with unsigned method.")
-    if (signed & (((num > ((2^(size*Byte())/2)-1))) | (num < ((-1)*(2^(size*Byte())/2))))) {
+    #should be implemened in C. No (8 Byte) limit to num should be possible.
+    if (num < 0 && !signed) stop("Negative number is not possible with unsigned method.")
+    if (signed && (((num > ((2^(size*Byte())/2)-1))) || (num < ((-1)*(2^(size*Byte())/2))))) {
         stop("Out of Range. Please increase the size[Byte]")
     }
-  
+
     size <- size * Byte()
     neg = FALSE
     if(num < 0) neg = TRUE
@@ -73,22 +73,20 @@ dec2bin <- function(num, signed=FALSE, littleEndian=FALSE, size=2) {
 #' @seealso \link{dec2bin} and \link{binary} or \link{logical}
 #' @export
 bin2dec <- function(bin, hex=FALSE) {
-    if (missing(bin)) stop("bin is missing.")
-    stopifnot(is.binary(bin))
+    #should be implemented in C.
     signed <- attributes(bin)$signed
     littleEndian <- attributes(bin)$littleEndian
     
     if(!littleEndian) { bin <- rev(bin) }
     
-    bin <- as.integer(bin)
+    bin <- as.integer(as.logical(bin))
     i = length(bin)-1
     numeric = 0
     first <- TRUE
 
-    bin <- rev(bin)
-    for(d in bin)
+    for(d in rev(bin))
     {
-        if ((signed) & (first)) {  
+        if ((signed) & (first)) {
             numeric <- (-1 * d * (2^i))
             i <- i - 1
             first <- FALSE
