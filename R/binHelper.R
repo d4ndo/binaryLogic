@@ -1,5 +1,5 @@
 #' Binary prefix to Byte. (KiB,MiB,..)
-#' 
+#'
 #' @description Amount of Bytes needed to fit in n * KiB, MiB ..etc.
 #' @details
 #' KiB <- KibiByte
@@ -20,9 +20,8 @@
 #' @seealso \link{bytesNeeded} or \link{fillBits} or \link{Byte}
 #' @export
 binPrefix2Byte <- function(n, prefix="KiB") {
-    if(missing(n)) stop("Missing n")
-    stopifnot(all(is.numeric(n) | is.na(n)))
-    stopifnot(all(n >= 0 | is.na(n)))
+    stopifnot(all(is.numeric(n) || is.na(n)))
+    stopifnot(all(n >= 0 || is.na(n)))
     ret <- NULL
     
     prefix <- switch(prefix,
@@ -58,12 +57,10 @@ binPrefix2Byte <- function(n, prefix="KiB") {
 #' @seealso \link{fillBits} or \link{binPrefix2Byte} or \link{Byte}
 #' @export
 bytesNeeded <- function(n) {
-    if (n %% Byte() ==0)
-    { 
-        return (n %/% Byte())
-    } else {
-        return (n %/% Byte()+1)
-    }
+    stopifnot(all(is.numeric(n) || is.na(n)))
+    stopifnot(all(n >= 0 || is.na(n)))
+    
+    ifelse(n %% Byte() == 0, n %/% Byte(), n %/% Byte() + 1)
 }
 
 #' A simple helper function to return the size of one Byte

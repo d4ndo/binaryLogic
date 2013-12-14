@@ -2,7 +2,7 @@
 \alias{binPrefix2Byte}
 \title{Binary prefix to Byte. (KiB,MiB,..)}
 \usage{
-  binPrefix2Byte(n, prefix="KiB")
+binPrefix2Byte(n, prefix="KiB")
 }
 \arguments{
   \item{n}{vector of numeric values}
@@ -10,21 +10,21 @@
   \item{prefix}{binary prefix * Byte. Expeting a »string«}
 }
 \value{
-  The number of bytes fitting in n * binary prefix * Byte
+The number of bytes fitting in n * binary prefix * Byte
 }
 \description{
-  Amount of Bytes needed to fit in n * KiB, MiB ..etc.
+Amount of Bytes needed to fit in n * KiB, MiB ..etc.
 }
 \details{
-  KiB <- KibiByte MiB <- MebiByte GiB <- GibiByte TiB <-
-  TebiByte PiB <- PebiByte EiB <- ExiByte ZiB <- ZebiByte
-  YiB <- YobiByte
+KiB <- KibiByte MiB <- MebiByte GiB <- GibiByte TiB <-
+TebiByte PiB <- PebiByte EiB <- ExiByte ZiB <- ZebiByte YiB
+<- YobiByte
 }
 \examples{
 binPrefix2Byte(c(0.5,1:10),"KiB")
 dec2bin(binPrefix2Byte(1,"KiB")*Byte())
 }
 \seealso{
-  \link{bytesNeeded} or \link{fillBits} or \link{Byte}
+\link{bytesNeeded} or \link{fillBits} or \link{Byte}
 }
 

@@ -2,16 +2,16 @@
 \alias{Byte}
 \title{A simple helper function to return the size of one Byte}
 \usage{
-  Byte()
+Byte()
 }
 \value{
-  The size of one Byte (8)
+The size of one Byte (8)
 }
 \description{
-  Used to increase readabilaty
+Used to increase readabilaty
 }
 \seealso{
-  \link{bytesNeeded} or \link{fillBits} or
-  \link{binPrefix2Byte}
+\link{bytesNeeded} or \link{fillBits} or
+\link{binPrefix2Byte}
 }
 
