@@ -17,6 +17,9 @@
 #' \item »Big Endian« : LSB is at b[1] and MSB is at b[8].
 #' }
 #' Additional information: A vector in GNU R starts at 1 and not 0 like in C.
+#' Performance: This binary class is just not that great at heavy number crunching,
+#' but it brings some benefits. Especially if you like to work using vectors in R.
+#' It is no problem to switch from logical to binary and vice versa.
 #' No floating-point support.
 #' @usage binary(n, signed=FALSE, littleEndian=FALSE)
 #' @param n length of vector. Number of bits
@@ -28,7 +31,6 @@
 #' @seealso \link{as.binary} and \link{is.binary}. To convert a binary to raw please use \link{as.raw} (pay attention to the endianness).
 #' @export
 binary <- function(n, signed=FALSE, littleEndian=FALSE) {
-    if(missing(n)) stop("n is missing.")
     x <- logical(n)
     class(x) <- c("binary", "logical")
     attr(x, "signed") <- signed
@@ -42,20 +44,19 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
 #' @description convert object to "binary".
 #' @usage as.binary(x, signed=FALSE, littleEndian=FALSE)
 #' @param x object to convert.
-#' @param signed  TRUE or FALSE. Unsigned by default. (two's complement) 
+#' @param signed  TRUE or FALSE. Unsigned by default. (two's complement)
 #' @param littleEndian if TRUE. Big Endian if FALSE.
 #' @return a binary vector.
 #' @seealso \link{is.binary} and \link{binary}
 #' @export
-as.binary <- function(x, signed=FALSE, littleEndian=FALSE){
-    if (missing(x)) stop("x is missing")
+as.binary <- function(x, signed=FALSE, littleEndian=FALSE) {
     if (!inherits(x, "binary")) {
         x <- as.logical(x)
         class(x) <- c("binary", "logical")
         attr(x, "signed") <- signed
         attr(x, "littleEndian") <- littleEndian
         if (signed) x <- fillBits(x)
-    } else { 
+    } else {
         if (signed) {
             attr(x, "signed") <- TRUE
             x <- fillBits(x)
@@ -69,7 +70,7 @@ as.binary <- function(x, signed=FALSE, littleEndian=FALSE){
             }
         } else {
             if (attributes(x)$littleEndian)
-            {       
+            {
                 switchEndianess(x)
             }
         }
@@ -97,59 +98,81 @@ print.binary <- function(x,...) {
 }
 
 #' @export
-as.raw.binary <- function(x){
+summary.binary <- function(object, ...) {
+    #I'm not sure if this is the way to do it. just printing a dataframe.
+    l <- saveAttributes(object)
+
+    tableHead <- character(3)
+    signedness <- character(1)
+    endianess <- character(1)
+    size <- length(object)
+    neg <- logical(1)
+    
+    tableHead <- c("Signedness", "Endianess", "value<0", "Size[Bit]", "Base10")
+    if (l$signed) {
+        signedness <- "signed"
+        if (l$littleEndian) {
+            if(object[length(object)]) neg <- TRUE else neg <- FALSE
+        } else {
+            if(object[1]) neg <- TRUE else neg <- FALSE
+        }
+    } else {
+        signedness <- "unsigned"
+        neg <- FALSE
+    }
+    if (l$littleEndian) { endianess <- "Little-Endian" } else { endianess <- "Big-Endian" }
+    df <- data.frame(signedness, endianess, neg, size, bin2dec(object))
+    colnames(df) <- tableHead
+    print(df)
+}
+
+#' @export
+as.raw.binary <- function(x) {
     l <- saveAttributes(x)
     x <- fillBits(x, size=bytesNeeded(length(x)))
-    rawbyte <- binary(8)
+    xx <- logical(0)
+
     if (l$littleEndian) {
-        rawbyte <- x[4:1]
-        rawbyte <- c(rawbyte, x[8:5])
+        x <- as.logical(x)
+        dim(x) <- c(4, (2 * bytesNeeded(length(x))))
+        for(i in seq(1, (2*bytesNeeded(length(x)) - 1), by = 2)) xx <- c(xx, c(x[,i+1], x[,i]))
+        x <- xx
     } else {
-        rawbyte <- x[1:8]
+        x <- rev(x)
     }
-    #in raw mode it does not matter, if signed or not.
-    temp <- paste0("0x", bin2dec(as.binary(rawbyte, signed=FALSE, littleEndian=FALSE), hex=TRUE))
-    if( bytesNeeded(length(x)) > 1) {
-        for(i in 1:(bytesNeeded(length(x))-1))
-        {
-            if (l$littleEndian) {
-                rawbyte <- x[((i+1)*Byte()-4):(i*Byte()+1)]
-                rawbyte <- c(rawbyte, x[((i+1)*Byte()):((i+1)*Byte()-3)])
-            } else {
-                rawbyte <- x[(i*Byte()+1):((i+1)*Byte())]
-            }
-            temp <- c(temp, paste0("0x", 
-                            bin2dec(as.binary(rawbyte, 
-                                            signed=FALSE, 
-                                            littleEndian=FALSE)
-                                    ,hex=TRUE)))
-        }
-    }
-    x <- temp
+    
+    x <- packBits(x)
+    if(!l$littleEndian) x <- rev(x)
     NextMethod(.Generic)
+} #rseq = function(x,to=1) NROW(x):to
+
+#' @export
+as.integer.binary <- function(x, ...) {
+    #test for .Machine$integer.max
+    x <- bin2dec(x)
+    NextMethod(.Generic, ...)
 }
 
 ######## BINARY OPERATOR ########
 # Group Generic "Ops"
 
-Ops.binary <- function(e1, e2)
-{
+Ops.binary <- function(e1, e2) {
     boolean <- switch(.Generic,  '+' =, '-' =, '*' =, '/' =, '^' =, '%%' =, '%/%' = TRUE, FALSE)
-    if(boolean) {
+    if (boolean) {
         l1 <- saveAttributes(e1)
         ret <- NextMethod(.Generic)
         x <- loadAttributes(ret,l1)
         return(x)
     }
     boolean <- switch(.Generic,  '&' =, '|' = TRUE, FALSE)
-    if(boolean) {
+    if (boolean) {
         l1 <- saveAttributes(e1)
         ret <- NextMethod(.Generic)
         x <- loadAttributes(ret, l1)
         return(x)
     }
     boolean <- switch(.Generic,  '!' = TRUE, FALSE)
-    if(boolean) {
+    if (boolean) {
         l1 <- saveAttributes(e1)
         ret <- NextMethod(.Generic)
         x <- loadAttributes(ret,l1)
@@ -159,14 +182,12 @@ Ops.binary <- function(e1, e2)
 
 #' @export
 '+.binary' <- function(x,y) {
-    ret <- binAdd(x, y)
-    return(ret)
+    binAdd(x, y)
 }
 
 #' @export
 '-.binary' <- function(x,y) {
-    ret <- binAdd(x, negate(y))
-    return(ret)
+    binAdd(x, negate(y))
 }
 
 #' @export
@@ -196,7 +217,7 @@ Ops.binary <- function(e1, e2)
 #' @export
 '!=.binary' <- function(x,y) {
     # attributes are saved @ group generic Ops.
-    return(!(x == y))
+    !(x == y)
 }
 
 #' @export
@@ -210,11 +231,18 @@ Ops.binary <- function(e1, e2)
     return(x)
 }
 
+#c.binary <- function(...) {
+#    l <- saveAttributes(...)
+#    ret <- NextMethod(.Generic)
+#    x <- loadAttributes(ret,l)
+#    return(x)
+#}
+
 #' @export
 rev.binary <- function(x) {
     # this should not become a group generic. This function is an internal generic.
     l <- saveAttributes(x)
-    
+    #x = x[rseq(x)] rseq = function(x,to=1) NROW(x):to
     x <- x[length(x):1]
     #ret <- NextMethod(.Generic)
 
@@ -223,12 +251,17 @@ rev.binary <- function(x) {
 }
 
 #Helper function
+#' @export
 saveAttributes <- function(x) {
-    l <- list(class="binary", signed=attr(x,"signed"), littleEndian=attr(x,"littleEndian"))
+    if(is.binary(x)) l <- list(class="binary", 
+                                     signed=attr(x,"signed"),
+                                     littleEndian=attr(x,"littleEndian"))
+    else l <- list(class=class(x))
     return(l)
 }
 
 #Helper function
+#' @export
 loadAttributes <- function(x,l) {
     class(x) <- l$class
     attr(x, "signed") <- l$signed
