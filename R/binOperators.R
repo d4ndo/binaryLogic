@@ -1,5 +1,6 @@
 #' Binary Negation (!)
 #' 
+#' # !c(rep(0,Byte()-length(x)),x)
 #' @description Negates the binary number x. Negation x -> -x or -x -> x
 #' @details No floating point supported.
 #' @usage negate(x)
@@ -11,7 +12,6 @@
 #' @seealso base::as.logical , base::is.logical, base::raw
 #' @export
 negate <- function(x) {
-    if (missing(x)) stop("x is missing.")
     stopifnot(is.binary(x))
     signed <- attributes(x)$signed
     #if (!signed) warning("Trying to negate an unsigned digit. treated as signed value. Returns a signed value")
@@ -51,15 +51,14 @@ negate <- function(x) {
 #' @seealso \link{shiftRight} and \link{rotate} 
 #' @export
 shiftLeft <- function(x, n) {
-    if (missing(x)) stop("x is missing.")
-    stopifnot(is.logical(x) | is.binary(x))
+    stopifnot(is.logical(x) || is.binary(x))
     stopifnot(n > 0)
-    if (n > length(x)) stop("n is larger than length of x")
+    if (n > length(x)) return(binary(length(x)))
     delta <- length(x) - n
-    for(i in 1:n)
+    for(i in seq(1, n))
     {
-        for(i in 1:length(x)){
-        x[i] <- x[i+1]
+        for(j in seq_len(length(x))) {
+            x[j] <- x[j+1]
         }
     }
     x[(delta+1):length(x)] <- FALSE
@@ -81,16 +80,15 @@ shiftLeft <- function(x, n) {
 #' @seealso \link{shiftLeft} and \link{rotate} 
 #' @export
 shiftRight <- function(x, n) {
-    if (missing(x)) stop("x is missing.")
-    stopifnot(is.logical(x) | is.binary(x))
+    stopifnot(is.logical(x) || is.binary(x))
     stopifnot(n > 0)
-    if (n > length(x)) stop("n is larger than length of x")
+    if (n > length(x)) return(binary(length(x)))
     delta <- length(x) - n
     x <- rev(x)
-    for(i in 1:n)
+    for(i in seq_len(n))
     {
-        for(i in 1:length(x)){
-        x[i] <- x[i+1]
+        for(j in seq_len(length(x))){
+        x[j] <- x[j+1]
         }
     }
     x[(delta+1):length(x)] <- FALSE
@@ -99,7 +97,7 @@ shiftRight <- function(x, n) {
 }
 
 #' Rotate no carry ()
-#' 
+#'
 #' @description A circular shift
 #' @usage rotate(x, n)
 #' @param x The binary number to rotate. (binary or logical vector).
@@ -113,25 +111,16 @@ shiftRight <- function(x, n) {
 #' @seealso \link{shiftLeft} and \link{shiftRight} 
 #' @export
 rotate <- function(x, n) {
-    if (missing(x)) stop("x is missing.")
-    stopifnot(is.logical(x) | is.binary(x))
+    stopifnot(is.binary(x) || is.logical(x))
     stopifnot(n > 0)
+    #save and loadAttributes needs to be done, until I find a way to overload »combine« c(...)
+    l <- saveAttributes(x)
     if (n > length(x)) stop("n is larger than length of x")
-    delta <- length(x) - n
-
-    tmp <- x[1:n]
-    for(i in 1:n)
-    {
-        for(i in 1:length(x)){
-        x[i] <- x[i+1]
-        }
-    }
-    x[(delta+1):length(x)] <- tmp[1:n]
-    return(x)
+    loadAttributes(c(x[-seq(n)],x[seq(n)]), l)
 }
 
 #' Fill Bits (000..)
-#' 
+#' !c(rep(0,Byte()-length(x)),x)
 #' @description Fills the number with Bits to the size in Byte.
 #' @details No floating point supported.
 #' @usage fillBits(x, value=FALSE, size=0)
@@ -143,18 +132,17 @@ rotate <- function(x, n) {
 #' fillBits(as.binary(c(1,1)), size=2)
 #' fillBits(as.binary(c(1,0,1)), value=FALSE, size=2)
 #' @seealso \link{bytesNeeded} or \link{binPrefix2Bytes} or \link{Byte}
-#' @export
+#' @export 
 fillBits <- function(x, value=FALSE, size=0) {
-    if (missing(x)) stop("x is missing")
     stopifnot(is.binary(x))
     l <- saveAttributes(x)    
-    if (size == 0 & length(x)%%Byte() == 0) return(x)
-    if (size > 0 & length(x) >= size*Byte()) return(x)
+    if (size == 0 && length(x) %% Byte() == 0) return(x)
+    if (size > 0 && length(x) >= size * Byte()) return(x)
 
     if (size == 0) {
-        append <- binary(((trunc((length(x)/Byte())) +1) * Byte()) - length(x))
+        append <- binary(((trunc((length(x) / Byte())) +1) * Byte()) - length(x))
     } else {
-        append <- binary(size*Byte()-length(x))
+        append <- binary(size * Byte() - length(x))
     }
     append[1:length(append)] <- value
 
@@ -179,14 +167,8 @@ fillBits <- function(x, value=FALSE, size=0) {
 #' @seealso /link{as.binary} binaryLogic::is.binary
 #' @export
 switchEndianess <- function(x) {
-    if (missing(x)) stop("x is missing")
     stopifnot(is.binary(x))
     
-    if (attributes(x)$littleEndian == FALSE) {
-        attr(x, "littleEndian") <- TRUE
-    } else {
-        attr(x, "littleEndian") <- FALSE
-    }
-    
+    attr(x,"littleEndian") <- !attributes(x)$littleEndian
     return(rev(x))
 }

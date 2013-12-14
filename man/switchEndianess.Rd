@@ -2,23 +2,23 @@
 \alias{switchEndianess}
 \title{Switch Endianess.}
 \usage{
-  switchEndianess(x)
+switchEndianess(x)
 }
 \arguments{
   \item{x}{binary number. Any binary vector.
   switchEndianess(y)}
 }
 \value{
-  switch little-endian to big-endian and vice versa.
+switch little-endian to big-endian and vice versa.
 }
 \description{
-  switch little-endian to big-endian and vice versa.
+switch little-endian to big-endian and vice versa.
 }
 \examples{
 x <- as.binary(c(1,1,0,0)); print(x); attributes(x);
 y <- switchEndianess(x); print(y); attributes(y);
 }
 \seealso{
-  /link{as.binary} binaryLogic::is.binary
+/link{as.binary} binaryLogic::is.binary
 }
 
