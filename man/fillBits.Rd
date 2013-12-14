@@ -1,7 +1,6 @@
 \name{fillBits}
 \alias{fillBits}
-\title{Fill Bits (000..)
-!c(rep(0,Byte()-length(x)),x)}
+\title{Fill Bits (000..)}
 \usage{
 fillBits(x, value=FALSE, size=0)
 }

@@ -1,6 +1,5 @@
 #' Binary Negation (!)
 #' 
-#' # !c(rep(0,Byte()-length(x)),x)
 #' @description Negates the binary number x. Negation x -> -x or -x -> x
 #' @details No floating point supported.
 #' @usage negate(x)
@@ -12,6 +11,7 @@
 #' @seealso base::as.logical , base::is.logical, base::raw
 #' @export
 negate <- function(x) {
+    # !c(rep(0,Byte()-length(x)),x)    
     stopifnot(is.binary(x))
     signed <- attributes(x)$signed
     #if (!signed) warning("Trying to negate an unsigned digit. treated as signed value. Returns a signed value")
@@ -54,15 +54,8 @@ shiftLeft <- function(x, n) {
     stopifnot(is.logical(x) || is.binary(x))
     stopifnot(n > 0)
     if (n > length(x)) return(binary(length(x)))
-    delta <- length(x) - n
-    for(i in seq(1, n))
-    {
-        for(j in seq_len(length(x))) {
-            x[j] <- x[j+1]
-        }
-    }
-    x[(delta+1):length(x)] <- FALSE
-    return(x)
+    l <- saveAttributes(x)
+    loadAttributes(c(x[-seq(n)], logical(n)), l)
 }
 
 #' Binary Right Shift (>>)
@@ -83,17 +76,8 @@ shiftRight <- function(x, n) {
     stopifnot(is.logical(x) || is.binary(x))
     stopifnot(n > 0)
     if (n > length(x)) return(binary(length(x)))
-    delta <- length(x) - n
-    x <- rev(x)
-    for(i in seq_len(n))
-    {
-        for(j in seq_len(length(x))){
-        x[j] <- x[j+1]
-        }
-    }
-    x[(delta+1):length(x)] <- FALSE
-    x <- rev(x)
-    return(x)
+    l <- saveAttributes(x)
+    loadAttributes(rev(c(rev(x)[-seq(n)], logical(n))), l)
 }
 
 #' Rotate no carry ()
@@ -120,7 +104,7 @@ rotate <- function(x, n) {
 }
 
 #' Fill Bits (000..)
-#' !c(rep(0,Byte()-length(x)),x)
+#'
 #' @description Fills the number with Bits to the size in Byte.
 #' @details No floating point supported.
 #' @usage fillBits(x, value=FALSE, size=0)
@@ -134,6 +118,7 @@ rotate <- function(x, n) {
 #' @seealso \link{bytesNeeded} or \link{binPrefix2Bytes} or \link{Byte}
 #' @export 
 fillBits <- function(x, value=FALSE, size=0) {
+    #' !c(rep(0,Byte()-length(x)),x)    
     stopifnot(is.binary(x))
     l <- saveAttributes(x)    
     if (size == 0 && length(x) %% Byte() == 0) return(x)

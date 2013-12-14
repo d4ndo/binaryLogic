@@ -1,7 +1,6 @@
 \name{negate}
 \alias{negate}
-\title{Binary Negation (!)
-# !c(rep(0,Byte()-length(x)),x)}
+\title{Binary Negation (!)}
 \usage{
 negate(x)
 }
