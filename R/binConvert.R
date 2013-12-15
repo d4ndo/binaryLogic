@@ -21,7 +21,8 @@
 #' @seealso \link{bin2dec} and \link{binary} or \link{logical}
 #' @export
 dec2bin <- function(num, signed=FALSE, littleEndian=FALSE, size=2) {
-    #should be implemened in C. No (8 Byte) limit to num should be possible.
+    #should be implemened in C. Very slow with negative numbers. (binAdd)
+    #Increase limit of num to 8 Byte. modulo has problems with num > 2^54.
     if (num < 0 && !signed) stop("Negative number is not possible with unsigned method.")
     if (signed && (((num > ((2^(size*Byte())/2)-1))) || (num < ((-1)*(2^(size*Byte())/2))))) {
         stop("Out of Range. Please increase the size[Byte]")
@@ -73,7 +74,7 @@ dec2bin <- function(num, signed=FALSE, littleEndian=FALSE, size=2) {
 #' @seealso \link{dec2bin} and \link{binary} or \link{logical}
 #' @export
 bin2dec <- function(bin, hex=FALSE) {
-    #should be implemented in C.
+    #could be implemented in C. But it is not that slow.
     signed <- attributes(bin)$signed
     littleEndian <- attributes(bin)$littleEndian
     

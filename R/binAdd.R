@@ -14,7 +14,7 @@
 #' @seealso base::as.logical , base::is.logical, base::raw
 #' @export
 binAdd <- function(x, y) {
-    #maybe this function should become internal generic (written in C).
+    #Should be implemented in C (internal generic). Very slow.
     if (missing(x)) stop("x is missing.")
     if (missing(y)) stop("y is missing.")
     stopifnot(is.binary(x))
