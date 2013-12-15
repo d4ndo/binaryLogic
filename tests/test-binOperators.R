@@ -26,7 +26,7 @@ test_that("Lost Attributes", {
 context("Test shiftRight")
 
 test_that("Lost Attributes", {
-    expect_that(class(shiftRight(binary(Byte()),1)), equals("binary"))
+    expect_that(class(shiftRight(binary(Byte()),1)), equals(c("binary","logical")))
     expect_that(attr(shiftRight(binary(Byte()),1), "signed"), equals(FALSE))
     expect_that(attr(shiftRight(binary(Byte()),1), "littleEndian"), equals(FALSE))
     expect_that(attr(shiftRight(binary(Byte(), signed=TRUE),1), "signed"), equals(TRUE))
@@ -58,7 +58,7 @@ test_that("Lost Attributes", {
 context("Test switchEndianess")
 
 test_that("Lost Attributes", {
-    expect_that(class(switchEndianess(binary(Byte()))), equals("binary"))
+    expect_that(class(switchEndianess(binary(Byte()))), equals(c("binary","logical")))
     expect_that(attr(switchEndianess(binary(Byte())), "signed"), equals(FALSE))
     expect_that(attr(switchEndianess(binary(Byte())), "littleEndian"), equals(TRUE))
     expect_that(attr(switchEndianess(binary(Byte(), signed=TRUE)), "signed"), equals(TRUE))
