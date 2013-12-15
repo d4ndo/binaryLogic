@@ -13,11 +13,10 @@
 #' 
 #' e.g. b <-binary(8).
 #' \itemize{
-#' \item »Little Endian« : MSB is at b[1] and LSB is at b[8].
-#' \item »Big Endian« : LSB is at b[1] and MSB is at b[8].
+#' \item »Little Endian« : MSB at b[1] and LSB at b[8].
+#' \item »Big Endian« : LSB at b[1] and MSB at b[8].
 #' }
-#' Additional information: A vector in GNU R starts at 1 and not 0 like in C.
-#' Performance: This binary class is just not that great at heavy number crunching,
+#' Performance: This class is just not that great at heavy number crunching, 
 #' but it brings some benefits. Especially if you like to work using vectors in R.
 #' It is no problem to switch from logical to binary and vice versa.
 #' No floating-point support.
@@ -28,6 +27,7 @@
 #' @return a binary vector of length n. By default filled with zeros(0).
 #' @examples
 #' b <- binary(8)
+#' summary(b)
 #' @seealso \link{as.binary} and \link{is.binary}. To convert a binary to raw please use \link{as.raw} (pay attention to the endianness).
 #' @export
 binary <- function(n, signed=FALSE, littleEndian=FALSE) {
@@ -251,9 +251,8 @@ rev.binary <- function(x) {
 }
 
 #Helper function
-#' @export
 saveAttributes <- function(x) {
-    if(is.binary(x)) l <- list(class="binary", 
+    if(is.binary(x)) l <- list(class=c("binary","logical"),
                                      signed=attr(x,"signed"),
                                      littleEndian=attr(x,"littleEndian"))
     else l <- list(class=class(x))
@@ -261,7 +260,6 @@ saveAttributes <- function(x) {
 }
 
 #Helper function
-#' @export
 loadAttributes <- function(x,l) {
     class(x) <- l$class
     attr(x, "signed") <- l$signed
