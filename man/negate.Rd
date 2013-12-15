@@ -5,24 +5,27 @@
 negate(x)
 }
 \arguments{
-  \item{x}{The number to be negated. A binary or logical
-  vector is expected.}
+  \item{x}{The number to be negated. A binary vector is
+  expected.}
 }
 \value{
-The negated number of x. Returns a binary/logical vector
-with signed=TRUE
+The negated number of x. Returns a binary vector with
+signed=TRUE
 }
 \description{
 Negates the binary number x. Negation x -> -x or -x -> x
 }
 \details{
-No floating point supported.
+An »unsigned« number will be returned as »signed«
+regardless of whether the value is negative. No floating
+point supported.
 }
 \examples{
-negate(dec2bin(2, signed=TRUE))
-bin2dec(negate(dec2bin(-5, signed=TRUE)))
+summary(negate(dec2bin(5, signed=TRUE)))
+summary(negate(dec2bin(-5, signed=TRUE)))
+summary(negate(dec2bin(5, signed=FALSE)))
 }
 \seealso{
-base::as.logical , base::is.logical, base::raw
+\link{switchEndianess} or \link{fillBits}.
 }
 

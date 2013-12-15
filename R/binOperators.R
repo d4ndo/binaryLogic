@@ -1,14 +1,16 @@
 #' Binary Negation (!)
 #' 
 #' @description Negates the binary number x. Negation x -> -x or -x -> x
-#' @details No floating point supported.
+#' @details An »unsigned« number will be returned as »signed« regardless of whether the value is negative. 
+#' No floating point supported.
 #' @usage negate(x)
-#' @param x The number to be negated. A binary or logical vector is expected.
-#' @return The negated number of x. Returns a binary/logical vector with signed=TRUE
+#' @param x The number to be negated. A binary vector is expected.
+#' @return The negated number of x. Returns a binary vector with signed=TRUE
 #' @examples
-#' negate(dec2bin(2, signed=TRUE))
-#' bin2dec(negate(dec2bin(-5, signed=TRUE)))
-#' @seealso base::as.logical , base::is.logical, base::raw
+#' summary(negate(dec2bin(5, signed=TRUE)))
+#' summary(negate(dec2bin(-5, signed=TRUE)))
+#' summary(negate(dec2bin(5, signed=FALSE)))
+#' @seealso \link{switchEndianess} or \link{fillBits}.
 #' @export
 negate <- function(x) {
     # !c(rep(0,Byte()-length(x)),x)    
@@ -17,9 +19,9 @@ negate <- function(x) {
     #if (!signed) warning("Trying to negate an unsigned digit. treated as signed value. Returns a signed value")
     littleEndian <- attributes(x)$littleEndian
 
-    if(littleEndian) x <- rev(x)
+    if (littleEndian) x <- rev(x)
     
-    if (length(x)%%Byte() != 0) {
+    if (length(x) %% Byte() != 0) {
         MAX <- (trunc((length(x)/Byte())) +1) * Byte()
         a <- rep(FALSE, MAX - length(x))
         a <- as.binary(a, littleEndian=littleEndian)
@@ -29,7 +31,7 @@ negate <- function(x) {
     x <- !x
     x <- binAdd(as.binary(x),as.binary(TRUE))
 
-    if(littleEndian) x <- rev(x)
+    if (littleEndian) x <- rev(x)
     attr(x,"signed") <- TRUE
     attr(x,"littleEndian") <- littleEndian
     class(x) <- c("binary", "logical")
@@ -115,7 +117,7 @@ rotate <- function(x, n) {
 #' @examples
 #' fillBits(as.binary(c(1,1)), size=2)
 #' fillBits(as.binary(c(1,0,1)), value=FALSE, size=2)
-#' @seealso \link{bytesNeeded} or \link{binPrefix2Bytes} or \link{Byte}
+#' @seealso \link{bytesNeeded} or \link{negate} or \link{switchEndianess}.
 #' @export 
 fillBits <- function(x, value=FALSE, size=0) {
     #' !c(rep(0,Byte()-length(x)),x)    
@@ -147,13 +149,31 @@ fillBits <- function(x, value=FALSE, size=0) {
 #' @param x binary number. Any binary vector. switchEndianess(y)
 #' @return switch little-endian to big-endian and vice versa.
 #' @examples
-#' x <- as.binary(c(1,1,0,0)); print(x); attributes(x);
-#' y <- switchEndianess(x); print(y); attributes(y);
-#' @seealso /link{as.binary} binaryLogic::is.binary
+#' x <- as.binary(c(1,1,0,0)); print(x); summary(x);
+#' y <- switchEndianess(x); print(y); summary(y);
+#' @seealso \link{negate} or \link{fillBits}.
 #' @export
 switchEndianess <- function(x) {
     stopifnot(is.binary(x))
-    
-    attr(x,"littleEndian") <- !attributes(x)$littleEndian
-    return(rev(x))
+    l <- saveAttributes(x)
+    l$littleEndian <- !l$littleEndian
+    return(loadAttributes(rev(x),l))
+}
+
+#' binarySeq
+#' 
+#' @description binary Sequence
+#' @usage binarySeq(s=1:Byte(), ...)
+#' @param s a sequence. 1:8 by default
+#' @return a sequence list of binary digits.
+#' @examples
+#' l <- binarySeq(0:15, size=1); l;
+#' l <- binarySeq(0:15, signed=TRUE, littleEndian=TRUE, size=1); l;
+#' @seealso \link{binary}
+#' @export
+binarySeq <- function(s=0:15, ...) {
+    l <- vector("list", length(s))
+
+    for(i in 1:length(s)) l[[i]] <- dec2bin(s[i], ...)
+    return(l)
 }
