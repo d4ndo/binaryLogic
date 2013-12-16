@@ -2,10 +2,12 @@
 \alias{binarySeq}
 \title{binarySeq}
 \usage{
-binarySeq(s=1:Byte(), ...)
+binarySeq(s=0:15, ...)
 }
 \arguments{
   \item{s}{a sequence. 1:8 by default}
+
+  \item{...}{used for dec2bin()}
 }
 \value{
 a sequence list of binary digits.

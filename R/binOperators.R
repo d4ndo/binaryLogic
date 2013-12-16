@@ -163,8 +163,9 @@ switchEndianess <- function(x) {
 #' binarySeq
 #' 
 #' @description binary Sequence
-#' @usage binarySeq(s=1:Byte(), ...)
+#' @usage binarySeq(s=0:15, ...)
 #' @param s a sequence. 1:8 by default
+#' @param ... used for dec2bin()
 #' @return a sequence list of binary digits.
 #' @examples
 #' l <- binarySeq(0:15, size=1); l;

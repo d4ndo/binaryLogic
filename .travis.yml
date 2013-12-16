@@ -11,9 +11,9 @@ before_install:
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
 install:
+  - ./travis-tool.sh install_deps
   - ./travis-tool.sh install_github hadley/devtools
   - ./travis-tool.sh install_github hadley/testthat
-  - ./travis-tool.sh install_deps
 script: ./travis-tool.sh run_tests
 
 on_failure:
@@ -21,5 +21,5 @@ on_failure:
 
 notifications:
   email:
-    on_success: change
-    on_failure: change
+    on_success: dando@gmx.de
+    on_failure: dando@gmx.de
