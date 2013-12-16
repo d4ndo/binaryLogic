@@ -1,6 +1,8 @@
 binaryLogic
 ===========
 
+[![Build Status](https://travis-ci.org/d4ndo/binaryLogic.png)](https://travis-ci.org/d4ndo/binaryLogic)
+
 Binary Logic GNU R Package
 
 Convert, negate, shift and rotate binary digits.
