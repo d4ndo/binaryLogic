@@ -161,3 +161,4 @@ test_that("Return fillBits", {
 })
 
 context("Test binarySeq")
+cat("no test available")

@@ -17,6 +17,10 @@ test_that("Return value", {
 #    expect_that(binPrefix2Byte(1.2,"KiB"), shows_message("ceiling called: returns the smallest integer not less than the corresponding element of ret"))
 #})
 
+
+context("Test bytesNeeded")
+cat("no test available")
+
 context("Test Byte")
 
 test_that("Return value", {
