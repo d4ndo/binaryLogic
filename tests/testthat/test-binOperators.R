@@ -1,6 +1,3 @@
-library(testthat)
-library(binaryLogic)
-
 context("Test negate")
 
 test_that("Lost Attributes", {

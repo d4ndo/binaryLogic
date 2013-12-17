@@ -1,6 +1,3 @@
-library(testthat)
-library(binaryLogic)
-
 context("Test binPrefix2Byte")
 
 test_that("Return value", {

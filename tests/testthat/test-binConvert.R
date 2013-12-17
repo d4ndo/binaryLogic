@@ -1,6 +1,3 @@
-library(testthat)
-library(binaryLogic)
-
 context("Test dec2bin")
 
 test_that("Lost Attributes", {

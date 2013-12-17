@@ -1,6 +1,3 @@
-library(testthat)
-library(binaryLogic)
-
 context("Test rev")
 
 b <- binary(Byte())
