@@ -128,6 +128,7 @@ summary.binary <- function(object, ...) {
 
 #' @export
 as.raw.binary <- function(x) {
+    #b <- as.binary(rawToBits(r)) from raw to binary
     l <- saveAttributes(x)
     x <- fillBits(x, size=bytesNeeded(length(x)))
     xx <- logical(0)
