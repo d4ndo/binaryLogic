@@ -154,6 +154,12 @@ as.integer.binary <- function(x, ...) {
     NextMethod(.Generic, ...)
 }
 
+#' @export
+as.double.binary <- function(x, ...) {    
+    x <- bin2dec(x)
+    NextMethod(.Generic, ...)
+}
+
 ######## BINARY OPERATOR ########
 # Group Generic "Ops"
 
