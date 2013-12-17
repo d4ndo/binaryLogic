@@ -2,23 +2,23 @@ context("Test negate")
 
 test_that("Lost Attributes", {
     expect_that(attr(negate(binary(Byte(), signed=TRUE)), "class"), equals(c("binary","logical")))
-    expect_that(attr(negate(binary(Byte(), signed=TRUE)), "littleEndian"), equals(FALSE))
-    expect_that(attr(negate(binary(Byte(), signed=TRUE)), "signed"), equals(TRUE))
-    expect_that(attr(negate(binary(Byte(), signed=TRUE, littleEndian=TRUE)), "littleEndian"), equals(TRUE))
+    expect_that(attr(negate(dec2bin(2, signed=TRUE)), "littleEndian"), equals(FALSE))
+    expect_that(attr(negate(dec2bin(2, signed=TRUE)), "signed"), equals(TRUE))
+    expect_that(attr(negate(dec2bin(2, signed=TRUE, littleEndian=TRUE)), "littleEndian"), equals(TRUE))
 })
 
 test_that("Return negate", {
-    #expect_that(bin2dec(negate(binary(Byte(), signed=TRUE))), equals(0))
-    #expect_that(bin2dec(negate(dec2bin(0, signed=TRUE))), equals(0))
-    #expect_that(bin2dec(negate(dec2bin(0, signed=FALSE))), equals(0))
-    #expect_that(bin2dec(negate(dec2bin(0, signed=TRUE, littleEndian=TRUE))), equals(0))
-    #expect_that(bin2dec(negate(dec2bin(0, signed=FALSE, littleEndian=TRUE))), equals(0))
+    expect_that(bin2dec(negate(binary(Byte(), signed=TRUE))), equals(0))
+    expect_that(bin2dec(negate(dec2bin(0, signed=TRUE))), equals(0))
+    expect_that(bin2dec(negate(dec2bin(0, signed=FALSE))), equals(0))
+    expect_that(bin2dec(negate(dec2bin(0, signed=TRUE, littleEndian=TRUE))), equals(0))
+    expect_that(bin2dec(negate(dec2bin(0, signed=FALSE, littleEndian=TRUE))), equals(0))
     expect_that(bin2dec(negate(dec2bin(-1, signed=TRUE))), equals(1))
     expect_that(bin2dec(negate(dec2bin(-1, signed=TRUE, littleEndian=TRUE))), equals(1))
     expect_that(bin2dec(negate(dec2bin(1, signed=TRUE))), equals(-1))
     expect_that(bin2dec(negate(dec2bin(1, signed=FALSE))), equals(-1))
     expect_that(bin2dec(negate(dec2bin(1, signed=TRUE, littleEndian=TRUE))), equals(-1))
-    expect_that(bin2dec(negate(dec2bin(1, signed=FALSE, littleEndian=TRUE))), equals(-1))    
+    expect_that(bin2dec(negate(dec2bin(1, signed=FALSE, littleEndian=TRUE))), equals(-1))
 })
 
 
@@ -50,6 +50,7 @@ test_that("Return shiftLeft", {
     expect_that(shiftLeft(l2, 1), equals(l3))
     expect_that(shiftLeft(l2, 2), equals(l4))
     expect_that(shiftLeft(l2, 3), equals(l5))
+    expect_that(class(shiftLeft(logical(Byte()),Byte() + 1)), equals("logical"))
 })
 
 
@@ -80,12 +81,11 @@ test_that("Return shiftRight", {
     expect_that(shiftRight(l, 1), equals(l))
     expect_that(shiftRight(l2, 1), equals(l3))
     expect_that(shiftRight(l2, 2), equals(l4))
-    expect_that(shiftRight(l2, 3), equals(l5))  
+    expect_that(shiftRight(l2, 3), equals(l5))
+    expect_that(class(shiftRight(logical(Byte()),Byte() + 1)), equals("logical"))
 })
 
 context("Test rotate")
-
-
 
 test_that("Lost Attributes", {
     expect_that(class(rotate(binary(Byte()),1)), equals(c("binary","logical")))
@@ -159,3 +159,5 @@ test_that("Return fillBits", {
     expect_that(switchEndianess(s3), equals(s4))
     expect_that(switchEndianess(s4), equals(s3))
 })
+
+context("Test binarySeq")

@@ -13,9 +13,10 @@
 #' @seealso \link{switchEndianess} or \link{fillBits}.
 #' @export
 negate <- function(x) {
-    # !c(rep(0,Byte()-length(x)),x)    
+    # !c(rep(0,Byte()-length(x)),x)
     stopifnot(is.binary(x))
     signed <- attributes(x)$signed
+    if (all(!x)) return(binary(length(x)))
     #if (!signed) warning("Trying to negate an unsigned digit. treated as signed value. Returns a signed value")
     littleEndian <- attributes(x)$littleEndian
 
@@ -55,7 +56,7 @@ negate <- function(x) {
 shiftLeft <- function(x, n) {
     stopifnot(is.logical(x) || is.binary(x))
     stopifnot(n > 0)
-    if (n > length(x)) return(binary(length(x)))
+    if (n > length(x)) if (class(x)[1] == "binary") return(binary(length(x))) else return(logical(length(x)))
     l <- saveAttributes(x)
     loadAttributes(c(x[-seq(n)], logical(n)), l)
 }
@@ -77,7 +78,7 @@ shiftLeft <- function(x, n) {
 shiftRight <- function(x, n) {
     stopifnot(is.logical(x) || is.binary(x))
     stopifnot(n > 0)
-    if (n > length(x)) return(binary(length(x)))
+    if (n > length(x)) if (class(x)[1] == "binary") return(binary(length(x))) else return(logical(length(x)))    
     l <- saveAttributes(x)
     loadAttributes(rev(c(rev(x)[-seq(n)], logical(n))), l)
 }
@@ -138,7 +139,7 @@ fillBits <- function(x, value=FALSE, size=0) {
     } else {
         x <- c(append,x)
     }
-    x <- loadAttributes(x,l)    
+    x <- loadAttributes(x,l)
     return(x)
 }
 
