@@ -5,6 +5,7 @@ Version: 0.2
 Author: Daniel Dörrhöfer <dando@gmx.de>
 Maintainer: Daniel Dörrhöfer <dando@gmx.de>
 Depends:
+    testthat,
     R (>= 3.0.2)
 License: GPL-3
 LazyData: true
