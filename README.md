@@ -62,5 +62,35 @@ $ two_B <- as.binary(two,littleEndian=FALSE); two_L <- as.binary(two,littleEndia
 
 [1] TRUE
 ```
+More Converting
+---------------
+
+Convert from ``raw`` to binary and vice versa.
+```R
+as.binary(rawToBits(raw)); as.raw(binary);
+```
+
+Convert from ``logical`` to binary and vice versa.
+```R
+as.binary(logical); as.logical(binary);
+```
+
+Convert from ``numeric`` to binary. ``numeric`` as type of  ``integer`` or ``double``. No floating point support until v1.0.
+```R
+dec2bin(numeric); 
+# or
+as.binary(c(1,0,1,0,1,0));
+```
+
+Convert from binary to ``numeric`` as type of ``double`` or ``integer``.
+```R
+as.integer(binary)
+# or
+as.double(binary)
+# alias for
+bin2dec(binary);
+```
 .
+
+
 
