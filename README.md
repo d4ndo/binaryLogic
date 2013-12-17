@@ -10,7 +10,7 @@ Convert, negate, shift and rotate binary digits.
 
 ## Installation
 
-Development version on [github](https://github.com/gastonstat/arcdiagram)
+Development version on [github](https://github.com/d4ndo/binaryLogic)
 ```R
 # development version
 library(devtools)
