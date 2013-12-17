@@ -8,6 +8,17 @@ Binary Logic GNU R Package
 Convert, negate, shift and rotate binary digits.
 (fillBits, switchEndianess, bytesNeeded, binaryPrefix).
 
+## Installation
+
+Development version on [github](https://github.com/gastonstat/arcdiagram)
+```R
+# development version
+library(devtools)
+
+# install 'binaryLogic'
+install_github("d4ndo/binaryLogic")
+library(binaryLogic)
+```
 
 Getting started
 ---------------
