@@ -75,16 +75,20 @@ Convert from ``logical`` to binary and vice versa.
 as.binary(logical); as.logical(binary);
 ```
 
-Convert from ``integer`` to binary and vice versa.
+Convert from ``numeric`` to binary. ``numeric`` as type of  ``integer`` or ``double``. No floating point support until v1.0.
 ```R
-as.binary(integer); as.integer(binary);
+dec2bin(numeric); 
+# or
+as.binary(c(1,0,1,0,1,0));
 ```
 
-Convert from ``numeric`` to binary and vice versa.
+Convert from binary to ``numeric`` as type of ``double`` or ``integer``.
 ```R
-as.binary(numeric); as.numeric(binary);
-#alias for 
-dec2bin(numeric); bin2dec(binary);
+as.integer(binary)
+# or
+as.double(binary)
+# alias for
+bin2dec(binary);
 ```
 .
 
