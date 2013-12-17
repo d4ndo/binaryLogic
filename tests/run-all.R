@@ -1,5 +1,2 @@
 library(testthat)
-library(binaryLogic)
-
-
-test_package("binaryLogic")
+test_check("binaryLogic")

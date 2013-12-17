@@ -80,7 +80,7 @@ test_that("Return shiftRight", {
     expect_that(bin2dec(shiftRight(eight, 2)), equals(2))
     expect_that(bin2dec(shiftRight(eight, 3)), equals(1))
     expect_that(bin2dec(shiftRight(eight, 4)), equals(0))
-    expect_that(shifRight(l, 1), equals(l))
+    expect_that(shiftRight(l, 1), equals(l))
     expect_that(shiftRight(l2, 1), equals(l3))
     expect_that(shiftRight(l2, 2), equals(l4))
     expect_that(shiftRight(l2, 3), equals(l5))  
