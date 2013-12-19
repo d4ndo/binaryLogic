@@ -11,7 +11,7 @@ bin2dec(bin, hex=FALSE)
   value. by default = FALSE}
 }
 \value{
-The decimal or hex number »integer«.
+The decimal or hex number »numeric«.
 }
 \description{
 Converts a binary number to a decimal or hex number.
