@@ -12,10 +12,11 @@ dec2bin(num, signed=FALSE, littleEndian=FALSE, size=2)
 
   \item{littleEndian}{if TRUE. Big Endian if FALSE.}
 
-  \item{size}{Needed if signed is set. (by default 2 Byte)}
+  \item{size}{in Byte. Needed if »signed« is set. (by
+  default 2 Byte)}
 }
 \value{
-The binary number. Returns a binary and logical vector.
+The binary number. Returns a (binary/logical) vector.
 }
 \description{
 Converts a decimal or hex number to a binary number.
@@ -25,6 +26,7 @@ The binary number is represented by a logical vector. The
 Bit order usually follows the same endianness as the byte
 order. No floating-point support. \itemize{ \item Little
 Endian (LSB) ---> (MSB) \item Big Endian (MSB) <--- (LSB) }
+Auto switch to signed if num < 0.
 }
 \examples{
 dec2bin(0xfa)
