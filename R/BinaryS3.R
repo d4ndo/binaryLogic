@@ -57,23 +57,21 @@ as.binary <- function(x, signed=FALSE, littleEndian=FALSE) {
         attr(x, "littleEndian") <- littleEndian
         if (signed) x <- fillBits(x)
     } else {
+        l <- saveAttributes(x)        
         if (signed) {
-            attr(x, "signed") <- TRUE
+            l$signed <- TRUE
+            #attr(x, "signed") <- TRUE
             x <- fillBits(x)
         } else {
-            attr(x, "signed") <- FALSE
+            l$signed <- FALSE            
+            #attr(x, "signed") <- FALSE
         }
         if (littleEndian) {
-            if (!attributes(x)$littleEndian)
-            {
-                switchEndianess(x)
-            }
+            l$littleEndian <- TRUE
         } else {
-            if (attributes(x)$littleEndian)
-            {
-                switchEndianess(x)
-            }
+            l$littleEndian <- FALSE
         }
+        x <- loadAttributes(x, l)
     }
     return(x)
 }
@@ -132,16 +130,14 @@ as.raw.binary <- function(x) {
     l <- saveAttributes(x)
     x <- fillBits(x, size=bytesNeeded(length(x)))
     xx <- logical(0)
-
+    
+    if (!l$littleEndian) x <- rev(x)
     if (l$littleEndian) {
         x <- as.logical(x)
         dim(x) <- c(4, (2 * bytesNeeded(length(x))))
         for(i in seq(1, (2*bytesNeeded(length(x)) - 1), by = 2)) xx <- c(xx, c(x[,i+1], x[,i]))
         x <- xx
-    } else {
-        x <- rev(x)
-    }
-    
+    }    
     x <- packBits(x)
     if(!l$littleEndian) x <- rev(x)
     NextMethod(.Generic)
