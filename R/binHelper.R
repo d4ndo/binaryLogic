@@ -17,7 +17,7 @@
 #' @examples
 #' binPrefix2Byte(c(0.5,1:10),"KiB")
 #' dec2bin(binPrefix2Byte(1,"KiB")*Byte())
-#' @seealso \link{bytesNeeded} or \link{fillBits} or \link{Byte}
+#' @seealso \link{bytesNeeded} or \link{addUpToByte} or \link{Byte}
 #' @export
 binPrefix2Byte <- function(n, prefix="KiB") {
     stopifnot(all(is.numeric(n) || is.na(n)))
@@ -54,7 +54,7 @@ binPrefix2Byte <- function(n, prefix="KiB") {
 #' @examples
 #' ten <- dec2bin(10)
 #' bytesNeeded(length(ten))
-#' @seealso \link{fillBits} or \link{binPrefix2Byte} or \link{Byte}
+#' @seealso \link{addUpToByte} or \link{binPrefix2Byte} or \link{Byte}
 #' @export
 bytesNeeded <- function(n) {
     stopifnot(all(is.numeric(n) || is.na(n)))

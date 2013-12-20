@@ -35,7 +35,7 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
     class(x) <- c("binary", "logical")
     attr(x, "signed") <- signed
     attr(x, "littleEndian") <- littleEndian
-    if (signed) { x <- fillBits(x) }
+    if (signed) { x <- addUpToByte(x) }
     return(x)
 }
 
@@ -55,13 +55,13 @@ as.binary <- function(x, signed=FALSE, littleEndian=FALSE) {
         class(x) <- c("binary", "logical")
         attr(x, "signed") <- signed
         attr(x, "littleEndian") <- littleEndian
-        if (signed) x <- fillBits(x)
+        if (signed) x <- addUpToByte(x)
     } else {
         l <- saveAttributes(x)        
         if (signed) {
             l$signed <- TRUE
             #attr(x, "signed") <- TRUE
-            x <- fillBits(x)
+            x <- addUpToByte(x)
         } else {
             l$signed <- FALSE            
             #attr(x, "signed") <- FALSE
@@ -128,7 +128,7 @@ summary.binary <- function(object, ...) {
 as.raw.binary <- function(x) {
     #b <- as.binary(rawToBits(r)) from raw to binary
     l <- saveAttributes(x)
-    x <- fillBits(x, size=bytesNeeded(length(x)))
+    x <- addUpToByte(x, size=bytesNeeded(length(x)))
     xx <- logical(0)
     
     if (!l$littleEndian) x <- rev(x)
@@ -202,16 +202,16 @@ Ops.binary <- function(e1, e2) {
     if (length(x) > length(y)) {
         delta <- bytesNeeded(length(x))
         if (attributes(y)$signed) {
-            y <- fillBits(y, value=TRUE, size=delta)
+            y <- addUpToByte(y, value=TRUE, size=delta)
         } else {
-            y <- fillBits(y, value=FALSE, size=delta)
+            y <- addUpToByte(y, value=FALSE, size=delta)
         }
     } else if (length(x) < length(y)) {
         delta <- bytesNeeded(length(y))
         if (attributes(x)$signed) {
-            x <- fillBits(x, value=TRUE, size=delta)
+            x <- addUpToByte(x, value=TRUE, size=delta)
         } else {
-            x <- fillBits(x, value=FALSE, size=delta)
+            x <- addUpToByte(x, value=FALSE, size=delta)
         }
     }
     return(all(!xor(x,y)))

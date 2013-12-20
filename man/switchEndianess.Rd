@@ -19,6 +19,6 @@ x <- as.binary(c(1,1,0,0)); print(x); summary(x);
 y <- switchEndianess(x); print(y); summary(y);
 }
 \seealso{
-\link{negate} or \link{fillBits}.
+\link{negate} or \link{addUpToByte}.
 }
 

@@ -10,7 +10,7 @@
 #' summary(negate(dec2bin(5, signed=TRUE)))
 #' summary(negate(dec2bin(-5, signed=TRUE)))
 #' summary(negate(dec2bin(5, signed=FALSE)))
-#' @seealso \link{switchEndianess} or \link{fillBits}.
+#' @seealso \link{switchEndianess} or \link{addUpToBytes}.
 #' @export
 negate <- function(x) {
     # !c(rep(0,Byte()-length(x)),x)
@@ -106,21 +106,21 @@ rotate <- function(x, n) {
     loadAttributes(c(x[-seq(n)],x[seq(n)]), l)
 }
 
-#' Fill Bits (000..)
+#' Add up to Byte (000..)
 #'
-#' @description Fills the number with Bits to the size in Byte.
+#' @description Adds up the binary number with Bit to the size in Byte.
 #' @details No floating point supported.
-#' @usage fillBits(x, value=FALSE, size=0)
-#' @param x The binary number to fill with bits. (Any binary vector).
-#' @param value Fill with FALSE or fill with TRUE.
-#' @param size in Byte. 0 = auto (smallest possible byte).
+#' @usage addUpToByte(x, value=FALSE, size=0)
+#' @param x The binary number to add up with Bit's. (Any binary vector).
+#' @param value add up with FALSE's or add up with TRUE's.
+#' @param size in Byte. 0 = auto (smallest possible Byte).
 #' @return binary number. A binary vector with the desired size.
 #' @examples
-#' fillBits(as.binary(c(1,1)), size=2)
-#' fillBits(as.binary(c(1,0,1)), value=FALSE, size=2)
+#' addUpToByte(as.binary(c(1,1)), size=2)
+#' addUpToByte(as.binary(c(1,0,1)), value=FALSE, size=2)
 #' @seealso \link{bytesNeeded} or \link{negate} or \link{switchEndianess}.
 #' @export 
-fillBits <- function(x, value=FALSE, size=0) {
+addUpToByte <- function(x, value=FALSE, size=0) {
     #' !c(rep(0,Byte()-length(x)),x)    
     stopifnot(is.binary(x))
     l <- saveAttributes(x)    
@@ -152,7 +152,7 @@ fillBits <- function(x, value=FALSE, size=0) {
 #' @examples
 #' x <- as.binary(c(1,1,0,0)); print(x); summary(x);
 #' y <- switchEndianess(x); print(y); summary(y);
-#' @seealso \link{negate} or \link{fillBits}.
+#' @seealso \link{negate} or \link{addUpToByte}.
 #' @export
 switchEndianess <- function(x) {
     stopifnot(is.binary(x))

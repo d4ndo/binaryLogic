@@ -19,6 +19,6 @@ ten <- dec2bin(10)
 bytesNeeded(length(ten))
 }
 \seealso{
-\link{fillBits} or \link{binPrefix2Byte} or \link{Byte}
+\link{addUpToByte} or \link{binPrefix2Byte} or \link{Byte}
 }
 
