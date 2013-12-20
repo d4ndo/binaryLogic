@@ -26,6 +26,6 @@ summary(negate(dec2bin(-5, signed=TRUE)))
 summary(negate(dec2bin(5, signed=FALSE)))
 }
 \seealso{
-\link{switchEndianess} or \link{addUpToBytes}.
+\link{switchEndianess} or \link{addUpToByte}.
 }
 
