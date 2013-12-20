@@ -6,7 +6,7 @@ binaryLogic
 Binary Logic GNU R Package
 
 Convert, negate, shift and rotate binary digits.
-(fillBits, switchEndianess, bytesNeeded, binaryPrefix).
+(switchEndianess, bytesNeeded, binaryPrefix, addUpToByte).
 
 ## Installation
 
