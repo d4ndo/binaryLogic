@@ -10,7 +10,7 @@
 #' summary(negate(dec2bin(5, signed=TRUE)))
 #' summary(negate(dec2bin(-5, signed=TRUE)))
 #' summary(negate(dec2bin(5, signed=FALSE)))
-#' @seealso \link{switchEndianess} or \link{addUpToBytes}.
+#' @seealso \link{switchEndianess} or \link{addUpToByte}.
 #' @export
 negate <- function(x) {
     # !c(rep(0,Byte()-length(x)),x)
