@@ -11,7 +11,7 @@ The size of one Byte (8)
 Used to increase readabilaty
 }
 \seealso{
-\link{bytesNeeded} or \link{fillBits} or
+\link{bytesNeeded} or \link{addUpToByte} or
 \link{binPrefix2Byte}
 }
 

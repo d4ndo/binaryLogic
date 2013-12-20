@@ -68,7 +68,7 @@ bytesNeeded <- function(n) {
 #' @description Used to increase readabilaty
 #' @usage Byte()
 #' @return The size of one Byte (8)
-#' @seealso \link{bytesNeeded} or \link{fillBits} or \link{binPrefix2Byte} 
+#' @seealso \link{bytesNeeded} or \link{addUpToByte} or \link{binPrefix2Byte} 
 #' @export
 Byte <- function() {
     return(8)
