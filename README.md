@@ -39,7 +39,7 @@ summary(the_answer_to_the_ultimate_question_of_life_the_universe_and_everything)
 Information
 -----------
 
-The »binaryLogic::binary« class inherits from the »base::logical« class. This class is just not that great at heavy number crunching, but it brings some benefits. Especially if you like to work using vectors in R. It is no problem to switch from logical to binary and vice versa. Some function from Package binaryLogic can also be used on logical vectors like shiftLeft, shiftRight, rotate (see help).
+This class is just not that great at heavy number crunching, but it brings some benefits. Especially if you like to work using vectors in R. The »binary« class inherits from the »logical« class. Thus, it is possible to convert the class without problems. Some function from Package binaryLogic can also be used on logical vectors like shiftLeft, shiftRight, rotate (see help).
 
 Some operators have a different behavior. The logical == operator compares every element of the vector (Bitwise comparison). e.g. 
 
