@@ -1,7 +1,7 @@
 Package: binaryLogic
 Title: Binary Logic. »binary number system« convert, shift, rotate ..
 Description: Binary Logic. (convert, shift, rotate, ..) using logical vectors.
-Version: 0.2
+Version: 0.2.2
 Author: Daniel Dörrhöfer <dando@gmx.de>
 Maintainer: Daniel Dörrhöfer <dando@gmx.de>
 Depends:
