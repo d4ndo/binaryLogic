@@ -16,9 +16,9 @@ The sum of x and y. Returns a binary vector.
 Adds two binary numbers. (x + y)
 }
 \details{
-Little-Endian is not supported at the moment. No floating
-point supported. if x or y is signed the return value will
-also be signed.
+Little-Endian and unsigned is not supported at the moment.
+No floating point supported. if x or y is signed the return
+value will also be signed.
 }
 \examples{
 five <- dec2bin(5); ten <- dec2bin(10);
