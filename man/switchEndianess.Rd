@@ -5,8 +5,7 @@
 switchEndianess(x)
 }
 \arguments{
-  \item{x}{binary number. Any binary vector.
-  switchEndianess(y)}
+  \item{x}{binary number. Any binary vector.}
 }
 \value{
 switch little-endian to big-endian and vice versa.
@@ -17,6 +16,9 @@ switch little-endian to big-endian and vice versa.
 \examples{
 x <- as.binary(c(1,1,0,0)); print(x); summary(x);
 y <- switchEndianess(x); print(y); summary(y);
+neg_two <- dec2bin(-2)
+as.raw(neg_two)
+as.raw(switchEndianess(neg_two))
 }
 \seealso{
 \link{negate} or \link{addUpToByte}.

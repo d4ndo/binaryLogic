@@ -1,8 +1,8 @@
 \name{addUpToByte}
 \alias{addUpToByte}
-\title{Add up to Byte (000..)}
+\title{Add up to Byte (00000000..)}
 \usage{
-addUpToByte(x, value=FALSE, size=0)
+addUpToByte(x, size=0, value=FALSE)
 }
 \arguments{
   \item{x}{The binary number to add up with Bit's. (Any
@@ -23,10 +23,10 @@ No floating point supported.
 }
 \examples{
 addUpToByte(as.binary(c(1,1)), size=2)
-addUpToByte(as.binary(c(1,0,1)), value=FALSE, size=2)
+addUpToByte(as.binary(c(1,0,1)), size=2, value=FALSE)
 }
 \seealso{
-\link{bytesNeeded} or \link{negate} or
+\link{addUpToBit} or \link{bytesNeeded}, \link{negate},
 \link{switchEndianess}.
 }
 

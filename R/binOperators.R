@@ -106,21 +106,21 @@ rotate <- function(x, n) {
     loadAttributes(c(x[-seq(n)],x[seq(n)]), l)
 }
 
-#' Add up to Byte (000..)
+#' Add up to Byte (00000000..)
 #'
 #' @description Adds up the binary number with Bit to the size in Byte.
 #' @details No floating point supported.
-#' @usage addUpToByte(x, value=FALSE, size=0)
+#' @usage addUpToByte(x, size=0, value=FALSE)
 #' @param x The binary number to add up with Bit's. (Any binary vector).
 #' @param value add up with FALSE's or add up with TRUE's.
 #' @param size in Byte. 0 = auto (smallest possible Byte).
 #' @return binary number. A binary vector with the desired size.
 #' @examples
 #' addUpToByte(as.binary(c(1,1)), size=2)
-#' addUpToByte(as.binary(c(1,0,1)), value=FALSE, size=2)
-#' @seealso \link{bytesNeeded} or \link{negate} or \link{switchEndianess}.
+#' addUpToByte(as.binary(c(1,0,1)), size=2, value=FALSE)
+#' @seealso \link{addUpToBit} or \link{bytesNeeded}, \link{negate}, \link{switchEndianess}.
 #' @export 
-addUpToByte <- function(x, value=FALSE, size=0) {
+addUpToByte <- function(x, size=0, value=FALSE) {
     #' !c(rep(0,Byte()-length(x)),x)    
     stopifnot(is.binary(x))
     l <- saveAttributes(x)    
@@ -143,15 +143,53 @@ addUpToByte <- function(x, value=FALSE, size=0) {
     return(x)
 }
 
+#' Add up to Bit (000..)
+#'
+#' @description Adds up the binary number with Bit to the size n in Bit.
+#' @details No floating point supported.
+#' @usage addUpToBit(x, n, value=FALSE)
+#' @param x The binary number to add up with Bit's. (Any binary vector).
+#' @param value add up with FALSE's or add up with TRUE's.
+#' @param n size in Bit.
+#' @return binary number. A binary vector with the desired size.
+#' @examples
+#' addUpToBit(as.binary(c(1,1)), n=4)
+#' addUpToBit(as.binary(c(1,0,1)), n=4, value=FALSE)
+#' @seealso \link{addUpToByte}.
+#' @export
+addUpToBit <- function(x, n, value=FALSE) {
+    #' !c(rep(0,Byte()-length(x)),x)    
+    stopifnot(is.binary(x))
+    if(missing(n)) stop("n is missing")
+    stopifnot(n >= 0)
+    
+    l <- saveAttributes(x)    
+    if (length(x) >= n) return(x)
+    
+    append <- binary(n - length(x))
+    append[seq(length(append))] <- value
+    
+    if (attributes(x)$littleEndian) {
+        x <- c(x,append)
+    } else {
+        x <- c(append,x)
+    }
+    x <- loadAttributes(x,l)
+    return(x)
+}
+
 #' Switch Endianess.
 #' 
 #' @description switch little-endian to big-endian and vice versa.
 #' @usage switchEndianess(x)
-#' @param x binary number. Any binary vector. switchEndianess(y)
+#' @param x binary number. Any binary vector.
 #' @return switch little-endian to big-endian and vice versa.
 #' @examples
 #' x <- as.binary(c(1,1,0,0)); print(x); summary(x);
 #' y <- switchEndianess(x); print(y); summary(y);
+#' neg_two <- dec2bin(-2)
+#' as.raw(neg_two)
+#' as.raw(switchEndianess(neg_two))
 #' @seealso \link{negate} or \link{addUpToByte}.
 #' @export
 switchEndianess <- function(x) {
@@ -161,21 +199,21 @@ switchEndianess <- function(x) {
     return(loadAttributes(rev(x),l))
 }
 
-#' binarySeq
+#' binSeq
 #' 
 #' @description binary Sequence
-#' @usage binarySeq(s=0:15, ...)
-#' @param s a sequence. 1:8 by default
-#' @param ... used for dec2bin()
+#' @usage binSeq(x, n=0, ...)
+#' @param x a sequence.
+#' @param n minimum size in Bit, Needed to add up zeros to Bit n.
+#' @param ... used for dec2bin().
 #' @return a sequence list of binary digits.
 #' @examples
-#' l <- binarySeq(0:15, size=1); l;
-#' l <- binarySeq(0:15, signed=TRUE, littleEndian=TRUE, size=1); l;
+#' binSeq(0:4, n=3)
 #' @seealso \link{binary}
 #' @export
-binarySeq <- function(s=0:15, ...) {
-    l <- vector("list", length(s))
+binSeq <- function(x, n=0, ...) {
+    l <- vector("list", length(x))
 
-    for(i in 1:length(s)) l[[i]] <- dec2bin(s[i], ...)
+    for(i in 1:length(x)) l[[i]] <- addUpToBit(dec2bin(x[i], ...), n)
     return(l)
 }
