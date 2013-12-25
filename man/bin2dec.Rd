@@ -1,29 +1,22 @@
 \name{bin2dec}
 \alias{bin2dec}
-\title{Converts a binary number to a decimal or hex number.}
+\title{Converts a binary(Base2) number to a decimal(Base10) number.}
 \usage{
-bin2dec(bin, hex=FALSE)
+bin2dec(bin)
 }
 \arguments{
   \item{bin}{binary number. Any logical or binary vector.}
-
-  \item{hex}{TRUE or FALSE: if TRUE it returns an hex
-  value. by default = FALSE}
 }
 \value{
-The decimal or hex number »numeric«.
+The decimal(Base10) number (numeric/double).
 }
 \description{
-Converts a binary number to a decimal or hex number.
+Converts a binary(Base2) number to a decimal(Base10)
+number.
 }
 \details{
 No floating-point support. \itemize{ \item Little Endian
 (LSB) ---> (MSB) \item Big Endian (MSB) <--- (LSB) }
-}
-\examples{
-bin2dec(as.binary(c(1,0,1,1,1,0,1,1)))
-bin2dec(as.binary(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE)))
-bin2dec(as.binary(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE)), hex=TRUE)
 }
 \seealso{
 \link{dec2bin} and \link{binary} or \link{logical}

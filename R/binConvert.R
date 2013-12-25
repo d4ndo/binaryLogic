@@ -1,6 +1,6 @@
-#' Converts a decimal or hex number to a binary digit.
+#' Converts a decimal(Base10) or hex(Base16) number to a binary(Base2) digit.
 #'
-#' @description Converts a decimal or hex number to a binary number.
+#' @description Converts a decimal(Base10) or hex(Base16) number to a binary(Base2) number.
 #' @details The binary number is represented by a logical vector.
 #' The Bit order usually follows the same endianness as the byte order.
 #' No floating-point support.
@@ -15,12 +15,7 @@
 #' @param littleEndian if TRUE. Big Endian if FALSE.
 #' @param size in Byte. Needed if »signed« is set. (by default 2 Byte)
 #' @return The binary number. Returns a (binary/logical) vector.
-#' @examples
-#' dec2bin(0xfa)
-#' dec2bin(3)
-#' dec2bin(-1, signed=TRUE, size=1)
 #' @seealso \link{bin2dec} and \link{binary} or \link{logical}
-#' @export
 dec2bin <- function(num, signed=FALSE, littleEndian=FALSE, size=2) {
     # Very slow with negative numbers. (maybe binAdd)
     if (signed && (((num > ((2^(size*Byte())/2)-1))) || 
@@ -70,25 +65,19 @@ h <- function(x) {
     return(ret)
 }
 
-#' Converts a binary number to a decimal or hex number.
+#' Converts a binary(Base2) number to a decimal(Base10) number.
 #' 
-#' @description Converts a binary number to a decimal or hex number.
+#' @description Converts a binary(Base2) number to a decimal(Base10) number.
 #' @details No floating-point support.
 #' \itemize{
 #' \item Little Endian    (LSB) ---> (MSB)
 #' \item Big Endian       (MSB) <--- (LSB)
 #' }
-#' @usage bin2dec(bin, hex=FALSE)
+#' @usage bin2dec(bin)
 #' @param bin      binary number. Any logical or binary vector.
-#' @param hex      TRUE or FALSE: if TRUE it returns an hex value. by default = FALSE
-#' @return The decimal or hex number »numeric«.
-#' @examples
-#' bin2dec(as.binary(c(1,0,1,1,1,0,1,1)))
-#' bin2dec(as.binary(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE)))
-#' bin2dec(as.binary(c(TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE,TRUE)), hex=TRUE)
+#' @return The decimal(Base10) number (numeric/double).
 #' @seealso \link{dec2bin} and \link{binary} or \link{logical}
-#' @export
-bin2dec <- function(bin, hex=FALSE) {
+bin2dec <- function(bin) {
     #could be implemented in C. But it is not that slow.
     signed <- attributes(bin)$signed
     littleEndian <- attributes(bin)$littleEndian
@@ -111,6 +100,5 @@ bin2dec <- function(bin, hex=FALSE) {
             i <- i - 1
         }
     }
-    if(hex) return(as.hexmode(numeric))
-    else return(numeric)
+    return(numeric)
 }
