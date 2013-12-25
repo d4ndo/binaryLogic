@@ -48,6 +48,51 @@ test_that("Return as.binary", {
     expect_that(length(bs2), equals(Byte()))    
 })
 
+context("Test some converting")
+
+
+test_that("Return value as.binary", {
+    expect_that(as.binary(0), is_a("binary"))
+    expect_that(as.binary(0), is_equivalent_to(as.binary(c(0))))
+    expect_that(as.binary(0, signed=TRUE, size=1), is_equivalent_to(as.binary(c(0,0,0,0,0,0,0,0))))
+    expect_that(as.binary(0, littleEndian=TRUE, signed=TRUE, size=1), is_equivalent_to(as.binary(c(0,0,0,0,0,0,0,0))))
+    expect_that(as.binary(1), is_equivalent_to(as.binary(c(1), signed=FALSE, littleEndian=FALSE)))
+    expect_that(as.binary(1, signed=TRUE, size=1), is_equivalent_to(as.binary(c(0,0,0,0,0,0,0,1))))
+    expect_that(as.binary(1, littleEndian=TRUE, signed=TRUE, size=1), is_equivalent_to(as.binary(c(1,0,0,0,0,0,0,0), signed=TRUE, littleEndian=TRUE)))
+    expect_that(as.binary(-1,signed=TRUE), is_equivalent_to(as.binary(c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1))))
+    expect_that(as.binary(-1, littleEndian=TRUE, signed=TRUE, size=2), is_equivalent_to(as.binary(c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1))))
+    expect_that(as.binary(8, signed=TRUE, size=1) , is_equivalent_to(as.binary(c(0,0,0,0,1,0,0,0), signed=TRUE)))
+    expect_that(as.binary(8, littleEndian=TRUE, signed=TRUE, size=1) , is_equivalent_to(as.binary(c(0,0,0,1,0,0,0,0), signed=TRUE, littleEndian=TRUE)))
+})
+
+test_that("Return value as.numeric", {
+    expect_that(as.numeric(as.binary(c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1), signed=TRUE)), is_equivalent_to(-1))
+    expect_that(as.numeric(as.binary(c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1), signed=TRUE, littleEndian=TRUE)), is_equivalent_to(-1))
+    expect_that(as.numeric(as.binary(c(0))), is_equivalent_to(0))
+    expect_that(as.numeric(as.binary(c(0), littleEndian=TRUE)), is_equivalent_to(0))
+    expect_that(as.numeric(as.binary(c(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), signed=TRUE, littleEndian=TRUE)), is_equivalent_to(0))
+    expect_that(as.numeric(as.binary(c(1))), is_equivalent_to(1))
+    expect_that(as.numeric(as.binary(c(1), littleEndian=TRUE)), is_equivalent_to(1))
+    expect_that(as.numeric(as.binary(c(1,0,0,0,0,0,0,0), signed=TRUE, littleEndian=TRUE)), is_equivalent_to(1))
+    expect_that(as.numeric(as.binary(c(0,0,0,0,0,0,0,1), signed=TRUE)), is_equivalent_to(1))
+    expect_that(as.hexmode(as.numeric(as.binary(c(1,1,1,1)))), is_equivalent_to(as.hexmode("f")))
+})
+
+# in work !
+inputtest <- function(s)
+{
+    for(i in s) {
+        x <- as.numeric(as.binary(i, signed=TRUE))
+        if  (x != i) return(1)
+    }
+    return(0)
+}
+
+test_that("Range", {
+    expect_that(inputtest(-64:64), equals(0))
+})
+
+
 context("Test is.binary")
 
 b <- binary(1)
