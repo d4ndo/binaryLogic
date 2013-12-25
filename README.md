@@ -23,7 +23,7 @@ library(binaryLogic)
 Getting started
 ---------------
 
-Starting with a simple conversion. »decimal to binary« and vice versa.
+Starting with a simple conversion. Decimal(Base10) to binary(Base2) and vice versa.
 ```R
 the_answer_to_the_ultimate_question_of_life_the_universe_and_everything <- as.binary(42)
 
