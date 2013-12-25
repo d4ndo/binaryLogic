@@ -1,6 +1,6 @@
-#' Binary Vector
+#' Binary Object.
 #' 
-#' @description Create objects of type "binary" vector.
+#' @description Create objects of type binary.
 #' @details The binary number is represented by a logical vector.
 #' The Bit order usually follows the same endianess as the byte order.
 #' How to read:
@@ -28,6 +28,10 @@
 #' @examples
 #' b <- binary(8)
 #' summary(b)
+#' b <- binary(16, signed=TRUE)
+#' summary(b)
+#' b <- binary(32, littleEndian=TRUE)
+#' summary(b)
 #' @seealso \link{as.binary} and \link{is.binary}. To convert a binary to raw please use \link{as.raw} (pay attention to the endianness).
 #' @export
 binary <- function(n, signed=FALSE, littleEndian=FALSE) {
@@ -39,31 +43,60 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
     return(x)
 }
 
-#' as Binary Vector
+#' as binary digit.
 #' 
-#' @description convert object to "binary".
-#' @usage as.binary(x, signed=FALSE, littleEndian=FALSE)
+#' @description Converts any object to a binary number.
+#' Converts a decimal(Base10), hex(Base16) or oct(Base8) number 
+#' to a binary(Base2) number. It also converts a logical or numerical vector 
+#' to a binary(Base2) number (see examples).
+#' @details The binary number is represented by a logical vector.
+#' The Bit order usually follows the same endianess as the byte order.
+#' No floating-point support.
+#' \itemize{
+#' \item Little Endian    (LSB) ---> (MSB)
+#' \item Big Endian       (MSB) <--- (LSB)
+#' }
+#' Auto switch to signed if num < 0.
+#' @usage as.binary(x, signed=FALSE, littleEndian=FALSE, size=2)
 #' @param x object to convert.
 #' @param signed  TRUE or FALSE. Unsigned by default. (two's complement)
 #' @param littleEndian if TRUE. Big Endian if FALSE.
+#' @param size in Byte. Needed if »signed« is set. (by default 2 Byte)
 #' @return a binary vector.
+#' @examples
+#' as.binary(0xff)
+#' as.binary(42)
+#' as.binary(-1, signed=TRUE, size=1)
+#' as.binary(c(1,1,0), signed=TRUE) 
+#' as.binary(c(TRUE,TRUE,FALSE), signed=TRUE, littleEndian=TRUE)
 #' @seealso \link{is.binary} and \link{binary}
 #' @export
-as.binary <- function(x, signed=FALSE, littleEndian=FALSE) {
+as.binary <- function(x, signed=FALSE, littleEndian=FALSE, size=2) {
     if (!inherits(x, "binary")) {
-        x <- as.logical(x)
-        class(x) <- c("binary", "logical")
-        attr(x, "signed") <- signed
-        attr(x, "littleEndian") <- littleEndian
-        if (signed) x <- addUpToByte(x)
+        if (is.numeric(x) && length(x) == 1)
+        {
+            x <- dec2bin(x, signed=signed, littleEndian=littleEndian, size=size)
+        } else if (is.logical(x) || is.numeric(x) && length(x) > 1) {
+            x <- as.logical(x)
+            class(x) <- c("binary", "logical")
+            attr(x, "signed") <- signed
+            attr(x, "littleEndian") <- littleEndian
+            if (signed) x <- addUpToByte(x)
+        } else if (is.raw(x)) {
+            x <- as.logical(rawToBits(x))
+            class(x) <- c("binary", "logical")
+            attr(x, "signed") <- signed
+            attr(x, "littleEndian") <- littleEndian
+            if (signed) x <- addUpToByte(x)
+        }
     } else {
-        l <- saveAttributes(x)        
+        l <- saveAttributes(x)
         if (signed) {
             l$signed <- TRUE
             #attr(x, "signed") <- TRUE
             x <- addUpToByte(x)
         } else {
-            l$signed <- FALSE            
+            l$signed <- FALSE
             #attr(x, "signed") <- FALSE
         }
         if (littleEndian) {
@@ -142,6 +175,12 @@ as.raw.binary <- function(x) {
     if(!l$littleEndian) x <- rev(x)
     NextMethod(.Generic)
 } #rseq = function(x,to=1) NROW(x):to
+
+#' @export
+as.character.binary <- function(x, ...) {
+    x <- as.integer(as.logical(x))
+    NextMethod(.Generic, ...)
+}
 
 #' @export
 as.integer.binary <- function(x, ...) {

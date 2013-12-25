@@ -1,6 +1,6 @@
 \name{binary}
 \alias{binary}
-\title{Binary Vector}
+\title{Binary Object.}
 \usage{
 binary(n, signed=FALSE, littleEndian=FALSE)
 }
@@ -17,7 +17,7 @@ a binary vector of length n. By default filled with
 zeros(0).
 }
 \description{
-Create objects of type "binary" vector.
+Create objects of type binary.
 }
 \details{
 The binary number is represented by a logical vector. The
@@ -38,6 +38,10 @@ vice versa. No floating-point support.
 }
 \examples{
 b <- binary(8)
+summary(b)
+b <- binary(16, signed=TRUE)
+summary(b)
+b <- binary(32, littleEndian=TRUE)
 summary(b)
 }
 \seealso{
