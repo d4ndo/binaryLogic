@@ -22,7 +22,7 @@ TebiByte PiB <- PebiByte EiB <- ExiByte ZiB <- ZebiByte YiB
 }
 \examples{
 binPrefix2Byte(c(0.5,1:10),"KiB")
-dec2bin(binPrefix2Byte(1,"KiB")*Byte())
+as.binary(binPrefix2Byte(1,"KiB")*Byte())
 }
 \seealso{
 \link{bytesNeeded} or \link{addUpToByte} or \link{Byte}

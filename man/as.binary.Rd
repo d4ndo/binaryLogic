@@ -1,8 +1,8 @@
 \name{as.binary}
 \alias{as.binary}
-\title{as Binary Vector}
+\title{as binary digit.}
 \usage{
-as.binary(x, signed=FALSE, littleEndian=FALSE)
+as.binary(x, signed=FALSE, littleEndian=FALSE, size=2)
 }
 \arguments{
   \item{x}{object to convert.}
@@ -11,12 +11,32 @@ as.binary(x, signed=FALSE, littleEndian=FALSE)
   complement)}
 
   \item{littleEndian}{if TRUE. Big Endian if FALSE.}
+
+  \item{size}{in Byte. Needed if »signed« is set. (by
+  default 2 Byte)}
 }
 \value{
 a binary vector.
 }
 \description{
-convert object to "binary".
+Converts any object to a binary number. Converts a
+decimal(Base10), hex(Base16) or oct(Base8) number to a
+binary(Base2) number. It also converts a logical or
+numerical vector to a binary(Base2) number (see examples).
+}
+\details{
+The binary number is represented by a logical vector. The
+Bit order usually follows the same endianess as the byte
+order. No floating-point support. \itemize{ \item Little
+Endian (LSB) ---> (MSB) \item Big Endian (MSB) <--- (LSB) }
+Auto switch to signed if num < 0.
+}
+\examples{
+as.binary(0xff)
+as.binary(42)
+as.binary(-1, signed=TRUE, size=1)
+as.binary(c(1,1,0), signed=TRUE)
+as.binary(c(TRUE,TRUE,FALSE), signed=TRUE, littleEndian=TRUE)
 }
 \seealso{
 \link{is.binary} and \link{binary}

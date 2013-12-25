@@ -7,9 +7,9 @@
 #' @param x The number to be negated. A binary vector is expected.
 #' @return The negated number of x. Returns a binary vector with signed=TRUE
 #' @examples
-#' summary(negate(dec2bin(5, signed=TRUE)))
-#' summary(negate(dec2bin(-5, signed=TRUE)))
-#' summary(negate(dec2bin(5, signed=FALSE)))
+#' summary(negate(as.binary(5, signed=TRUE)))
+#' summary(negate(as.binary(-5, signed=TRUE)))
+#' summary(negate(as.binary(5, signed=FALSE)))
 #' @seealso \link{switchEndianess} or \link{addUpToByte}.
 #' @export
 negate <- function(x) {
@@ -187,7 +187,7 @@ addUpToBit <- function(x, n, value=FALSE) {
 #' @examples
 #' x <- as.binary(c(1,1,0,0)); print(x); summary(x);
 #' y <- switchEndianess(x); print(y); summary(y);
-#' neg_two <- dec2bin(-2)
+#' neg_two <- as.binary(-2)
 #' as.raw(neg_two)
 #' as.raw(switchEndianess(neg_two))
 #' @seealso \link{negate} or \link{addUpToByte}.

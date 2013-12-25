@@ -8,8 +8,8 @@
 #' @param y summand 2 (binary vector)
 #' @return The sum of x and y. Returns a binary vector.
 #' @examples
-#' five <- dec2bin(5); ten <- dec2bin(10);
-#' bin2dec(binAdd(ten, five))
+#' five <- as.binary(5); ten <- as.binary(10);
+#' as.numeric(binAdd(ten, five))
 #' binAdd(as.binary(c(0,1)),as.binary(c(1,0)))
 #' @seealso base::as.logical , base::is.logical, base::raw
 #' @export

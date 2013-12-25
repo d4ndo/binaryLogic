@@ -15,7 +15,7 @@ A simple helper function that returns the minimum number of
 Byte needed to hold the amount of n Bit.
 }
 \examples{
-ten <- dec2bin(10)
+ten <- as.binary(10)
 bytesNeeded(length(ten))
 }
 \seealso{

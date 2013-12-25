@@ -16,7 +16,7 @@
 #' @return The number of bytes fitting in n * binary prefix * Byte
 #' @examples
 #' binPrefix2Byte(c(0.5,1:10),"KiB")
-#' dec2bin(binPrefix2Byte(1,"KiB")*Byte())
+#' as.binary(binPrefix2Byte(1,"KiB")*Byte())
 #' @seealso \link{bytesNeeded} or \link{addUpToByte} or \link{Byte}
 #' @export
 binPrefix2Byte <- function(n, prefix="KiB") {
@@ -52,7 +52,7 @@ binPrefix2Byte <- function(n, prefix="KiB") {
 #' @param n The number of Bit.
 #' @return The number of minimum Byte needed to hold n Bit.
 #' @examples
-#' ten <- dec2bin(10)
+#' ten <- as.binary(10)
 #' bytesNeeded(length(ten))
 #' @seealso \link{addUpToByte} or \link{binPrefix2Byte} or \link{Byte}
 #' @export

@@ -43,7 +43,7 @@ test_that("Return value", {
     expect_that(bin2dec(as.binary(c(1), littleEndian=TRUE)), is_equivalent_to(1))
     expect_that(bin2dec(as.binary(c(1,0,0,0,0,0,0,0), signed=TRUE, littleEndian=TRUE)), is_equivalent_to(1))
     expect_that(bin2dec(as.binary(c(0,0,0,0,0,0,0,1), signed=TRUE)), is_equivalent_to(1))
-    expect_that(bin2dec(as.binary(c(1,1,1,1)), hex=TRUE), is_equivalent_to(as.hexmode("f")))
+    expect_that(as.hexmode(bin2dec(as.binary(c(1,1,1,1)))), is_equivalent_to(as.hexmode("f")))
 })
 
 test_that("Warnings", {
