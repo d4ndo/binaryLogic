@@ -1,0 +1,27 @@
+\name{binSeq}
+\alias{binSeq}
+\title{binSeq}
+\usage{
+binSeq(x, n=0, ...)
+}
+\arguments{
+  \item{x}{a sequence.}
+
+  \item{n}{minimum size in Bit, Needed to add up zeros to
+  Bit n.}
+
+  \item{...}{used for dec2bin().}
+}
+\value{
+a sequence list of binary digits.
+}
+\description{
+binary Sequence
+}
+\examples{
+binSeq(0:4, n=3)
+}
+\seealso{
+\link{binary}
+}
+
