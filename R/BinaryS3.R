@@ -157,9 +157,11 @@ as.double.binary <- function(x, ...) {
 }
 
 ######## BINARY OPERATOR ########
-# Group Generic "Ops"
 
+
+#' @export
 Ops.binary <- function(e1, e2) {
+    # Group Generic "Ops"    
     boolean <- switch(.Generic,  '+' =, '-' =, '*' =, '/' =, '^' =, '%%' =, '%/%' = TRUE, FALSE)
     if (boolean) {
         l1 <- saveAttributes(e1)
