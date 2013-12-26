@@ -44,7 +44,7 @@ This class is just not that great at heavy number crunching, but it brings some 
 Operators
 ---------
 
-Compared with the operators of logical. The logical == operator compares every element of the vector (Bitwise comparison). e.g. 
+The logical == operator compares every element of the vector (Bitwise comparison). e.g. 
 
 ```R
 $ two <- as.binary(2); two <- as.logical(two); two == two;
