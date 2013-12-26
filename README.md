@@ -39,23 +39,52 @@ summary(the_answer_to_the_ultimate_question_of_life_the_universe_and_everything)
 Information
 -----------
 
-This class is just not that great at heavy number crunching, but it brings some benefits. Especially if you like to work using vectors in R. The »binary« class inherits from the »logical« class. Some function from Package binaryLogic can also be used on logical vectors like shiftLeft, shiftRight, rotate (see help).
+This class is just not that great at heavy number crunching, but it brings some benefits. Especially if you like to work using vectors in R. The »binary« class inherits from the »logical« class. Some function from package ``binaryLogic`` can be applied to logical vectors such as shift or rotate (see help).
 
-Some operators have a different behavior. The logical == operator compares every element of the vector (Bitwise comparison). e.g. 
+Operators
+---------
+
+Compared with the operators of logical. The logical == operator compares every element of the vector (Bitwise comparison). e.g. 
 
 ```R
 $ two <- as.binary(2); two <- as.logical(two); two == two;
 
 [1] TRUE TRUE
 ```
-The binary == operator compares the value. It does not distinguish between big and little endian.
+The binary == operator compares the value and it does not distinguish between big and little endian.
 
 ```R
 $ two <- as.binary(two); two == two;
 
 [1] TRUE
 ```
- 
+Behavior of operators:
+
+<table>
+  <tr>
+    <th>Operator</th><th>Behavior »Class Binary«</th>
+  </tr>
+  <tr>
+    <td>== or !=</td><td>Comparision by value</td>
+  </tr>
+  <tr>
+    <td>&lt; , &lt;= or > , >=</td><td>Bitwise comparison. The smaller vector will be repeated until it fits.</td>
+  </tr>
+  <tr>
+    <td>+ or -</td><td>Operations by value</td>
+  </tr>
+  </tr>
+  <tr>
+    <td>*, /, ^, %%, %/%</td><td>Bitwise Operations. The smaller vector will be repeated until it fits.</td>
+  </tr>
+  <tr>
+    <td>&, |, xor</td><td>Bitwise Operations. The smaller vector is added up  with zeros.</td>
+  </tr>
+  <tr>
+    <td>!</td><td>Bitwise Operations</td>
+  </tr>  
+</table>
+
 More Converting
 ---------------
 
