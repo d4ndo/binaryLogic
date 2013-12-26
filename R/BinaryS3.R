@@ -8,8 +8,8 @@
 #' \item Little Endian    (LSB) ---> (MSB)
 #' \item Big Endian       (MSB) <--- (LSB)
 #' }
-#' The »Big Endian« endianess stores its MSB at the 
-#' lowest adress and the »Little Endian« endianess stores its MSB at the highest adress.
+#' The Big Endian endianess stores its MSB at the lowest adress. 
+#' The Little Endian endianess stores its MSB at the highest adress.
 #' 
 #' e.g. b <-binary(8).
 #' \itemize{
@@ -121,6 +121,14 @@ is.binary <- function(x) {
     return(inherits(x, "binary"))
 }
 
+#' Print method for binary number.
+#' 
+#' @description This method prints the binary number.
+#' @usage print.binary(x, ...)
+#' @param x any binary number.
+#' @param ... further arguments.
+#' @return Output in ones and zeros (binary vector).
+#' @seealso \link{summary.binary} provides some additional information.
 #' @export
 print.binary <- function(x,...) {
     x <- ifelse(x, as.integer(1), as.integer(0))
@@ -128,6 +136,26 @@ print.binary <- function(x,...) {
     print.default(x,...)
 }
 
+#' Summary method for binary number.
+#' 
+#' @description This method provides information about the attributes of the binary number.
+#' @usage 
+#' ## S3 methode for class 'binary'
+#' summary(x, ...)
+#' @param x binary vector.
+#' @param ... further arguments.
+#' @return Contains the following information:
+#' \itemize{
+#' \item Signedness : unsigned or signed
+#' \item Endianess : Big-Endian or Little-Endian
+#' \item value<0 : negative or positve number
+#' \item Size[Bit] : Size in Bit
+#' \item Base10 : Decimal(Base10) number.
+#' }
+#' @seealso \link{print.binary}
+#' @examples
+#' summary(negate(as.binary(2, signed=TRUE, littleEndian=TRUE, size=1)))
+#' @method summary binary
 #' @export
 summary.binary <- function(object, ...) {
     #I'm not sure if this is the way to do it. just printing a dataframe.
@@ -295,6 +323,7 @@ rev.binary <- function(x) {
 }
 
 #Helper function
+#' @export
 saveAttributes <- function(x) {
     if(is.binary(x)) l <- list(class=c("binary","logical"),
                                      signed=attr(x,"signed"),
@@ -304,6 +333,7 @@ saveAttributes <- function(x) {
 }
 
 #Helper function
+#' @export
 loadAttributes <- function(x,l) {
     class(x) <- l$class
     attr(x, "signed") <- l$signed
