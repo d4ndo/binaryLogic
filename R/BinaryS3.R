@@ -256,6 +256,13 @@ Ops.binary <- function(e1, e2) {
         x <- loadAttributes(ret, l1)
         return(x)
     }
+    boolean <- switch(.Generic,  '<' =, '<=' =, '>' =, '>=' = TRUE, FALSE)
+    if (boolean) {
+        e1 <- as.numeric(e1)
+        e2 <- as.numeric(e2)
+        ret <- NextMethod(.Generic)
+        return(ret)
+    }
 }
 
 #' @export
