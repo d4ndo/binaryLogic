@@ -236,9 +236,15 @@ Ops.binary <- function(e1, e2) {
         x <- loadAttributes(ret,l1)
         return(x)
     }
-    boolean <- switch(.Generic,  '&' =, '|' = TRUE, FALSE)
+    boolean <- switch(.Generic,  '&' =, '|' =, 'xor' = TRUE, FALSE)
     if (boolean) {
         l1 <- saveAttributes(e1)
+        if (length(e1) < length(e2))
+        {
+            e1 <- addUpToBit(e1, value=FALSE, n=length(e2))
+        } else if (length(e2) < length(e1)) {
+            e2 <- addUpToBit(e2, value=FALSE, n=length(e1))
+        }
         ret <- NextMethod(.Generic)
         x <- loadAttributes(ret, l1)
         return(x)
@@ -247,23 +253,23 @@ Ops.binary <- function(e1, e2) {
     if (boolean) {
         l1 <- saveAttributes(e1)
         ret <- NextMethod(.Generic)
-        x <- loadAttributes(ret,l1)
+        x <- loadAttributes(ret, l1)
         return(x)
     }
 }
 
 #' @export
-'+.binary' <- function(x,y) {
+'+.binary' <- function(x, y) {
     binAdd(x, y)
 }
 
 #' @export
-'-.binary' <- function(x,y) {
+'-.binary' <- function(x, y) {
     binAdd(x, negate(y))
 }
 
 #' @export
-'==.binary' <- function(x,y) {
+'==.binary' <- function(x, y) {
     # attributes are saved @ group generic Ops.  
     if (attributes(x)$littleEndian) x <- switchEndianess(x)
     if (attributes(y)$littleEndian) y <- switchEndianess(y)
@@ -283,11 +289,11 @@ Ops.binary <- function(e1, e2) {
             x <- addUpToByte(x, value=FALSE, size=delta)
         }
     }
-    return(all(!xor(x,y)))
+    return(all(!xor(x, y)))
 }
 
 #' @export
-'!=.binary' <- function(x,y) {
+'!=.binary' <- function(x, y) {
     # attributes are saved @ group generic Ops.
     !(x == y)
 }
