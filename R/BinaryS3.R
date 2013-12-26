@@ -130,7 +130,7 @@ is.binary <- function(x) {
 #' @return Output in ones and zeros (binary vector).
 #' @seealso \link{summary.binary} provides some additional information.
 #' @export
-print.binary <- function(x,...) {
+print.binary <- function(x, ...) {
     x <- ifelse(x, as.integer(1), as.integer(0))
     attributes(x) <- NULL
     print.default(x,...)
