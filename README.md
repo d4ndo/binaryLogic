@@ -81,7 +81,7 @@ Behavior of operators:
     <td>&, |, xor</td><td>Bitwise Operations. The smaller vector is added up  with zeros.</td>
   </tr>
   <tr>
-    <td>!</td><td>Bitwise Operations</td>
+    <td>!</td><td>Indicates logical negation (NOT). Bitwise Operations</td>
   </tr>  
 </table>
 
