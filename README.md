@@ -47,6 +47,21 @@ The internal structure looks like this. It is composed of a »logical vector« a
 structure(c(TRUE, FALSE), class = c("binary", "logical"), signed = FALSE, littleEndian = FALSE)
 ```
 
+The binary number is represented by a logical vector. The Bit order usually follows the same endianess as the byte order. How to read:
+
+* Little Endian (LSB) —> (MSB)
+
+* Big Endian (MSB) <— (LSB)
+
+The Big Endian endianess stores its MSB at the lowest adress. 
+The Little Endian endianess stores its MSB at the highest adress.
+
+e.g. b <-binary(8):
+
+* »Little Endian« : MSB at b[1] and LSB at b[8].
+
+* »Big Endian« : LSB at b[1] and MSB at b[8].
+
 Operators
 ---------
 
