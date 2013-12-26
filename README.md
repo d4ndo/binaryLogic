@@ -41,6 +41,27 @@ Information
 
 This class is just not that great at heavy number crunching, but it brings some benefits. Especially if you like to work using vectors in R. The »binary« class inherits from the »logical« class. Some function from package ``binaryLogic`` can be applied to logical vectors such as shift or rotate (see help).
 
+The internal structure looks like this. It is composed of a »logical vector« and several attributes. In this example(Big-Endian), it corresponds to the value = 2(Base10).
+
+```R
+structure(c(TRUE, FALSE), class = c("binary", "logical"), signed = FALSE, littleEndian = FALSE)
+```
+
+The binary number is represented by a logical vector. The Bit order usually follows the same endianess as the byte order. How to read:
+
+* Little Endian (LSB) —> (MSB)
+
+* Big Endian (MSB) <— (LSB)
+
+The Big Endian endianess stores its MSB at the lowest adress. 
+The Little Endian endianess stores its MSB at the highest adress.
+
+e.g. b <-binary(8):
+
+* »Little Endian« : MSB at b[1] and LSB at b[8].
+
+* »Big Endian« : LSB at b[1] and MSB at b[8].
+
 Operators
 ---------
 
