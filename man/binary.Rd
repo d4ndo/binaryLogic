@@ -23,9 +23,9 @@ Create objects of type binary.
 The binary number is represented by a logical vector. The
 Bit order usually follows the same endianess as the byte
 order. How to read: \itemize{ \item Little Endian (LSB)
----> (MSB) \item Big Endian (MSB) <--- (LSB) } The »Big
-Endian« endianess stores its MSB at the lowest adress and
-the »Little Endian« endianess stores its MSB at the highest
+---> (MSB) \item Big Endian (MSB) <--- (LSB) } The Big
+Endian endianess stores its MSB at the lowest adress. The
+Little Endian endianess stores its MSB at the highest
 adress.
 
 e.g. b <-binary(8). \itemize{ \item »Little Endian« : MSB
