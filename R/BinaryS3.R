@@ -124,25 +124,22 @@ is.binary <- function(x) {
 #' Print method for binary number.
 #' 
 #' @description This method prints the binary number.
-#' @usage print.binary(x, ...)
 #' @param x any binary number.
 #' @param ... further arguments.
 #' @return Output in ones and zeros (binary vector).
 #' @seealso \link{summary.binary} provides some additional information.
+#' @method print binary
 #' @export
 print.binary <- function(x, ...) {
     x <- ifelse(x, as.integer(1), as.integer(0))
     attributes(x) <- NULL
-    print.default(x,...)
+    NextMethod(print.default)
 }
 
 #' Summary method for binary number.
 #' 
 #' @description This method provides information about the attributes of the binary number.
-#' @usage 
-#' ## S3 methode for class 'binary'
-#' summary(x, ...)
-#' @param x binary vector.
+#' @param object binary vector.
 #' @param ... further arguments.
 #' @return Contains the following information:
 #' \itemize{
@@ -153,8 +150,6 @@ print.binary <- function(x, ...) {
 #' \item Base10 : Decimal(Base10) number.
 #' }
 #' @seealso \link{print.binary}
-#' @examples
-#' summary(negate(as.binary(2, signed=TRUE, littleEndian=TRUE, size=1)))
 #' @method summary binary
 #' @export
 summary.binary <- function(object, ...) {
@@ -171,9 +166,9 @@ summary.binary <- function(object, ...) {
     if (l$signed) {
         signedness <- "signed"
         if (l$littleEndian) {
-            if(object[length(object)]) neg <- TRUE else neg <- FALSE
+            if (object[length(object)]) neg <- TRUE else neg <- FALSE
         } else {
-            if(object[1]) neg <- TRUE else neg <- FALSE
+            if (object[1]) neg <- TRUE else neg <- FALSE
         }
     } else {
         signedness <- "unsigned"
@@ -223,9 +218,12 @@ as.double.binary <- function(x, ...) {
     NextMethod(.Generic, ...)
 }
 
-######## BINARY OPERATOR ########
-
-
+#' Group Generic Ops
+#' 
+#' Group generic Ops operators
+#' @param e1 e1
+#' @param e2 e2
+#' @method Ops binary
 #' @export
 Ops.binary <- function(e1, e2) {
     # Group Generic "Ops"
@@ -349,7 +347,11 @@ rev.binary <- function(x) {
     return(x)
 }
 
-#Helper function
+#' saveAttributes
+#'  
+#' Helper function save Attributes
+#' @usage saveAttributes(x)
+#' @param x x
 #' @export
 saveAttributes <- function(x) {
     if(is.binary(x)) l <- list(class=c("binary","logical"),
@@ -359,9 +361,14 @@ saveAttributes <- function(x) {
     return(l)
 }
 
-#Helper function
+#' loadAttributes
+#'  
+#' Helper function load Attributes
+#' @usage loadAttributes(x, l)
+#' @param x x
+#' @param l l 
 #' @export
-loadAttributes <- function(x,l) {
+loadAttributes <- function(x, l) {
     class(x) <- l$class
     attr(x, "signed") <- l$signed
     attr(x, "littleEndian") <- l$littleEndian

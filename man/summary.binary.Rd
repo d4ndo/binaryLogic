@@ -2,11 +2,10 @@
 \alias{summary.binary}
 \title{Summary method for binary number.}
 \usage{
-## S3 methode for class 'binary'
-summary(x, ...)
+\method{summary}{binary}(object, ...)
 }
 \arguments{
-  \item{x}{binary vector.}
+  \item{object}{binary vector.}
 
   \item{...}{further arguments.}
 }
@@ -20,9 +19,6 @@ Decimal(Base10) number. }
 \description{
 This method provides information about the attributes of
 the binary number.
-}
-\examples{
-summary(negate(as.binary(2, signed=TRUE, littleEndian=TRUE, size=1)))
 }
 \seealso{
 \link{print.binary}

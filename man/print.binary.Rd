@@ -2,7 +2,7 @@
 \alias{print.binary}
 \title{Print method for binary number.}
 \usage{
-print.binary(x, ...)
+\method{print}{binary}(x, ...)
 }
 \arguments{
   \item{x}{any binary number.}
