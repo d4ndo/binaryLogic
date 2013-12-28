@@ -86,18 +86,21 @@ Behavior of operators:
     <th>Operator</th><th>Behavior »Class Binary«</th>
   </tr>
   <tr>
-    <td>== or !=</td><td>Comparision by value</td>
+    <td>== or !=</td><td>Comparision by value.</td>
   </tr>
   <tr>
-    <td>&lt; , &lt;= or > , >=</td><td>Bitwise comparison. The smaller vector will be repeated until it fits.</td>
+    <td>&lt; , &lt;= or > , >=</td><td>Comparision by value.</td>
   </tr>
   <tr>
-    <td>+ or -</td><td>Operations by value</td>
+    <td>+ or -</td><td>Operations by value.</td>
   </tr>
   </tr>
   <tr>
-    <td>*, /, ^, %%, %/%</td><td>Bitwise Operations. The smaller vector will be repeated until it fits.</td>
+    <td>*, ^, %%, %/%</td><td>Operations by value.</td>
   </tr>
+  <tr>
+    <td>/<td>Not supported.</td>
+  </tr>  
   <tr>
     <td>&, |, xor</td><td>Bitwise Operations. The smaller vector is added up  with zeros.</td>
   </tr>
