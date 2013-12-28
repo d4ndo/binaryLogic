@@ -16,9 +16,6 @@
 #' \item »Little Endian« : MSB at b[1] and LSB at b[8].
 #' \item »Big Endian« : LSB at b[1] and MSB at b[8].
 #' }
-#' Performance: This class is just not that great at heavy number crunching, 
-#' but it brings some benefits. Especially if you like to work using vectors in R.
-#' It is no problem to switch from logical to binary and vice versa.
 #' No floating-point support.
 #' @usage binary(n, signed=FALSE, littleEndian=FALSE)
 #' @param n length of vector. Number of bits
