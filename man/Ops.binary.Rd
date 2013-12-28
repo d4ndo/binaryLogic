@@ -1,0 +1,15 @@
+\name{Ops.binary}
+\alias{Ops.binary}
+\title{Group Generic Ops}
+\usage{
+\method{Ops}{binary}(e1, e2)
+}
+\arguments{
+  \item{e1}{e1}
+
+  \item{e2}{e2}
+}
+\description{
+Group generic Ops operators
+}
+
