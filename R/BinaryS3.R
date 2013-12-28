@@ -177,7 +177,7 @@ summary.binary <- function(object, ...) {
     print(df)
 }
 
-#' @export
+#' @S3method as.raw binary
 as.raw.binary <- function(x) {
     #b <- as.binary(rawToBits(r)) from raw to binary
     l <- saveAttributes(x)
@@ -196,20 +196,20 @@ as.raw.binary <- function(x) {
     NextMethod(.Generic)
 } #rseq = function(x,to=1) NROW(x):to
 
-#' @export
+#' @S3method as.character binary
 as.character.binary <- function(x, ...) {
     x <- as.integer(as.logical(x))
     NextMethod(.Generic, ...)
 }
 
-#' @export
+#' @S3method as.integer binary
 as.integer.binary <- function(x, ...) {
     #test for .Machine$integer.max
     x <- bin2dec(x)
     NextMethod(.Generic, ...)
 }
 
-#' @export
+#' @S3method as.double binary
 as.double.binary <- function(x, ...) {    
     x <- bin2dec(x)
     NextMethod(.Generic, ...)
