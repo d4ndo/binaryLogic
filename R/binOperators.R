@@ -13,7 +13,6 @@
 #' @seealso \link{switchEndianess} or \link{addUpToByte}.
 #' @export
 negate <- function(x) {
-    # !c(rep(0,Byte()-length(x)),x)
     stopifnot(is.binary(x))
     signed <- attributes(x)$signed
     if (all(!x)) return(binary(length(x)))
@@ -121,7 +120,6 @@ rotate <- function(x, n) {
 #' @seealso \link{addUpToBit} or \link{bytesNeeded}, \link{negate}, \link{switchEndianess}.
 #' @export 
 addUpToByte <- function(x, size=0, value=FALSE) {
-    #' !c(rep(0,Byte()-length(x)),x)    
     stopifnot(is.binary(x))
     l <- saveAttributes(x)    
     if (size == 0 && length(x) %% Byte() == 0) return(x)
@@ -158,7 +156,6 @@ addUpToByte <- function(x, size=0, value=FALSE) {
 #' @seealso \link{addUpToByte}.
 #' @export
 addUpToBit <- function(x, n, value=FALSE) {
-    #' !c(rep(0,Byte()-length(x)),x)    
     stopifnot(is.binary(x))
     if(missing(n)) stop("n is missing")
     stopifnot(n >= 0)
