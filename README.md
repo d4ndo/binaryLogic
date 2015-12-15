@@ -6,7 +6,7 @@ binaryLogic
 Binary Logic GNU R Package
 
 Convert, negate, shift and rotate binary digits.
-(switchEndianess, bytesNeeded, binaryPrefix, addUpToByte).
+(switchEndianess, bytesNeeded, binaryPrefix, fillUpToByte).
 
 ## Installation
 
@@ -62,7 +62,7 @@ Operators:
     <td>/<td>Not supported.</td>
   </tr>  
   <tr>
-    <td>&, |, xor</td><td>Bitwise Operations. The smaller vector is added up  with zeros.</td>
+    <td>&, |, xor</td><td>Bitwise Operations. The smaller vector is filled up  with zeros.</td>
   </tr>
   <tr>
     <td>!</td><td>Indicates logical negation (NOT). Bitwise Operations</td>
@@ -142,7 +142,7 @@ r <- packBits(c(rep(T,31), F)); b <- as.binary(r); as.raw(switchEndianess(b));
 
 Convert from ``logical`` to binary and vice versa.  ``as.binary(logical)`` - ``as.logical(binary)``. e.g.
 ```R
-b <- as.binary(c(TRUE,TRUE,FALSE,TRUE)); as.logical(addUpToByte(b));
+b <- as.binary(c(TRUE,TRUE,FALSE,TRUE)); as.logical(fillUpToByte(b));
 ```
 
 Convert from ``numeric`` to binary. ``as.binary(numeric)``. e.g.
