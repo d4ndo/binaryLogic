@@ -19,7 +19,7 @@ Everything on right(LSB) side drops out. Returns a binary/logical vector
 Logical right shift 1 >> n
 }
 \examples{
-x <- as.binary(c(1,0,0,1,1,1,0,1)); x
+x <- as.binary(c(1,0,0,1,1,1,0,1), logic=TRUE); x
 shiftRight(x,1)
 shiftRight(x,2)
 }

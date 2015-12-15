@@ -19,7 +19,7 @@ The value from MSB is used to fill up the vector at LSB. Returns a binary/logica
 A circular shift
 }
 \examples{
-x <- as.binary(c(1,0,0,1,1,1,0,1)); x
+x <- as.binary(c(1,0,0,1,1,1,0,1), logic=TRUE); x
 rotate(x,1)
 rotate(x,2)
 }

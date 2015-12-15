@@ -47,7 +47,7 @@ negate <- function(x) {
 #' @return Pushes 0's(FALSE) to the vector from right(LSB) to left(MSB).
 #' Everything on right(MSB) side drops out. Returns a binary/logical vector
 #' @examples
-#' x <- as.binary(c(1,0,0,1,1,1,0,1)); x
+#' x <- as.binary(c(1,0,0,1,1,1,0,1), logic=TRUE); x
 #' shiftLeft(x,1)
 #' shiftLeft(x,2)
 #' @seealso \link{shiftRight} and \link{rotate} 
@@ -69,7 +69,7 @@ shiftLeft <- function(x, n) {
 #' @return Pushes 0's(FALSE) to the vector from left(MSB) to right(LSB).
 #' Everything on right(LSB) side drops out. Returns a binary/logical vector
 #' @examples
-#' x <- as.binary(c(1,0,0,1,1,1,0,1)); x
+#' x <- as.binary(c(1,0,0,1,1,1,0,1), logic=TRUE); x
 #' shiftRight(x,1)
 #' shiftRight(x,2)
 #' @seealso \link{shiftLeft} and \link{rotate} 
@@ -91,7 +91,7 @@ shiftRight <- function(x, n) {
 #' @return rotates the vector from left to right. 
 #' The value from MSB is used to fill up the vector at LSB. Returns a binary/logical vector.
 #' @examples
-#' x <- as.binary(c(1,0,0,1,1,1,0,1)); x
+#' x <- as.binary(c(1,0,0,1,1,1,0,1), logic=TRUE); x
 #' rotate(x,1)
 #' rotate(x,2)
 #' @seealso \link{shiftLeft} and \link{shiftRight} 
@@ -115,8 +115,8 @@ rotate <- function(x, n) {
 #' @param size in Byte. 0 = auto (smallest possible Byte).
 #' @return binary number. A binary vector with the desired size.
 #' @examples
-#' fillUpToByte(as.binary(c(1,1)), size=2)
-#' fillUpToByte(as.binary(c(1,0,1)), size=2, value=FALSE)
+#' fillUpToByte(as.binary(c(1,1), logic=TRUE), size=2)
+#' fillUpToByte(as.binary(c(1,0,1), logic=TRUE), size=2, value=FALSE)
 #' @seealso \link{fillUpToBit} or \link{bytesNeeded}, \link{negate}, \link{switchEndianess}.
 #' @export 
 fillUpToByte <- function(x, size=0, value=FALSE) {
@@ -151,8 +151,8 @@ fillUpToByte <- function(x, size=0, value=FALSE) {
 #' @param n size in Bit.
 #' @return binary number. A binary vector with the desired size.
 #' @examples
-#' fillUpToBit(as.binary(c(1,1)), n=4)
-#' fillUpToBit(as.binary(c(1,0,1)), n=4, value=FALSE)
+#' fillUpToBit(as.binary(c(1,1), logic=TRUE), n=4)
+#' fillUpToBit(as.binary(c(1,0,1), logic=TRUE), n=4, value=FALSE)
 #' @seealso \link{fillUpToByte}.
 #' @export
 fillUpToBit <- function(x, n, value=FALSE) {
@@ -182,7 +182,7 @@ fillUpToBit <- function(x, n, value=FALSE) {
 #' @param x binary number. Any binary vector.
 #' @return switch little-endian to big-endian and vice versa.
 #' @examples
-#' x <- as.binary(c(1,1,0,0)); print(x); summary(x);
+#' x <- as.binary(c(1,1,0,0), logic=TRUE); print(x); summary(x);
 #' y <- switchEndianess(x); print(y); summary(y);
 #' neg_two <- as.binary(-2)
 #' as.raw(neg_two)

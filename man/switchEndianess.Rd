@@ -16,7 +16,7 @@ switch little-endian to big-endian and vice versa.
 switch little-endian to big-endian and vice versa.
 }
 \examples{
-x <- as.binary(c(1,1,0,0)); print(x); summary(x);
+x <- as.binary(c(1,1,0,0), logic=TRUE); print(x); summary(x);
 y <- switchEndianess(x); print(y); summary(y);
 neg_two <- as.binary(-2)
 as.raw(neg_two)
