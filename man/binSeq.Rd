@@ -4,7 +4,7 @@
 \alias{binSeq}
 \title{Binary sequence}
 \usage{
-binSeq(x, n=0, ...)
+binSeq(x, ...)
 }
 \arguments{
 \item{x}{a sequence.}

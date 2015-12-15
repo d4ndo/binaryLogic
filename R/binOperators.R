@@ -199,7 +199,7 @@ switchEndianess <- function(x) {
 #' Binary sequence
 #' 
 #' @description Binary sequence.
-#' @usage binSeq(x, n=0, ...)
+#' @usage binSeq(x, ...)
 #' @param x a sequence.
 #' @param ... used for dec2bin().
 #' @return a sequence list of binary digits.

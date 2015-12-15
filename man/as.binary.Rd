@@ -4,7 +4,7 @@
 \alias{as.binary}
 \title{as binary digit.}
 \usage{
-as.binary(x, signed=FALSE, littleEndian=FALSE, size=2)
+as.binary(x, signed=FALSE, littleEndian=FALSE, size=2, logic=FALSE)
 }
 \arguments{
 \item{x}{object to convert.}
