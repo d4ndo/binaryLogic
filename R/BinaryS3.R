@@ -36,19 +36,19 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
     class(x) <- c("binary", "logical")
     attr(x, "signed") <- signed
     attr(x, "littleEndian") <- littleEndian
-    if (signed) { x <- addUpToByte(x) }
+    if (signed) { x <- fillUpToByte(x) }
     return(x)
 }
 
 #' as binary digit.
 #' 
-#' @description Converts any object to a binary number.
-#' Converts a decimal(Base10), hex(Base16) or oct(Base8) number 
-#' to a binary(Base2) number. It also converts a logical or numerical vector 
+#' @description Converts an integer (Base10) 
+#' to a binary(Base2) number. It also converts a logical vector 
 #' to a binary(Base2) number (see examples).
 #' @details The binary number is represented by a logical vector.
 #' The Bit order usually follows the same endianess as the byte order.
-#' No floating-point support.
+#' No floating-point support. If logic is set to TRUE an integer vector 
+#' is intepreted as a logical vector (>0 becomes TRUE and 0 becomes FALSE)
 #' \itemize{
 #' \item Little Endian    (LSB) ---> (MSB)
 #' \item Big Endian       (MSB) <--- (LSB)
@@ -59,39 +59,34 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
 #' @param signed  TRUE or FALSE. Unsigned by default. (two's complement)
 #' @param littleEndian if TRUE. Big Endian if FALSE.
 #' @param size in Byte. Needed if »signed« is set. (by default 2 Byte)
+#' @param logic If set to TRUE, x is expected as logical vector.
 #' @return a binary vector.
 #' @examples
 #' as.binary(0xff)
 #' as.binary(42)
 #' as.binary(-1, signed=TRUE, size=1)
-#' as.binary(c(1,1,0), signed=TRUE) 
-#' as.binary(c(TRUE,TRUE,FALSE), signed=TRUE, littleEndian=TRUE)
+#' as.binary(c(1,1,0), signed=TRUE, logic=TRUE) 
+#' as.binary(c(TRUE,TRUE,FALSE), signed=TRUE, littleEndian=TRUE, logic=TRUE)
 #' @seealso \link{is.binary} and \link{binary}
 #' @export
-as.binary <- function(x, signed=FALSE, littleEndian=FALSE, size=2) {
+as.binary <- function(x, signed=FALSE, littleEndian=FALSE, size=2, logic=FALSE) {
     if (!inherits(x, "binary")) {
-        if (is.numeric(x) && length(x) == 1)
+        if (logic == FALSE)
         {
-            x <- dec2bin(x, signed=signed, littleEndian=littleEndian, size=size)
-        } else if (is.logical(x) || is.numeric(x) && length(x) > 1) {
+            x <- binSeq(x, signed=signed, littleEndian=littleEndian, size=size)
+        } else {
             x <- as.logical(x)
             class(x) <- c("binary", "logical")
             attr(x, "signed") <- signed
             attr(x, "littleEndian") <- littleEndian
-            if (signed) x <- addUpToByte(x)
-        } else if (is.raw(x)) {
-            x <- as.logical(rawToBits(x))
-            class(x) <- c("binary", "logical")
-            attr(x, "signed") <- signed
-            attr(x, "littleEndian") <- littleEndian
-            if (signed) x <- addUpToByte(x)
+            if (signed) x <- fillUpToByte(x)
         }
     } else {
         l <- saveAttributes(x)
         if (signed) {
             l$signed <- TRUE
             #attr(x, "signed") <- TRUE
-            x <- addUpToByte(x)
+            x <- fillUpToByte(x)
         } else {
             l$signed <- FALSE
             #attr(x, "signed") <- FALSE
@@ -177,11 +172,11 @@ summary.binary <- function(object, ...) {
     print(df)
 }
 
-#' @export as.raw binary
+#' @export
 as.raw.binary <- function(x) {
     #b <- as.binary(rawToBits(r)) from raw to binary
     l <- saveAttributes(x)
-    x <- addUpToByte(x, size=bytesNeeded(length(x)))
+    x <- fillUpToByte(x, size=bytesNeeded(length(x)))
     xx <- logical(0)
     
     if (!l$littleEndian) x <- rev(x)
@@ -196,20 +191,20 @@ as.raw.binary <- function(x) {
     NextMethod(.Generic)
 } #rseq = function(x,to=1) NROW(x):to
 
-#' @export as.character binary
+#' @export
 as.character.binary <- function(x, ...) {
     x <- as.integer(as.logical(x))
     NextMethod(.Generic, ...)
 }
 
-#' @export as.integer binary
+#' @export
 as.integer.binary <- function(x, ...) {
     #test for .Machine$integer.max
     x <- bin2dec(x)
     NextMethod(.Generic, ...)
 }
 
-#' @export as.double binary
+#' @export
 as.double.binary <- function(x, ...) {    
     x <- bin2dec(x)
     NextMethod(.Generic, ...)
@@ -250,9 +245,9 @@ Ops.binary <- function(e1, e2) {
         l1 <- saveAttributes(e1)
         if (length(e1) < length(e2))
         {
-            e1 <- addUpToBit(e1, value=FALSE, n=length(e2))
+            e1 <- fillUpToBit(e1, value=FALSE, n=length(e2))
         } else if (length(e2) < length(e1)) {
-            e2 <- addUpToBit(e2, value=FALSE, n=length(e1))
+            e2 <- fillUpToBit(e2, value=FALSE, n=length(e1))
         }
         ret <- NextMethod(.Generic)
         x <- loadAttributes(ret, l1)
@@ -293,16 +288,16 @@ Ops.binary <- function(e1, e2) {
     if (length(x) > length(y)) {
         delta <- bytesNeeded(length(x))
         if (attributes(y)$signed) {
-            y <- addUpToByte(y, value=TRUE, size=delta)
+            y <- fillUpToByte(y, value=TRUE, size=delta)
         } else {
-            y <- addUpToByte(y, value=FALSE, size=delta)
+            y <- fillUpToByte(y, value=FALSE, size=delta)
         }
     } else if (length(x) < length(y)) {
         delta <- bytesNeeded(length(y))
         if (attributes(x)$signed) {
-            x <- addUpToByte(x, value=TRUE, size=delta)
+            x <- fillUpToByte(x, value=TRUE, size=delta)
         } else {
-            x <- addUpToByte(x, value=FALSE, size=delta)
+            x <- fillUpToByte(x, value=FALSE, size=delta)
         }
     }
     return(all(!xor(x, y)))
@@ -378,7 +373,7 @@ dec2bin <- function(num, signed=FALSE, littleEndian=FALSE, size=2) {
     if (signed && (((num > ((2^(size*Byte())/2)-1))) || 
                        (num < ((-1)*(2^(size*Byte())/2)))))
         stop("Out of Range. Please increase the size[Byte]")
-    
+
     l <- list(class=c("binary","logical"),
               signed=signed,
               littleEndian=littleEndian)
@@ -403,7 +398,7 @@ dec2bin <- function(num, signed=FALSE, littleEndian=FALSE, size=2) {
     if (neg)
     {
         b <- !rev(b)
-        b <- rev(binAdd(as.binary(b, signed=TRUE), as.binary(TRUE)))
+        b <- rev(binAdd(as.binary(b, signed=TRUE, logic=TRUE), as.binary(1, signed=TRUE, logic=TRUE)))
     }
     if(!l$littleEndian) b <- rev(b)
     loadAttributes(b, l)

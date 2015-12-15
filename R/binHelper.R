@@ -17,7 +17,7 @@
 #' @examples
 #' binPrefix2Byte(c(0.5,1:10),"KiB")
 #' as.binary(binPrefix2Byte(1,"KiB")*Byte())
-#' @seealso \link{bytesNeeded} or \link{addUpToByte} or \link{Byte}
+#' @seealso \link{bytesNeeded} or \link{fillUpToByte} or \link{Byte}
 #' @export
 binPrefix2Byte <- function(n, prefix="KiB") {
     stopifnot(all(is.numeric(n) || is.na(n)))
@@ -54,7 +54,7 @@ binPrefix2Byte <- function(n, prefix="KiB") {
 #' @examples
 #' ten <- as.binary(10)
 #' bytesNeeded(length(ten))
-#' @seealso \link{addUpToByte} or \link{binPrefix2Byte} or \link{Byte}
+#' @seealso \link{fillUpToByte} or \link{binPrefix2Byte} or \link{Byte}
 #' @export
 bytesNeeded <- function(n) {
     stopifnot(all(is.numeric(n) || is.na(n)))
@@ -68,7 +68,7 @@ bytesNeeded <- function(n) {
 #' @description Used to increase readabilaty
 #' @usage Byte()
 #' @return The size of one Byte (8)
-#' @seealso \link{bytesNeeded} or \link{addUpToByte} or \link{binPrefix2Byte} 
+#' @seealso \link{bytesNeeded} or \link{fillUpToByte} or \link{binPrefix2Byte} 
 #' @export
 Byte <- function() {
     return(8)
