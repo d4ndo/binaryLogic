@@ -114,28 +114,28 @@ test_that("Return rotate", {
     expect_that(rotate(l2, 3), equals(l5))      
 })
 
-context("Test addUpToByte")
+context("Test fillUpToByte")
 
 test_that("Lost Attributes", {
-    expect_that(class(addUpToByte(binary(Byte()), 2)), equals(c("binary","logical")))
-    expect_that(attr(addUpToByte(binary(Byte()), 2), "signed"), equals(FALSE))
-    expect_that(attr(addUpToByte(binary(Byte()), 2), "littleEndian"), equals(FALSE))
-    expect_that(attr(addUpToByte(binary(Byte(), signed=TRUE), 2), "signed"), equals(TRUE))
-    expect_that(attr(addUpToByte(binary(Byte(), littleEndian=TRUE), 2), "littleEndian"), equals(TRUE))
+    expect_that(class(fillUpToByte(binary(Byte()), 2)), equals(c("binary","logical")))
+    expect_that(attr(fillUpToByte(binary(Byte()), 2), "signed"), equals(FALSE))
+    expect_that(attr(fillUpToByte(binary(Byte()), 2), "littleEndian"), equals(FALSE))
+    expect_that(attr(fillUpToByte(binary(Byte(), signed=TRUE), 2), "signed"), equals(TRUE))
+    expect_that(attr(fillUpToByte(binary(Byte(), littleEndian=TRUE), 2), "littleEndian"), equals(TRUE))
 })
 
-input1 <- as.binary(c(TRUE,TRUE,FALSE,TRUE))
-l2 <- as.binary(c(FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,TRUE))
-l3 <- as.binary(c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE))
-input2 <- as.binary(c(TRUE,TRUE,FALSE,TRUE), littleEndian=TRUE)
-l4 <- as.binary(c(TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE), littleEndian=TRUE)
-l5 <- as.binary(c(TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,TRUE), littleEndian=TRUE)
+input1 <- as.binary(c(TRUE,TRUE,FALSE,TRUE), logic=TRUE)
+l2 <- as.binary(c(FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,TRUE), logic=TRUE)
+l3 <- as.binary(c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,TRUE), logic=TRUE)
+input2 <- as.binary(c(TRUE,TRUE,FALSE,TRUE), littleEndian=TRUE, logic=TRUE)
+l4 <- as.binary(c(TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE), littleEndian=TRUE, logic=TRUE)
+l5 <- as.binary(c(TRUE,TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,TRUE), littleEndian=TRUE, logic=TRUE)
 
-test_that("Return addUpToByte", {
-    expect_that(addUpToByte(input1, value=FALSE, size=1), equals(l2))
-    expect_that(addUpToByte(input1, value=TRUE, size=1), equals(l3))
-    expect_that(addUpToByte(input2, value=FALSE, size=1), equals(l4))
-    expect_that(addUpToByte(input2, value=TRUE, size=1), equals(l5))    
+test_that("Return fillUpToByte", {
+    expect_that(fillUpToByte(input1, value=FALSE, size=1), equals(l2))
+    expect_that(fillUpToByte(input1, value=TRUE, size=1), equals(l3))
+    expect_that(fillUpToByte(input2, value=FALSE, size=1), equals(l4))
+    expect_that(fillUpToByte(input2, value=TRUE, size=1), equals(l5))    
 })
 
 context("Test switchEndianess")
@@ -148,10 +148,10 @@ test_that("Lost Attributes", {
     expect_that(attr(switchEndianess(binary(Byte(), littleEndian=TRUE)), "littleEndian"), equals(FALSE))
 })
 
-s1 <- as.binary(c(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE))
-s2 <- as.binary(c(TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE), littleEndian=TRUE)
-s3 <- as.binary(c(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE), signed=TRUE)
-s4 <- as.binary(c(TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE), signed=TRUE, littleEndian=TRUE)
+s1 <- as.binary(c(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE), logic=TRUE)
+s2 <- as.binary(c(TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE), littleEndian=TRUE, logic=TRUE)
+s3 <- as.binary(c(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE), signed=TRUE, logic=TRUE)
+s4 <- as.binary(c(TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE), signed=TRUE, littleEndian=TRUE, logic=TRUE)
 
 test_that("Return switchEndianess", {
     expect_that(switchEndianess(s1), equals(s2))
