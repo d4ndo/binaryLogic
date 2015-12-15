@@ -32,6 +32,6 @@ binPrefix2Byte(c(0.5,1:10),"KiB")
 as.binary(binPrefix2Byte(1,"KiB")*Byte())
 }
 \seealso{
-\link{bytesNeeded} or \link{addUpToByte} or \link{Byte}
+\link{bytesNeeded} or \link{fillUpToByte} or \link{Byte}
 }
 

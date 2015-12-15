@@ -23,6 +23,6 @@ as.raw(neg_two)
 as.raw(switchEndianess(neg_two))
 }
 \seealso{
-\link{negate} or \link{addUpToByte}.
+\link{negate} or \link{fillUpToByte}.
 }
 

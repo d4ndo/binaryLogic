@@ -25,6 +25,6 @@ summary(negate(as.binary(-5, signed=TRUE)))
 summary(negate(as.binary(5, signed=FALSE)))
 }
 \seealso{
-\link{switchEndianess} or \link{addUpToByte}.
+\link{switchEndianess} or \link{fillUpToByte}.
 }
 

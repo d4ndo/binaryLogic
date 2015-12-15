@@ -2,14 +2,12 @@
 % Please edit documentation in R/binOperators.R
 \name{binSeq}
 \alias{binSeq}
-\title{binSeq}
+\title{Binary sequence}
 \usage{
 binSeq(x, n=0, ...)
 }
 \arguments{
 \item{x}{a sequence.}
-
-\item{n}{minimum size in Bit, Needed to add up zeros to Bit n.}
 
 \item{...}{used for dec2bin().}
 }
@@ -17,10 +15,10 @@ binSeq(x, n=0, ...)
 a sequence list of binary digits.
 }
 \description{
-binary Sequence
+Binary sequence.
 }
 \examples{
-binSeq(0:4, n=3)
+binSeq(0:4)
 }
 \seealso{
 \link{binary}

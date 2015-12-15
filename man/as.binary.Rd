@@ -14,20 +14,22 @@ as.binary(x, signed=FALSE, littleEndian=FALSE, size=2)
 \item{littleEndian}{if TRUE. Big Endian if FALSE.}
 
 \item{size}{in Byte. Needed if »signed« is set. (by default 2 Byte)}
+
+\item{logic}{If set to TRUE, x is expected as logical vector.}
 }
 \value{
 a binary vector.
 }
 \description{
-Converts any object to a binary number.
-Converts a decimal(Base10), hex(Base16) or oct(Base8) number 
-to a binary(Base2) number. It also converts a logical or numerical vector 
+Converts an integer (Base10) 
+to a binary(Base2) number. It also converts a logical vector 
 to a binary(Base2) number (see examples).
 }
 \details{
 The binary number is represented by a logical vector.
 The Bit order usually follows the same endianess as the byte order.
-No floating-point support.
+No floating-point support. If logic is set to TRUE an integer vector 
+is intepreted as a logical vector (>0 becomes TRUE and 0 becomes FALSE)
 \itemize{
 \item Little Endian    (LSB) ---> (MSB)
 \item Big Endian       (MSB) <--- (LSB)
@@ -38,8 +40,8 @@ Auto switch to signed if num < 0.
 as.binary(0xff)
 as.binary(42)
 as.binary(-1, signed=TRUE, size=1)
-as.binary(c(1,1,0), signed=TRUE) 
-as.binary(c(TRUE,TRUE,FALSE), signed=TRUE, littleEndian=TRUE)
+as.binary(c(1,1,0), signed=TRUE, logic=TRUE) 
+as.binary(c(TRUE,TRUE,FALSE), signed=TRUE, littleEndian=TRUE, logic=TRUE)
 }
 \seealso{
 \link{is.binary} and \link{binary}

@@ -10,7 +10,7 @@ This package contains the \strong{\link{binary}} S3 class.
 A data object can be instantiated to store a binary number(Base2).
 
 It can be used to convert, negate, shift or rotate the binary number.
-(switchEndianess, BytesNeeded, binaryPrefix, addUpToByte).
+(switchEndianess, BytesNeeded, binaryPrefix, fillUpToByte).
 
 Binary operators:
 \itemize{
@@ -30,7 +30,7 @@ binaryLogic functions:
 
 Additional function:
 \itemize{
- \item \link{addUpToByte}, \link{addUpToBit}
+ \item \link{fillUpToByte}, \link{fillUpToBit}
  \item \link{bytesNeeded}
  \item \link{binPrefix2Byte}
  \item  \link{Byte}
@@ -45,7 +45,7 @@ The internal structure looks like this:
 
 \code{structure(c(TRUE, FALSE), class = c("binary", "logical"), signed = FALSE, littleEndian = FALSE)}
 
-It is composed of a \emph{logical} vector and several attributes. In this example(Big-Endian), 
+It is composed of a \emph{logical} vector and several attributes. This structure shows a big endian number, 
 it corresponds to the value = 2(Base10).
 }
 

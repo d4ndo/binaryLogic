@@ -21,6 +21,6 @@ ten <- as.binary(10)
 bytesNeeded(length(ten))
 }
 \seealso{
-\link{addUpToByte} or \link{binPrefix2Byte} or \link{Byte}
+\link{fillUpToByte} or \link{binPrefix2Byte} or \link{Byte}
 }
 
