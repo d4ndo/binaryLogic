@@ -1,13 +1,16 @@
 Package: binaryLogic
-Title: Binary Logic. »binary number system« convert, shift, rotate ..
-Description: Binary Logic. (convert, shift, rotate, ..) using logical vectors.
-Version: 0.2.3
-Author: Daniel Dörrhöfer <dando@gmx.de>
-Maintainer: Daniel Dörrhöfer <dando@gmx.de>
+Title: Binary Logic GNU R Package
+Description: (convert, shift, rotate, summary) using logical vectors.
+Version: 0.2.4
+Author: Daniel Dörrhöfer <ddo@openmailbox.org>
+Maintainer: Daniel Dörrhöfer <ddo@openmailbox.org>
+URL: https://github.com/d4ndo/binaryLogic
+BugReports: https://github.com/d4ndo/binaryLogic/issues
 Depends:
-    testthat,
     R (>= 3.0.2)
-License: GPL-3
+Suggests:
+    testthat
+License: GPL-3 + file LICENSE
 LazyData: true
 Encoding: UTF-8
 RoxygenNote: 5.0.1
