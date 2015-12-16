@@ -1,8 +1,8 @@
-#' Binary Object.
+#' Binary digit.
 #' 
 #' @description Create objects of type binary.
-#' @details The binary number is represented by a logical vector.
-#' The Bit order usually follows the same endianess as the byte order.
+#' @details The binary number is represented by a \emph{logical} vector.
+#' The bit order usually follows the same endianess as the byte order.
 #' How to read:
 #' \itemize{
 #' \item Little Endian    (LSB) ---> (MSB)
@@ -29,7 +29,7 @@
 #' summary(b)
 #' b <- binary(32, littleEndian=TRUE)
 #' summary(b)
-#' @seealso \link{as.binary} and \link{is.binary}. To convert a binary to raw please use \link{as.raw} (pay attention to the endianness).
+#' @seealso \link{as.binary} and \link{is.binary}.
 #' @export
 binary <- function(n, signed=FALSE, littleEndian=FALSE) {
     x <- logical(n)
@@ -46,7 +46,7 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
 #' to a binary (Base2) number. It also converts a logical vector 
 #' to a binary (Base2) number (see examples).
 #' @details The binary number is represented by a logical vector.
-#' The Bit order usually follows the same endianess as the byte order.
+#' The bit order usually follows the same endianess as the byte order.
 #' No floating-point support. If logic is set to TRUE an integer vector 
 #' is intepreted as a logical vector (>0 becomes TRUE and 0 becomes FALSE)
 #' \itemize{
@@ -141,7 +141,7 @@ print.binary <- function(x, ...) {
 #' \item Signedness : unsigned or signed
 #' \item Endianess : Big-Endian or Little-Endian
 #' \item value<0 : negative or positve number
-#' \item Size[Bit] : Size in Bit
+#' \item Size[bit] : Size in bit
 #' \item Base10 : Decimal(Base10) number.
 #' }
 #' @seealso \link{print.binary}
@@ -157,7 +157,7 @@ summary.binary <- function(object, ...) {
     size <- length(object)
     neg <- logical(1)
     
-    tableHead <- c("Signedness", "Endianess", "value<0", "Size[Bit]", "Base10")
+    tableHead <- c("Signedness", "Endianess", "value<0", "Size[bit]", "Base10")
     if (l$signed) {
         signedness <- "signed"
         if (l$littleEndian) {
@@ -194,17 +194,17 @@ as.raw.binary <- function(x) {
     NextMethod(.Generic)
 } #rseq = function(x,to=1) NROW(x):to
 
-#' @export
-as.hexmode.binary <- function(x) {
-    x <- bin2dec(x)
-    NextMethod(.Generic)
-}
+##' @export
+#as.hexmode.binary <- function(x) {
+#    x <- bin2dec(x)
+#    NextMethod(.Generic)
+#}
 
-#' @export
-as.octmode.binary <- function(x) {
-    x <- bin2dec(x)
-    NextMethod(.Generic)
-}
+##' @export
+#as.octmode.binary <- function(x) {
+#    x <- bin2dec(x)
+#    NextMethod(.Generic)
+#}
 
 #' @export
 as.character.binary <- function(x, ...) {
@@ -335,13 +335,6 @@ Ops.binary <- function(e1, e2) {
     return(x)
 }
 
-#c.binary <- function(...) {
-#    l <- saveAttributes(...)
-#    ret <- NextMethod(.Generic)
-#    x <- loadAttributes(ret,l)
-#    return(x)
-#}
-
 #' @export
 rev.binary <- function(x) {
     # this should not become a group generic. This function is an internal generic.
@@ -385,8 +378,8 @@ loadAttributes <- function(x, l) {
 # Helper function
 dec2bin <- function(num, signed=FALSE, littleEndian=FALSE, size=2) {
     # Very slow with negative numbers. (maybe binAdd)
-    if (signed && (((num > ((2^(size*Byte())/2)-1))) || 
-                       (num < ((-1)*(2^(size*Byte())/2)))))
+    if (signed && (((num > ((2^(size*byte())/2)-1))) || 
+                       (num < ((-1)*(2^(size*byte())/2)))))
         stop("Out of Range. Please increase the size[Byte]")
 
     l <- list(class=c("binary","logical"),
@@ -406,7 +399,7 @@ dec2bin <- function(num, signed=FALSE, littleEndian=FALSE, size=2) {
     #global read only for function h(num)
     ret <- h(num)
     
-    if(l$signed) b <- logical(size*Byte()) else b <- logical(max(ret)-1)
+    if(l$signed) b <- logical(size*byte()) else b <- logical(max(ret)-1)
     #do some optimization here.
     for (i in seq(length(b))) b[i] <- any(ifelse((ret-1)==i, TRUE, FALSE))
     
