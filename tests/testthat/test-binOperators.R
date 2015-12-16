@@ -1,14 +1,14 @@
 context("Test negate")
 
 test_that("Lost Attributes", {
-    expect_that(attr(negate(binary(Byte(), signed=TRUE)), "class"), equals(c("binary","logical")))
+    expect_that(attr(negate(binary(byte(), signed=TRUE)), "class"), equals(c("binary","logical")))
     expect_that(attr(negate(as.binary(2, signed=TRUE)), "littleEndian"), equals(FALSE))
     expect_that(attr(negate(as.binary(2, signed=TRUE)), "signed"), equals(TRUE))
     expect_that(attr(negate(as.binary(2, signed=TRUE, littleEndian=TRUE)), "littleEndian"), equals(TRUE))
 })
 
 test_that("Return negate", {
-    expect_that(as.numeric(negate(binary(Byte(), signed=TRUE))), equals(0))
+    expect_that(as.numeric(negate(binary(byte(), signed=TRUE))), equals(0))
     expect_that(as.numeric(negate(as.binary(0, signed=TRUE))), equals(0))
     expect_that(as.numeric(negate(as.binary(0, signed=FALSE))), equals(0))
     expect_that(as.numeric(negate(as.binary(0, signed=TRUE, littleEndian=TRUE))), equals(0))
@@ -25,12 +25,12 @@ test_that("Return negate", {
 context("Test shiftLeft")
 
 test_that("Lost Attributes", {
-    expect_that(class(shiftLeft(binary(Byte()),1)), equals(c("binary","logical")))
-    expect_that(attr(shiftLeft(binary(Byte()),1), "signed"), equals(FALSE))
-    expect_that(attr(shiftLeft(binary(Byte()),1), "littleEndian"), equals(FALSE))
-    expect_that(attr(shiftLeft(binary(Byte(), signed=TRUE),1), "signed"), equals(TRUE))
-    expect_that(attr(shiftLeft(binary(Byte(), littleEndian=TRUE),1), "littleEndian"), equals(TRUE))
-    expect_that(class(shiftLeft(logical(Byte()),1)), equals("logical"))
+    expect_that(class(shiftLeft(binary(byte()),1)), equals(c("binary","logical")))
+    expect_that(attr(shiftLeft(binary(byte()),1), "signed"), equals(FALSE))
+    expect_that(attr(shiftLeft(binary(byte()),1), "littleEndian"), equals(FALSE))
+    expect_that(attr(shiftLeft(binary(byte(), signed=TRUE),1), "signed"), equals(TRUE))
+    expect_that(attr(shiftLeft(binary(byte(), littleEndian=TRUE),1), "littleEndian"), equals(TRUE))
+    expect_that(class(shiftLeft(logical(byte()),1)), equals("logical"))
 })
 
 one <- as.binary(1, signed=TRUE, size=1)
@@ -41,8 +41,8 @@ l4 <- c(FALSE,TRUE,FALSE,FALSE)
 l5 <- c(TRUE,FALSE,FALSE,FALSE)
 
 test_that("Return shiftLeft", {
-    expect_that(length(shiftLeft(binary(Byte()), 1)), equals(Byte()))
-    expect_that(length(shiftLeft(logical(Byte()), 1)), equals(Byte()))
+    expect_that(length(shiftLeft(binary(byte()), 1)), equals(byte()))
+    expect_that(length(shiftLeft(logical(byte()), 1)), equals(byte()))
     expect_that(as.numeric(shiftLeft(one, 1)), equals(2))
     expect_that(as.numeric(shiftLeft(one, 2)), equals(4))
     expect_that(as.numeric(shiftLeft(one, 3)), equals(8))
@@ -50,19 +50,19 @@ test_that("Return shiftLeft", {
     expect_that(shiftLeft(l2, 1), equals(l3))
     expect_that(shiftLeft(l2, 2), equals(l4))
     expect_that(shiftLeft(l2, 3), equals(l5))
-    expect_that(class(shiftLeft(logical(Byte()),Byte() + 1)), equals("logical"))
+    expect_that(class(shiftLeft(logical(byte()),byte() + 1)), equals("logical"))
 })
 
 
 context("Test shiftRight")
 
 test_that("Lost Attributes", {
-    expect_that(class(shiftRight(binary(Byte()),1)), equals(c("binary","logical")))
-    expect_that(attr(shiftRight(binary(Byte()),1), "signed"), equals(FALSE))
-    expect_that(attr(shiftRight(binary(Byte()),1), "littleEndian"), equals(FALSE))
-    expect_that(attr(shiftRight(binary(Byte(), signed=TRUE),1), "signed"), equals(TRUE))
-    expect_that(attr(shiftRight(binary(Byte(), littleEndian=TRUE),1), "littleEndian"), equals(TRUE))
-    expect_that(class(shiftRight(logical(Byte()),1)), equals("logical"))
+    expect_that(class(shiftRight(binary(byte()),1)), equals(c("binary","logical")))
+    expect_that(attr(shiftRight(binary(byte()),1), "signed"), equals(FALSE))
+    expect_that(attr(shiftRight(binary(byte()),1), "littleEndian"), equals(FALSE))
+    expect_that(attr(shiftRight(binary(byte(), signed=TRUE),1), "signed"), equals(TRUE))
+    expect_that(attr(shiftRight(binary(byte(), littleEndian=TRUE),1), "littleEndian"), equals(TRUE))
+    expect_that(class(shiftRight(logical(byte()),1)), equals("logical"))
 })
 
 eight <- as.binary(8, signed=TRUE, size=1)
@@ -73,7 +73,7 @@ l4 <- c(FALSE,FALSE,TRUE,TRUE)
 l5 <- c(FALSE,FALSE,FALSE,TRUE)
 
 test_that("Return shiftRight", {
-    expect_that(length(shiftRight(binary(Byte()), 1)), equals(Byte()))
+    expect_that(length(shiftRight(binary(byte()), 1)), equals(byte()))
     expect_that(as.numeric(shiftRight(eight, 1)), equals(4))
     expect_that(as.numeric(shiftRight(eight, 2)), equals(2))
     expect_that(as.numeric(shiftRight(eight, 3)), equals(1))
@@ -82,18 +82,18 @@ test_that("Return shiftRight", {
     expect_that(shiftRight(l2, 1), equals(l3))
     expect_that(shiftRight(l2, 2), equals(l4))
     expect_that(shiftRight(l2, 3), equals(l5))
-    expect_that(class(shiftRight(logical(Byte()),Byte() + 1)), equals("logical"))
+    expect_that(class(shiftRight(logical(byte()),byte() + 1)), equals("logical"))
 })
 
 context("Test rotate")
 
 test_that("Lost Attributes", {
-    expect_that(class(rotate(binary(Byte()),1)), equals(c("binary","logical")))
-    expect_that(attr(rotate(binary(Byte()),1), "signed"), equals(FALSE))
-    expect_that(attr(rotate(binary(Byte()),1), "littleEndian"), equals(FALSE))
-    expect_that(attr(rotate(binary(Byte(), signed=TRUE),1), "signed"), equals(TRUE))
-    expect_that(attr(rotate(binary(Byte(), littleEndian=TRUE),1), "littleEndian"), equals(TRUE))
-    expect_that(class(rotate(logical(Byte()),1)), equals("logical"))
+    expect_that(class(rotate(binary(byte()),1)), equals(c("binary","logical")))
+    expect_that(attr(rotate(binary(byte()),1), "signed"), equals(FALSE))
+    expect_that(attr(rotate(binary(byte()),1), "littleEndian"), equals(FALSE))
+    expect_that(attr(rotate(binary(byte(), signed=TRUE),1), "signed"), equals(TRUE))
+    expect_that(attr(rotate(binary(byte(), littleEndian=TRUE),1), "littleEndian"), equals(TRUE))
+    expect_that(class(rotate(logical(byte()),1)), equals("logical"))
 })
 
 one <- as.binary(1, signed=TRUE, size=1)
@@ -104,7 +104,7 @@ l4 <- c(FALSE,TRUE,TRUE,TRUE)
 l5 <- c(TRUE,TRUE,TRUE,FALSE)
 
 test_that("Return rotate", {
-    expect_that(length(rotate(binary(Byte()), 1)), equals(Byte()))
+    expect_that(length(rotate(binary(byte()), 1)), equals(byte()))
     expect_that(as.numeric(rotate(one, 1)), equals(2))
     expect_that(as.numeric(rotate(one, 2)), equals(4))
     expect_that(as.numeric(rotate(one, 3)), equals(8))
@@ -117,11 +117,11 @@ test_that("Return rotate", {
 context("Test fillUpToByte")
 
 test_that("Lost Attributes", {
-    expect_that(class(fillUpToByte(binary(Byte()), 2)), equals(c("binary","logical")))
-    expect_that(attr(fillUpToByte(binary(Byte()), 2), "signed"), equals(FALSE))
-    expect_that(attr(fillUpToByte(binary(Byte()), 2), "littleEndian"), equals(FALSE))
-    expect_that(attr(fillUpToByte(binary(Byte(), signed=TRUE), 2), "signed"), equals(TRUE))
-    expect_that(attr(fillUpToByte(binary(Byte(), littleEndian=TRUE), 2), "littleEndian"), equals(TRUE))
+    expect_that(class(fillUpToByte(binary(byte()), 2)), equals(c("binary","logical")))
+    expect_that(attr(fillUpToByte(binary(byte()), 2), "signed"), equals(FALSE))
+    expect_that(attr(fillUpToByte(binary(byte()), 2), "littleEndian"), equals(FALSE))
+    expect_that(attr(fillUpToByte(binary(byte(), signed=TRUE), 2), "signed"), equals(TRUE))
+    expect_that(attr(fillUpToByte(binary(byte(), littleEndian=TRUE), 2), "littleEndian"), equals(TRUE))
 })
 
 input1 <- as.binary(c(TRUE,TRUE,FALSE,TRUE), logic=TRUE)
@@ -141,11 +141,11 @@ test_that("Return fillUpToByte", {
 context("Test switchEndianess")
 
 test_that("Lost Attributes", {
-    expect_that(class(switchEndianess(binary(Byte()))), equals(c("binary","logical")))
-    expect_that(attr(switchEndianess(binary(Byte())), "signed"), equals(FALSE))
-    expect_that(attr(switchEndianess(binary(Byte())), "littleEndian"), equals(TRUE))
-    expect_that(attr(switchEndianess(binary(Byte(), signed=TRUE)), "signed"), equals(TRUE))
-    expect_that(attr(switchEndianess(binary(Byte(), littleEndian=TRUE)), "littleEndian"), equals(FALSE))
+    expect_that(class(switchEndianess(binary(byte()))), equals(c("binary","logical")))
+    expect_that(attr(switchEndianess(binary(byte())), "signed"), equals(FALSE))
+    expect_that(attr(switchEndianess(binary(byte())), "littleEndian"), equals(TRUE))
+    expect_that(attr(switchEndianess(binary(byte(), signed=TRUE)), "signed"), equals(TRUE))
+    expect_that(attr(switchEndianess(binary(byte(), littleEndian=TRUE)), "littleEndian"), equals(FALSE))
 })
 
 s1 <- as.binary(c(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE), logic=TRUE)

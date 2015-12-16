@@ -1,8 +1,8 @@
 context("Test binary")
 
-b <- binary(Byte())
-bs <- binary(Byte(), signed=TRUE)
-bl <- binary(Byte(), littleEndian=TRUE)
+b <- binary(byte())
+bs <- binary(byte(), signed=TRUE)
+bl <- binary(byte(), littleEndian=TRUE)
 
 test_that("Lost Attributes", {
     expect_that(class(b), equals(c("binary","logical")))
@@ -16,10 +16,10 @@ attr(n, "signed") <- FALSE
 attr(n, "littleEndian") <- FALSE
     
 test_that("Return binary", {
-    expect_that(length(binary(Byte())), equals(Byte()))
-    expect_that(length(binary(Byte(), signed=TRUE)), equals(Byte()))
-    expect_that(length(binary(1, signed=TRUE)), equals(Byte()))
-    expect_that(binary(Byte()), equals(n))
+    expect_that(length(binary(byte())), equals(byte()))
+    expect_that(length(binary(byte(), signed=TRUE)), equals(byte()))
+    expect_that(length(binary(1, signed=TRUE)), equals(byte()))
+    expect_that(binary(byte()), equals(n))
 })
 
 context("Test as.binary")
@@ -28,9 +28,9 @@ b <- as.binary(rep(FALSE,8), logic=TRUE)
 bs <- as.binary(rep(FALSE,8), signed=TRUE, logic=TRUE)
 bs2 <- as.binary(rep(FALSE,1), signed=TRUE, logic=TRUE)
 bl <- as.binary(rep(FALSE,8), littleEndian=TRUE, logic=TRUE)
-bl2b <- binary(Byte(), littleEndian=TRUE)
+bl2b <- binary(byte(), littleEndian=TRUE)
 bl2b <- as.binary(bl2b, littleEndian=FALSE)
-bs2u <- binary(Byte(), signed=TRUE)
+bs2u <- binary(byte(), signed=TRUE)
 bs2u <- as.binary(bs2u, signed=FALSE)
 
 test_that("Lost Attributes", {
@@ -44,8 +44,8 @@ test_that("Lost Attributes", {
 })
 
 test_that("Return as.binary", {
-    expect_that(length(b), equals(Byte()))
-    expect_that(length(bs2), equals(Byte()))    
+    expect_that(length(b), equals(byte()))
+    expect_that(length(bs2), equals(byte()))    
 })
 
 context("Test some converting")
@@ -344,9 +344,9 @@ test_that("Return -", {
 
 context("Test '[.binary'")
 
-b <- binary(Byte())
-sb <- binary(Byte(), signed=TRUE)
-lb <- binary(Byte(), littleEndian=TRUE)
+b <- binary(byte())
+sb <- binary(byte(), signed=TRUE)
+lb <- binary(byte(), littleEndian=TRUE)
 
 test_that("Lost Attributes", {
     expect_that(attr(b[length(b):1], "class"), equals(c("binary","logical")))
@@ -358,9 +358,9 @@ test_that("Lost Attributes", {
 
 context("Test rev")
 
-b <- binary(Byte())
-sb <- binary(Byte(), signed=TRUE)
-lb <- binary(Byte(), littleEndian=TRUE)
+b <- binary(byte())
+sb <- binary(byte(), signed=TRUE)
+lb <- binary(byte(), littleEndian=TRUE)
 
 test_that("Lost Attributes", {
     expect_that(attr(rev(b), "class"), equals(c("binary","logical")))
