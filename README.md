@@ -134,25 +134,47 @@ e.g. b <-binary(8):
 
 More Converting
 ---------------
+### Integer
 
-Convert from ``raw`` to binary and vice versa.  ``as.binary(raw) `` - ``as.raw(binary)``. e.g.
 ```R
-r <- packBits(c(rep(T,31), F)); b <- as.binary(r); as.raw(switchEndianess(b));
-```
+as.binary(0xAF)
+[1] 1 0 1 0 1 1 1 1
 
-Convert from ``logical`` to binary and vice versa.  ``as.binary(logical)`` - ``as.logical(binary)``. e.g.
-```R
-b <- as.binary(c(TRUE,TRUE,FALSE,TRUE)); as.logical(fillUpToByte(b));
-```
-
-Convert from ``numeric`` to binary. ``as.binary(numeric)``. e.g.
-```R
 as.binary(42)
-# A numeric vector is interpreted differently. Same result as above.
-as.binary(c(1,0,1,0,1,0))
+[1] 1 0 1 0 1 0
+
+as.binary(42, littleEndian=TRUE)
+[1] 0 1 0 1 0 1
+
+as.binary(c(0xAF, 0xBF, 0xFF))
+[[1]]
+[1] 1 0 1 0 1 1 1 1
+
+[[2]]
+[1] 1 0 1 1 1 1 1 1
+
+[[3]]
+[1] 1 1 1 1 1 1 1 1
+
+as.binary(c(2,4,8,16), signed=TRUE, size=1)
+[[1]]
+[1] 0 0 0 0 0 0 1 0
+
+[[2]]
+[1] 0 0 0 0 0 1 0 0
+
+[[3]]
+[1] 0 0 0 0 1 0 0 0
+
+[[4]]
+[1] 0 0 0 1 0 0 0 0
+
+as.binary(-1, signed=TRUE, size=1)
+[1] 1 1 1 1 1 1 1 1
 ```
 
-Convert from binary to ``numeric`` as type of ``double`` or ``integer``. ``as.numeric(binary)`` - ``as.double(binary)`` - ``as.integer(binary)``. e.g.
+other way around
+
 ```R
 two <- as.binary(2, signed=TRUE, size=4)
 as.integer(negate(two))
@@ -161,7 +183,54 @@ as.double(two)
 # alias for
 as.numeric(two)
 ```
-.
+
+### Logical
+
+
+```R
+as.binary(c(1,1,0), signed=TRUE, logic=TRUE)
+[1] 0 0 0 0 0 1 1 0
+
+as.binary(c(TRUE,TRUE,FALSE), logic=TRUE)
+[1] 1 1 0
+
+bigEndian <- as.binary(c(1,1,0,0), logic=TRUE)
+summary(bigEndian)
+Signedness  Endianess value<0 Size[Bit] Base10
+unsigned    Big-Endian  FALSE         4     12
+
+littleEndian <- switchEndianess(bigEndian)
+print(littleEndian)
+[1] 0 0 1 1
+
+littleEndian <- as.binary(bigEndian, littleEndian=TRUE)
+print(littleEndian)
+[1] 1 1 0 0
+
+summary(littleEndian)
+Signedness     Endianess value<0 Size[Bit] Base10
+unsigned   Little-Endian   FALSE         4      3
+```
+
+other way around
+
+```R
+as.logical(as.binary(2))
+[1]  TRUE FALSE
+```
+
+### Raw
+
+```R
+b <- as.binary(charToRaw("A")); 
+summary(b);
+ Signedness  Endianess value<0 Size[Bit] Base10
+ unsigned   Big-Endian   FALSE         7     65
+
+as.raw(b);
+[1] 41
+```
+
 
 
 
