@@ -21,8 +21,8 @@ negate <- function(x) {
 
     if (littleEndian) x <- rev(x)
     
-    if (length(x) %% Byte() != 0) {
-        MAX <- (trunc((length(x)/Byte())) +1) * Byte()
+    if (length(x) %% byte() != 0) {
+        MAX <- (trunc((length(x)/byte())) +1) * byte()
         a <- rep(FALSE, MAX - length(x))
         a <- as.binary(a, littleEndian=littleEndian, logic=TRUE)
         # 'c.binary'(x,y) needs to be implemented
@@ -122,13 +122,13 @@ rotate <- function(x, n) {
 fillUpToByte <- function(x, size=0, value=FALSE) {
     stopifnot(is.binary(x))
     l <- saveAttributes(x)
-    if (size == 0 && length(x) %% Byte() == 0) return(x)
-    if (size > 0 && length(x) >= size * Byte()) return(x)
+    if (size == 0 && length(x) %% byte() == 0) return(x)
+    if (size > 0 && length(x) >= size * byte()) return(x)
 
     if (size == 0) {
-        append <- binary(((trunc((length(x) / Byte())) +1) * Byte()) - length(x))
+        append <- binary(((trunc((length(x) / byte())) +1) * byte()) - length(x))
     } else {
-        append <- binary(size * Byte() - length(x))
+        append <- binary(size * byte() - length(x))
     }
     append[1:length(append)] <- value
 
@@ -141,14 +141,14 @@ fillUpToByte <- function(x, size=0, value=FALSE) {
     return(x)
 }
 
-#' Fill up to Bit (000..)
+#' Fill up to bit (000..)
 #'
-#' @description Fills up the binary number with zeros(0) or ones(1), to the size n in Bit.
+#' @description Fills up the binary number with zeros(0) or ones(1), to the size n in bit.
 #' @details No floating point supported.
 #' @usage fillUpToBit(x, n, value=FALSE)
 #' @param x The binary number to fill up with zeros. (Any binary vector).
 #' @param value to fill up with FALSE(0) or fill up with TRUE(1).
-#' @param n size in Bit.
+#' @param n size in bit.
 #' @return binary number. A binary vector with the desired size.
 #' @examples
 #' fillUpToBit(as.binary(c(1,1), logic=TRUE), n=4)

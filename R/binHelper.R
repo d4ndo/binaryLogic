@@ -1,6 +1,6 @@
-#' Binary prefix to Byte. (KiB,MiB,..)
+#' Binary prefix (KiB,MiB,..)
 #'
-#' @description Amount of Bytes needed to fit in n * KiB, MiB ..etc.
+#' @description Num of byte needed to fit in n * KiB, MiB ..etc.
 #' @details
 #' KiB <- KibiByte
 #' MiB <- MebiByte
@@ -10,16 +10,18 @@
 #' EiB <- ExiByte
 #' ZiB <- ZebiByte
 #' YiB <- YobiByte 
-#' @usage binPrefix2Byte(n, prefix="KiB")
-#' @param n vector of numeric values
-#' @param prefix binary prefix * Byte. Expeting a »string«
-#' @return The number of bytes fitting in n * binary prefix * Byte
+#' @usage binaryPrefix(n, prefix="KiB")
+#' @param n numeric value
+#' @param prefix binary prefix * byte. Expeting a »string«
+#' @return The number of byte fitting in n * binary prefix * byte
 #' @examples
-#' binPrefix2Byte(c(0.5,1:10),"KiB")
-#' as.binary(binPrefix2Byte(1,"KiB")*Byte())
-#' @seealso \link{bytesNeeded} or \link{fillUpToByte} or \link{Byte}
+#' #Get the number of byte needed to hold 0.5 and 1:10 KiB
+#' binaryPrefix(c(0.5,1:10),"KiB")
+#' #Get the number of bit needed to hold 1 KiB
+#' binaryPrefix(1,"KiB")*byte()
+#' @seealso \link{bytesNeeded} or \link{fillUpToByte} or \link{byte}
 #' @export
-binPrefix2Byte <- function(n, prefix="KiB") {
+binaryPrefix <- function(n, prefix="KiB") {
     stopifnot(all(is.numeric(n) || is.na(n)))
     stopifnot(all(n >= 0 || is.na(n)))
     ret <- NULL
@@ -44,32 +46,32 @@ binPrefix2Byte <- function(n, prefix="KiB") {
     }
 }
 
-#' Minimum number of »Byte« needed to hold n »Bit«
+#' Minimum number of "byte" needed to hold n "bit"
 #' 
 #' @description A simple helper function
-#' that returns the minimum number of Byte needed to hold the amount of n Bit.
+#' that returns the minimum number of byte needed to hold the amount of n bit.
 #' @usage bytesNeeded(n)
-#' @param n The number of Bit.
-#' @return The number of minimum Byte needed to hold n Bit.
+#' @param n The number of bit.
+#' @return The number of minimum byte needed to hold n bit.
 #' @examples
 #' ten <- as.binary(10)
 #' bytesNeeded(length(ten))
-#' @seealso \link{fillUpToByte} or \link{binPrefix2Byte} or \link{Byte}
+#' @seealso \link{fillUpToByte} or \link{binaryPrefix} or \link{byte}
 #' @export
 bytesNeeded <- function(n) {
     stopifnot(all(is.numeric(n) || is.na(n)))
     stopifnot(all(n >= 0 || is.na(n)))
     
-    ifelse(n %% Byte() == 0, n %/% Byte(), n %/% Byte() + 1)
+    ifelse(n %% byte() == 0, n %/% byte(), n %/% byte() + 1)
 }
 
-#' A simple helper function to return the size of one Byte
+#' A simple helper function to return the size of one byte
 #' 
 #' @description Used to increase readabilaty
-#' @usage Byte()
-#' @return The size of one Byte (8)
-#' @seealso \link{bytesNeeded} or \link{fillUpToByte} or \link{binPrefix2Byte} 
+#' @usage byte()
+#' @return The size of one byte (8)
+#' @seealso \link{bytesNeeded} or \link{fillUpToByte} or \link{binaryPrefix} 
 #' @export
-Byte <- function() {
+byte <- function() {
     return(8)
 }
