@@ -22,8 +22,8 @@ a vector of class binary.
 }
 \description{
 Converts an integer (Base10) 
-to a binary(Base2) number. It also converts a logical vector 
-to a binary(Base2) number (see examples).
+to a binary (Base2) number. It also converts a logical vector 
+to a binary (Base2) number (see examples).
 }
 \details{
 The binary number is represented by a logical vector.
