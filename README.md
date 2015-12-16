@@ -10,7 +10,7 @@ Convert, negate, shift and rotate binary digits.
 
 ## Installation
 
-devtools are required to install from github: [devtools](https://github.com/hadley/devtools)
+devtools are required to install "binaryLogic" from github: [devtools](https://github.com/hadley/devtools)
 
 ```R
 library(devtools)
