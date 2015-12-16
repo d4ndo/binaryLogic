@@ -17,7 +17,7 @@ Contains the following information:
 \item Signedness : unsigned or signed
 \item Endianess : Big-Endian or Little-Endian
 \item value<0 : negative or positve number
-\item Size[Bit] : Size in Bit
+\item Size[bit] : Size in bit
 \item Base10 : Decimal(Base10) number.
 }
 }

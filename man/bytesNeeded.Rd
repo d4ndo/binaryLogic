@@ -2,25 +2,25 @@
 % Please edit documentation in R/binHelper.R
 \name{bytesNeeded}
 \alias{bytesNeeded}
-\title{Minimum number of »Byte« needed to hold n »Bit«}
+\title{Minimum number of "byte" needed to hold n "bit"}
 \usage{
 bytesNeeded(n)
 }
 \arguments{
-\item{n}{The number of Bit.}
+\item{n}{The number of bit.}
 }
 \value{
-The number of minimum Byte needed to hold n Bit.
+The number of minimum byte needed to hold n bit.
 }
 \description{
 A simple helper function
-that returns the minimum number of Byte needed to hold the amount of n Bit.
+that returns the minimum number of byte needed to hold the amount of n bit.
 }
 \examples{
 ten <- as.binary(10)
 bytesNeeded(length(ten))
 }
 \seealso{
-\link{fillUpToByte} or \link{binPrefix2Byte} or \link{Byte}
+\link{fillUpToByte} or \link{binaryPrefix} or \link{byte}
 }
 

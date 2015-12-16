@@ -27,7 +27,7 @@ to a binary (Base2) number (see examples).
 }
 \details{
 The binary number is represented by a logical vector.
-The Bit order usually follows the same endianess as the byte order.
+The bit order usually follows the same endianess as the byte order.
 No floating-point support. If logic is set to TRUE an integer vector 
 is intepreted as a logical vector (>0 becomes TRUE and 0 becomes FALSE)
 \itemize{

@@ -2,14 +2,14 @@
 % Please edit documentation in R/binOperators.R
 \name{fillUpToBit}
 \alias{fillUpToBit}
-\title{Fill up to Bit (000..)}
+\title{Fill up to bit (000..)}
 \usage{
 fillUpToBit(x, n, value=FALSE)
 }
 \arguments{
 \item{x}{The binary number to fill up with zeros. (Any binary vector).}
 
-\item{n}{size in Bit.}
+\item{n}{size in bit.}
 
 \item{value}{to fill up with FALSE(0) or fill up with TRUE(1).}
 }
@@ -17,7 +17,7 @@ fillUpToBit(x, n, value=FALSE)
 binary number. A binary vector with the desired size.
 }
 \description{
-Fills up the binary number with zeros(0) or ones(1), to the size n in Bit.
+Fills up the binary number with zeros(0) or ones(1), to the size n in bit.
 }
 \details{
 No floating point supported.

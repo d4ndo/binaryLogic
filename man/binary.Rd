@@ -2,7 +2,7 @@
 % Please edit documentation in R/BinaryS3.R
 \name{binary}
 \alias{binary}
-\title{Binary Object.}
+\title{Binary digit.}
 \usage{
 binary(n, signed=FALSE, littleEndian=FALSE)
 }
@@ -20,8 +20,8 @@ a vector of class binary of length n. By default filled with zeros(0).
 Create objects of type binary.
 }
 \details{
-The binary number is represented by a logical vector.
-The Bit order usually follows the same endianess as the byte order.
+The binary number is represented by a \emph{logical} vector.
+The bit order usually follows the same endianess as the byte order.
 How to read:
 \itemize{
 \item Little Endian    (LSB) ---> (MSB)
@@ -46,6 +46,6 @@ b <- binary(32, littleEndian=TRUE)
 summary(b)
 }
 \seealso{
-\link{as.binary} and \link{is.binary}. To convert a binary to raw please use \link{as.raw} (pay attention to the endianness).
+\link{as.binary} and \link{is.binary}.
 }
 
