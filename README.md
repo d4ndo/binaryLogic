@@ -10,9 +10,9 @@ Convert, negate, shift and rotate binary digits.
 
 ## Installation
 
-Development version on [github](https://github.com/hadley/devtools)
+devtools are required to install from github: [devtools](https://github.com/hadley/devtools)
+
 ```R
-# development version
 library(devtools)
 
 # install 'binaryLogic'
@@ -23,7 +23,8 @@ library(binaryLogic)
 Getting started
 ---------------
 
-Starting with a simple conversion. Decimal(Base10) to binary(Base2) and vice versa.
+Starting with a simple conversion. Decimal (Base10) to binary (Base2) and vice versa.
+
 ```R
 the_answer_to_the_ultimate_question_of_life_the_universe_and_everything <- as.binary(42)
 
@@ -36,7 +37,7 @@ as.numeric(the_answer_to_the_ultimate_question_of_life_the_universe_and_everythi
 summary(the_answer_to_the_ultimate_question_of_life_the_universe_and_everything)
 ```
 
-Operators
+Operator
 ---------
 
 Operators:
