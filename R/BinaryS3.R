@@ -13,15 +13,15 @@
 #' 
 #' e.g. b <-binary(8).
 #' \itemize{
-#' \item »Little Endian« : MSB at b[1] and LSB at b[8].
-#' \item »Big Endian« : LSB at b[1] and MSB at b[8].
+#' \item "Little Endian" : MSB at b[1] and LSB at b[8].
+#' \item "Big Endian" : LSB at b[1] and MSB at b[8].
 #' }
 #' No floating-point support.
 #' @usage binary(n, signed=FALSE, littleEndian=FALSE)
 #' @param n length of vector. Number of bits
 #' @param signed  TRUE or FALSE. Unsigned by default. (two's complement)
 #' @param littleEndian if TRUE. Big Endian if FALSE.
-#' @return a binary vector of length n. By default filled with zeros(0).
+#' @return a vector of class binary of length n. By default filled with zeros(0).
 #' @examples
 #' b <- binary(8)
 #' summary(b)
@@ -43,8 +43,8 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
 #' as binary digit.
 #' 
 #' @description Converts an integer (Base10) 
-#' to a binary(Base2) number. It also converts a logical vector 
-#' to a binary(Base2) number (see examples).
+#' to a binary (Base2) number. It also converts a logical vector 
+#' to a binary (Base2) number (see examples).
 #' @details The binary number is represented by a logical vector.
 #' The Bit order usually follows the same endianess as the byte order.
 #' No floating-point support. If logic is set to TRUE an integer vector 
@@ -55,18 +55,21 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
 #' }
 #' Auto switch to signed if num < 0.
 #' @usage as.binary(x, signed=FALSE, littleEndian=FALSE, size=2, logic=FALSE)
-#' @param x object to convert.
+#' @param x integer or logical vector.
 #' @param signed  TRUE or FALSE. Unsigned by default. (two's complement)
 #' @param littleEndian if TRUE. Big Endian if FALSE.
-#' @param size in Byte. Needed if »signed« is set. (by default 2 Byte)
+#' @param size in Byte. Needed if \bold{signed} is set. (by default 2 Byte)
 #' @param logic If set to TRUE, x is expected as logical vector.
-#' @return a binary vector.
+#' @return a vector of class binary.
 #' @examples
-#' as.binary(0xff)
+#' as.binary(0xAF)
 #' as.binary(42)
+#' as.binary(42, littleEndian=TRUE)
+#' as.binary(c(0xAF, 0xBF, 0xFF))
+#' as.binary(c(2,4,8,16,32), signed=TRUE, size=1)
 #' as.binary(-1, signed=TRUE, size=1)
-#' as.binary(c(1,1,0), signed=TRUE, logic=TRUE) 
-#' as.binary(c(TRUE,TRUE,FALSE), signed=TRUE, littleEndian=TRUE, logic=TRUE)
+#' as.binary(c(1,1,0), signed=TRUE, logic=TRUE)
+#' as.binary(c(TRUE,TRUE,FALSE), logic=TRUE)
 #' @seealso \link{is.binary} and \link{binary}
 #' @export
 as.binary <- function(x, signed=FALSE, littleEndian=FALSE, size=2, logic=FALSE) {
@@ -131,7 +134,7 @@ print.binary <- function(x, ...) {
 #' Summary method for binary number.
 #' 
 #' @description This method provides information about the attributes of the binary number.
-#' @param object binary vector.
+#' @param object binary number.
 #' @param ... further arguments.
 #' @return Contains the following information:
 #' \itemize{
@@ -190,6 +193,18 @@ as.raw.binary <- function(x) {
     if(!l$littleEndian) x <- rev(x)
     NextMethod(.Generic)
 } #rseq = function(x,to=1) NROW(x):to
+
+#' @export
+as.hexmode.binary <- function(x) {
+    x <- bin2dec(x)
+    NextMethod(.Generic)
+}
+
+#' @export
+as.octmode.binary <- function(x) {
+    x <- bin2dec(x)
+    NextMethod(.Generic)
+}
 
 #' @export
 as.character.binary <- function(x, ...) {
