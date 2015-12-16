@@ -7,7 +7,7 @@
 \method{summary}{binary}(object, ...)
 }
 \arguments{
-\item{object}{binary vector.}
+\item{object}{binary number.}
 
 \item{...}{further arguments.}
 }

@@ -7,18 +7,18 @@
 as.binary(x, signed=FALSE, littleEndian=FALSE, size=2, logic=FALSE)
 }
 \arguments{
-\item{x}{object to convert.}
+\item{x}{integer or logical vector.}
 
 \item{signed}{TRUE or FALSE. Unsigned by default. (two's complement)}
 
 \item{littleEndian}{if TRUE. Big Endian if FALSE.}
 
-\item{size}{in Byte. Needed if »signed« is set. (by default 2 Byte)}
+\item{size}{in Byte. Needed if \bold{signed} is set. (by default 2 Byte)}
 
 \item{logic}{If set to TRUE, x is expected as logical vector.}
 }
 \value{
-a binary vector.
+a vector of class binary.
 }
 \description{
 Converts an integer (Base10) 
@@ -37,11 +37,14 @@ is intepreted as a logical vector (>0 becomes TRUE and 0 becomes FALSE)
 Auto switch to signed if num < 0.
 }
 \examples{
-as.binary(0xff)
+as.binary(0xAF)
 as.binary(42)
+as.binary(42, littleEndian=TRUE)
+as.binary(c(0xAF, 0xBF, 0xFF))
+as.binary(c(2,4,8,16,32), signed=TRUE, size=1)
 as.binary(-1, signed=TRUE, size=1)
-as.binary(c(1,1,0), signed=TRUE, logic=TRUE) 
-as.binary(c(TRUE,TRUE,FALSE), signed=TRUE, littleEndian=TRUE, logic=TRUE)
+as.binary(c(1,1,0), signed=TRUE, logic=TRUE)
+as.binary(c(TRUE,TRUE,FALSE), logic=TRUE)
 }
 \seealso{
 \link{is.binary} and \link{binary}

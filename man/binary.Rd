@@ -14,7 +14,7 @@ binary(n, signed=FALSE, littleEndian=FALSE)
 \item{littleEndian}{if TRUE. Big Endian if FALSE.}
 }
 \value{
-a binary vector of length n. By default filled with zeros(0).
+a vector of class binary of length n. By default filled with zeros(0).
 }
 \description{
 Create objects of type binary.
@@ -32,8 +32,8 @@ The Little Endian endianess stores its MSB at the highest adress.
 
 e.g. b <-binary(8).
 \itemize{
-\item »Little Endian« : MSB at b[1] and LSB at b[8].
-\item »Big Endian« : LSB at b[1] and MSB at b[8].
+\item "Little Endian" : MSB at b[1] and LSB at b[8].
+\item "Big Endian" : LSB at b[1] and MSB at b[8].
 }
 No floating-point support.
 }
