@@ -20,5 +20,5 @@ on_failure:
 
 notifications:
   email:
-    on_success: dando@gmx.de
-    on_failure: dando@gmx.de
+    on_success: ddo@openmailbox.org
+    on_failure: ddo@openmailbox.org
