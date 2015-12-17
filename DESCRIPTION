@@ -1,7 +1,7 @@
 Package: binaryLogic
 Title: Binary Logic GNU R Package
 Description: (convert, shift, rotate, summary) using logical vectors.
-Version: 0.2.4
+Version: 0.2.5
 Author: Daniel Dörrhöfer <ddo@openmailbox.org>
 Maintainer: Daniel Dörrhöfer <ddo@openmailbox.org>
 URL: https://github.com/d4ndo/binaryLogic
