@@ -48,9 +48,9 @@ Operators:
 | == or !=               | Comparision by value.                                            |
 | &lt; , &lt;= or > , >= | Comparision by value.                                            |
 | + or -                 | Operations by value.                                             |
-| *, ^, %%, %/%          | Operations by value.                                             |
+| *, ^                   | Operations by value.                                             |
 | /                      | Not supported.                                                   |
-| >&,\|, xor             | Bitwise Operations. The smaller vector is filled up  with zeros. |
+| &, \|, xor             | Bitwise Operations. The smaller vector is filled up  with zeros. |
 | !                      | Indicates logical negation (NOT). Bitwise Operations             |
 
 The logical == operator compares every element of the vector (Bitwise comparison). e.g. 
