@@ -42,33 +42,16 @@ Operator
 
 Operators:
 
-<table>
-  <tr>
-    <th>Operator</th><th>Behavior »Class Binary«</th>
-  </tr>
-  <tr>
-    <td>== or !=</td><td>Comparision by value.</td>
-  </tr>
-  <tr>
-    <td>&lt; , &lt;= or > , >=</td><td>Comparision by value.</td>
-  </tr>
-  <tr>
-    <td>+ or -</td><td>Operations by value.</td>
-  </tr>
-  </tr>
-  <tr>
-    <td>*, ^, %%, %/%</td><td>Operations by value.</td>
-  </tr>
-  <tr>
-    <td>/<td>Not supported.</td>
-  </tr>  
-  <tr>
-    <td>&, |, xor</td><td>Bitwise Operations. The smaller vector is filled up  with zeros.</td>
-  </tr>
-  <tr>
-    <td>!</td><td>Indicates logical negation (NOT). Bitwise Operations</td>
-  </tr>  
-</table>
+
+| Operator               | Behavior »Class Binary«                                          | 
+|:-----------------------|:-----------------------------------------------------------------|
+| == or !=               | Comparision by value.                                            |
+| &lt; , &lt;= or > , >= | Comparision by value.                                            |
+| + or -                 | Operations by value.                                             |
+| *, ^, %%, %/%          | Operations by value.                                             |
+| /                      | Not supported.                                                   |
+| >&,\|, xor             | Bitwise Operations. The smaller vector is filled up  with zeros. |
+| !                      | Indicates logical negation (NOT). Bitwise Operations             |
 
 The logical == operator compares every element of the vector (Bitwise comparison). e.g. 
 
