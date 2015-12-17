@@ -44,7 +44,7 @@ Operators:
 
 
 | Operator               | Behavior »Class Binary«                                          | 
-|:-----------------------|:-----------------------------------------------------------------|
+|:----------------------:|-----------------------------------------------------------------:|
 | == or !=               | Comparision by value.                                            |
 | &lt; , &lt;= or > , >= | Comparision by value.                                            |
 | + or -                 | Operations by value.                                             |
@@ -70,24 +70,12 @@ $ two <- as.binary(two); two == two;
 
 BinaryLogic operators:
 
-<table>
-  <tr>
-    <th>Operator</th><th>Behavior »Class Binary«</th>
-  </tr>
-  <tr>
-    <td>shiftLeft(binary), shiftRight(binary)</td><td>shift Operation.</td>
-  </tr>
-  <tr>
-    <td>rotate(binary)</td><td>shift Operation.</td>
-  </tr>
-  <tr>
-    <td>negate(binary)</td><td>Indicates arithmetic negation. value <- value * (-1)</td>
-  </tr>
-  <tr>
-    <td>switchEndianess(binary)</td><td></td>
-  </tr>    
-</table>
-
+| Operator                              | Behavior »Class Binary«                              | 
+|:-------------------------------------:|-----------------------------------------------------:|
+| shiftLeft(binary), shiftRight(binary) | shift Operation.                                     |
+| rotate(binary)                        | shift Operation.                                     |
+| negate(binary)                        | Indicates arithmetic negation. value <- value * (-1) |
+| switchEndianess(binary)               |                                                      |
 
 Information
 -----------
