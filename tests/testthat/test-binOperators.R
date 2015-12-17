@@ -21,7 +21,6 @@ test_that("Return negate", {
     expect_that(as.numeric(negate(as.binary(1, signed=FALSE, littleEndian=TRUE))), equals(-1))
 })
 
-
 context("Test shiftLeft")
 
 test_that("Lost Attributes", {
@@ -52,7 +51,6 @@ test_that("Return shiftLeft", {
     expect_that(shiftLeft(l2, 3), equals(l5))
     expect_that(class(shiftLeft(logical(byte()),byte() + 1)), equals("logical"))
 })
-
 
 context("Test shiftRight")
 
@@ -161,4 +159,3 @@ test_that("Return switchEndianess", {
 })
 
 context("Test binarySeq")
-cat("no test available")

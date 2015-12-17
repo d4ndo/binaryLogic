@@ -12,14 +12,7 @@ test_that("Return value", {
     expect_that(binaryPrefix(1, "YiB"), is_equivalent_to(2^80))
 })
 
-#test_that("Warnings", {
-#    expect_that(binaryPrefix(1,"LiB"), throws_error("Unknown binary prefix"))
-#    expect_that(binaryPrefix(1.2,"KiB"), shows_message("ceiling called: returns the smallest integer not less than the corresponding element of ret"))
-#})
-
-
 context("Test bytesNeeded")
-cat("no test available")
 
 context("Test byte")
 

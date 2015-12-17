@@ -50,7 +50,6 @@ test_that("Return as.binary", {
 
 context("Test some converting")
 
-
 test_that("Return value as.binary", {
     expect_that(as.binary(0), is_a("binary"))
     expect_that(as.binary(0), is_equivalent_to(as.binary(c(0), logic=TRUE)))
@@ -92,7 +91,6 @@ test_that("Range", {
     expect_that(inputtest(-64:64), equals(0))
 })
 
-
 context("Test is.binary")
 
 b <- binary(1)
@@ -115,12 +113,9 @@ test_that("Return as.binary", {
     expect_that(is.binary(f), equals(FALSE))
 })
 
-
 context("Test print.binary")
-cat("no test available")
 
 context("Test summary.binary")
-cat("no test available")
 
 context("Test as.raw.binary")
 
@@ -223,7 +218,6 @@ test_that("Return as.double.binary", {
 })
 
 context("Test Ops.binary")
-cat("no test available")
 
 context("Test '+.binary'")
 
@@ -311,7 +305,6 @@ test_that("Return -", {
 
 context("Test '!=.binary'")
 
-
 s_mtwo <- as.binary(-2, signed=TRUE)
 s_mone <- as.binary(-1, signed=TRUE)
 s_zero <- as.binary(0, signed=TRUE)
@@ -371,7 +364,5 @@ test_that("Lost Attributes", {
 })
 
 context("Test saveAttributes")
-cat("no test available")
 
 context("Test loadAttributes")
-cat("no test available")
