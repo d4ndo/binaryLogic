@@ -64,6 +64,23 @@ test_that("Return value as.binary", {
     expect_that(as.binary(8, littleEndian=TRUE, signed=TRUE, size=1) , is_equivalent_to(as.binary(c(0,0,0,1,0,0,0,0), signed=TRUE, littleEndian=TRUE, logic=TRUE)))
 })
 
+test_that("Return value as.binary2", {
+    expect_that(as.binary(0:1), is_a("list"))
+    expect_that(as.binary(0:1)[[1]], is_a("binary"))
+    expect_that(as.binary(0:1)[[2]], is_a("binary"))
+    expect_that(length(as.binary(0:1)), equals(2))
+    expect_that(as.binary(0:4)[[1]], is_equivalent_to(as.binary(c(0), logic=TRUE)))
+    expect_that(as.binary(0:4)[[2]], is_equivalent_to(as.binary(c(1), logic=TRUE)))
+    expect_that(as.binary(0:4)[[3]], is_equivalent_to(as.binary(c(1,0), logic=TRUE)))
+    expect_that(as.binary(0:4)[[4]], is_equivalent_to(as.binary(c(1,1), logic=TRUE)))
+    expect_that(as.binary(0:4)[[5]], is_equivalent_to(as.binary(c(1,0,0), logic=TRUE)))
+    expect_that(as.binary(0:-4, signed=TRUE, size=1)[[1]], is_equivalent_to(as.binary(c(0,0,0,0,0,0,0,0), logic=TRUE)))
+    expect_that(as.binary(0:-4, signed=TRUE, size=1)[[2]], is_equivalent_to(as.binary(c(1,1,1,1,1,1,1,1), logic=TRUE)))
+    expect_that(as.binary(0:-4, signed=TRUE, size=1)[[3]], is_equivalent_to(as.binary(c(1,1,1,1,1,1,1,0), logic=TRUE)))
+    expect_that(as.binary(0:-4, signed=TRUE, size=1)[[4]], is_equivalent_to(as.binary(c(1,1,1,1,1,1,0,1), logic=TRUE)))
+    expect_that(as.binary(0:-4, signed=TRUE, size=1)[[5]], is_equivalent_to(as.binary(c(1,1,1,1,1,1,0,0), logic=TRUE)))
+})
+
 test_that("Return value as.numeric", {
     expect_that(as.numeric(as.binary(c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1), signed=TRUE, logic=TRUE)), is_equivalent_to(-1))
     expect_that(as.numeric(as.binary(c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1), signed=TRUE, littleEndian=TRUE, logic=TRUE)), is_equivalent_to(-1))
