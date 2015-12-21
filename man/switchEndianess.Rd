@@ -4,10 +4,13 @@
 \alias{switchEndianess}
 \title{Switch Endianess.}
 \usage{
-switchEndianess(x)
+switchEndianess(x, sitckyBits=FALSE)
 }
 \arguments{
-\item{x}{binary number. Any binary vector.}
+\item{x}{binary number. Any binary number.}
+
+\item{stickyBits.}{Bits wont change if set TRUE. Only the attribute will
+be switched.}
 }
 \value{
 switch little-endian to big-endian and vice versa.
@@ -18,9 +21,7 @@ switch little-endian to big-endian and vice versa.
 \examples{
 x <- as.binary(c(1,1,0,0), logic=TRUE); print(x); summary(x);
 y <- switchEndianess(x); print(y); summary(y);
-neg_two <- as.binary(-2)
-as.raw(neg_two)
-as.raw(switchEndianess(neg_two))
+y <- switchEndianess(x, stickyBits=TRUE); print(y); summary(y);
 }
 \seealso{
 \link{negate} or \link{fillUpToByte}.
