@@ -178,22 +178,27 @@ fillUpToBit <- function(x, n, value=FALSE) {
 #' Switch Endianess.
 #' 
 #' @description switch little-endian to big-endian and vice versa.
-#' @usage switchEndianess(x)
-#' @param x binary number. Any binary vector.
+#' @usage switchEndianess(x, sitckyBits=FALSE)
+#' @param x binary number. Any binary number.
+#' @param stickyBits. Bits wont change if set TRUE. Only the attribute will
+#' be switched. 
 #' @return switch little-endian to big-endian and vice versa.
 #' @examples
 #' x <- as.binary(c(1,1,0,0), logic=TRUE); print(x); summary(x);
 #' y <- switchEndianess(x); print(y); summary(y);
-#' neg_two <- as.binary(-2)
-#' as.raw(neg_two)
-#' as.raw(switchEndianess(neg_two))
+#' y <- switchEndianess(x, stickyBits=TRUE); print(y); summary(y);
 #' @seealso \link{negate} or \link{fillUpToByte}.
 #' @export
-switchEndianess <- function(x) {
+switchEndianess <- function(x, stickyBits=FALSE) {
     stopifnot(is.binary(x))
     l <- saveAttributes(x)
     l$littleEndian <- !l$littleEndian
-    return(loadAttributes(rev(x),l))
+    if (stickyBits == TRUE)
+    {
+        return(loadAttributes(x,l))
+    } else {
+        return(loadAttributes(rev(x),l))
+    }
 }
 
 #' Binary sequence
