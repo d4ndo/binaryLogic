@@ -177,11 +177,10 @@ fillUpToBit <- function(x, n, value=FALSE) {
 
 #' Switch Endianess.
 #' 
-#' @description switch little-endian to big-endian and vice versa.
+#' @description Switch little-endian to big-endian and vice versa.
 #' @usage switchEndianess(x, stickyBits=FALSE)
 #' @param x binary number. Any binary number.
-#' @param stickyBits. Bits wont change if set TRUE. Only the attribute will
-#' be switched. 
+#' @param stickyBits Bits wont change if set TRUE. Only the attribute will be switched. 
 #' @return switch little-endian to big-endian and vice versa.
 #' @examples
 #' x <- as.binary(c(1,1,0,0), logic=TRUE); print(x); summary(x);

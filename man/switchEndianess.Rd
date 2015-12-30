@@ -9,14 +9,13 @@ switchEndianess(x, stickyBits=FALSE)
 \arguments{
 \item{x}{binary number. Any binary number.}
 
-\item{stickyBits.}{Bits wont change if set TRUE. Only the attribute will
-be switched.}
+\item{stickyBits}{Bits wont change if set TRUE. Only the attribute will be switched.}
 }
 \value{
 switch little-endian to big-endian and vice versa.
 }
 \description{
-switch little-endian to big-endian and vice versa.
+Switch little-endian to big-endian and vice versa.
 }
 \examples{
 x <- as.binary(c(1,1,0,0), logic=TRUE); print(x); summary(x);
