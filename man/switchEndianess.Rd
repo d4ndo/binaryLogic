@@ -4,7 +4,7 @@
 \alias{switchEndianess}
 \title{Switch Endianess.}
 \usage{
-switchEndianess(x, sitckyBits=FALSE)
+switchEndianess(x, stickyBits=FALSE)
 }
 \arguments{
 \item{x}{binary number. Any binary number.}
