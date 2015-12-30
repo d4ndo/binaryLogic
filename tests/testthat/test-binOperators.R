@@ -150,12 +150,16 @@ s1 <- as.binary(c(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE), logic=TRUE)
 s2 <- as.binary(c(TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE), littleEndian=TRUE, logic=TRUE)
 s3 <- as.binary(c(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE), signed=TRUE, logic=TRUE)
 s4 <- as.binary(c(TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE), signed=TRUE, littleEndian=TRUE, logic=TRUE)
+s5 <- as.binary(c(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE), logic=TRUE)
+s6 <- as.binary(c(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE), littleEndian=TRUE, logic=TRUE)
 
 test_that("Return switchEndianess", {
     expect_that(switchEndianess(s1), equals(s2))
     expect_that(switchEndianess(s2), equals(s1))
     expect_that(switchEndianess(s3), equals(s4))
     expect_that(switchEndianess(s4), equals(s3))
+    expect_that(switchEndianess(s5, stickyBits=TRUE), equals(s6))
+    expect_that(switchEndianess(s6, stickyBits=TRUE), equals(s5))
 })
 
 context("Test binarySeq")
