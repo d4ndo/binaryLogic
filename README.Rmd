@@ -109,7 +109,11 @@ The binary number is represented by a logical vector. The Bit order usually foll
 The Big Endian endianess stores its MSB at the lowest adress. 
 The Little Endian endianess stores its MSB at the highest adress.
 
-e.g. b <-binary(8):
+e.g.
+```{r, echo=TRUE}
+b <-binary(8)
+b
+```
 
 * »Little Endian« : MSB at b[1] and LSB at b[8].
 
@@ -118,7 +122,9 @@ e.g. b <-binary(8):
 
 More Converting
 ---------------
+
 ### Integer
+
 
 ```{r, echo=TRUE}
 as.binary(0xAF)
@@ -136,7 +142,7 @@ as.binary(-1, signed=TRUE, size=1)
 
 other way around
 
-```R
+```{r, echo=TRUE}
 two <- as.binary(2, signed=TRUE, size=4)
 as.integer(negate(two))
 # or
@@ -148,50 +154,58 @@ as.numeric(two)
 ### Logical
 
 
-```R
+```{r, echo=TRUE}
 as.binary(c(1,1,0), signed=TRUE, logic=TRUE)
-[1] 0 0 0 0 0 1 1 0
 
 as.binary(c(TRUE,TRUE,FALSE), logic=TRUE)
-[1] 1 1 0
 
 bigEndian <- as.binary(c(1,1,0,0), logic=TRUE)
 summary(bigEndian)
-Signedness  Endianess value<0 Size[Bit] Base10
-unsigned    Big-Endian  FALSE         4     12
 
 littleEndian <- switchEndianess(bigEndian)
 print(littleEndian)
-[1] 0 0 1 1
 
 littleEndian <- as.binary(bigEndian, littleEndian=TRUE)
 print(littleEndian)
-[1] 1 1 0 0
 
 summary(littleEndian)
-Signedness     Endianess value<0 Size[Bit] Base10
-unsigned   Little-Endian   FALSE         4      3
 ```
 
 other way around
 
-```R
+```{r, echo=TRUE}
 as.logical(as.binary(2))
-[1]  TRUE FALSE
 ```
 
 ### Raw
 
-```R
+```{r, echo=TRUE}
 b <- as.binary(charToRaw("A")); 
 summary(b);
- Signedness  Endianess value<0 Size[Bit] Base10
- unsigned   Big-Endian   FALSE         7     65
 
 as.raw(b);
-[1] 41
 ```
 
+Special Case
+------------
 
+Be aware about this kind of notation »0xAF«. Because Gnu R converts this to an integer first and then it will be converted to a binary digit. This is just a limitation, if you want to use a little endian formation. It can be fixed by using switchEndianess setting the stickyBits=TRUE.
 
+```{r, echo=TRUE}
+#Watch out for this
+as.binary(0xAF)
+as.binary(0xAF, littleEndian=TRUE)
+#It should behave as follows
+as.binary(c(1,0,1,0,1,1,1,1), logic=TRUE)
+as.binary(c(1,0,1,0,1,1,1,1), littleEndian=TRUE, logic=TRUE)
 
+bigEndian <- as.binary(c(0,0,1,1), logic=TRUE)
+bigEndian
+summary(bigEndian)
+littleEndian <- switchEndianess(bigEndian)
+littleEndian
+summary(littleEndian)
+littleEndian2 <- switchEndianess(bigEndian, stickyBits = TRUE)
+littleEndian2
+summary(littleEndian2)
+```

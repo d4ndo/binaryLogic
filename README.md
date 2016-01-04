@@ -98,7 +98,13 @@ The binary number is represented by a logical vector. The Bit order usually foll
 
 The Big Endian endianess stores its MSB at the lowest adress. The Little Endian endianess stores its MSB at the highest adress.
 
-e.g. b \<-binary(8):
+e.g.
+
+``` r
+b <-binary(8)
+b
+#> [1] 0 0 0 0 0 0 0 0
+```
 
 -   »Little Endian« : MSB at b[1] and LSB at b[8].
 
@@ -151,44 +157,47 @@ other way around
 ``` r
 two <- as.binary(2, signed=TRUE, size=4)
 as.integer(negate(two))
+#> [1] -2
 # or
 as.double(two)
+#> [1] 2
 # alias for
 as.numeric(two)
+#> [1] 2
 ```
 
 ### Logical
 
 ``` r
 as.binary(c(1,1,0), signed=TRUE, logic=TRUE)
-[1] 0 0 0 0 0 1 1 0
+#> [1] 0 0 0 0 0 1 1 0
 
 as.binary(c(TRUE,TRUE,FALSE), logic=TRUE)
-[1] 1 1 0
+#> [1] 1 1 0
 
 bigEndian <- as.binary(c(1,1,0,0), logic=TRUE)
 summary(bigEndian)
-Signedness  Endianess value<0 Size[Bit] Base10
-unsigned    Big-Endian  FALSE         4     12
+#>   Signedness  Endianess value<0 Size[bit] Base10
+#> 1   unsigned Big-Endian   FALSE         4     12
 
 littleEndian <- switchEndianess(bigEndian)
 print(littleEndian)
-[1] 0 0 1 1
+#> [1] 0 0 1 1
 
 littleEndian <- as.binary(bigEndian, littleEndian=TRUE)
 print(littleEndian)
-[1] 1 1 0 0
+#> [1] 1 1 0 0
 
 summary(littleEndian)
-Signedness     Endianess value<0 Size[Bit] Base10
-unsigned   Little-Endian   FALSE         4      3
+#>   Signedness     Endianess value<0 Size[bit] Base10
+#> 1   unsigned Little-Endian   FALSE         4      3
 ```
 
 other way around
 
 ``` r
 as.logical(as.binary(2))
-[1]  TRUE FALSE
+#> [1]  TRUE FALSE
 ```
 
 ### Raw
@@ -196,9 +205,46 @@ as.logical(as.binary(2))
 ``` r
 b <- as.binary(charToRaw("A")); 
 summary(b);
- Signedness  Endianess value<0 Size[Bit] Base10
- unsigned   Big-Endian   FALSE         7     65
+#>   Signedness  Endianess value<0 Size[bit] Base10
+#> 1   unsigned Big-Endian   FALSE         7     65
 
 as.raw(b);
-[1] 41
+#> [1] 41
+```
+
+Special Case
+------------
+
+Be aware about this kind of notation »0xAF«. Because Gnu R converts this to an integer first and then it will be converted to a binary digit. This is just a limitation, if you want to use a little endian formation. It can be fixed by using switchEndianess setting the stickyBits=TRUE.
+
+``` r
+#Watch out for this
+as.binary(0xAF)
+#> [1] 1 0 1 0 1 1 1 1
+as.binary(0xAF, littleEndian=TRUE)
+#> [1] 1 1 1 1 0 1 0 1
+#It should behave as follows
+as.binary(c(1,0,1,0,1,1,1,1), logic=TRUE)
+#> [1] 1 0 1 0 1 1 1 1
+as.binary(c(1,0,1,0,1,1,1,1), littleEndian=TRUE, logic=TRUE)
+#> [1] 1 0 1 0 1 1 1 1
+
+bigEndian <- as.binary(c(0,0,1,1), logic=TRUE)
+bigEndian
+#> [1] 0 0 1 1
+summary(bigEndian)
+#>   Signedness  Endianess value<0 Size[bit] Base10
+#> 1   unsigned Big-Endian   FALSE         4      3
+littleEndian <- switchEndianess(bigEndian)
+littleEndian
+#> [1] 1 1 0 0
+summary(littleEndian)
+#>   Signedness     Endianess value<0 Size[bit] Base10
+#> 1   unsigned Little-Endian   FALSE         4      3
+littleEndian2 <- switchEndianess(bigEndian, stickyBits = TRUE)
+littleEndian2
+#> [1] 0 0 1 1
+summary(littleEndian2)
+#>   Signedness     Endianess value<0 Size[bit] Base10
+#> 1   unsigned Little-Endian   FALSE         4     12
 ```
