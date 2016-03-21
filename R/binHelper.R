@@ -111,8 +111,10 @@ bin2gray <- function(x) {
 #' @seealso \link{bin2gray}
 #' @export
 gray2bin <- function(x, ...) {
+    stopifnot(is.logical(x))
     max <- length(x)
     b <- binary(max, ...)
+    if (max == 1) return(as.binary(x, logic=TRUE, ...))
 
     if(is.binary(b) && attributes(b)$littleEndian == TRUE)
     {

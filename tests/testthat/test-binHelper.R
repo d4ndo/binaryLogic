@@ -91,3 +91,29 @@ test_that("Return value gray2bin | binary number | bigEndian", {
     expect_that(r[[7]], equals(b[[7]]))
     expect_that(r[[8]], equals(b[[8]]))
 })
+
+z <- as.binary(0)
+lez <- as.binary(0, littleEndian=TRUE)
+o <- as.binary(1)
+leo <- as.binary(1, littleEndian=TRUE)
+
+gz <- bin2gray(z)
+glez <- bin2gray(lez)
+go <- bin2gray(o)
+gleo <- bin2gray(leo)
+
+rz <- gray2bin(gz)
+rlez <- gray2bin(glez, littleEndian=TRUE)
+ro <- gray2bin(go)
+rleo <- gray2bin(gleo, littleEndian=TRUE)
+
+test_that("Return value gray2bin | binary number | bigEndian", {
+    expect_that(length(rz), equals(1))
+    expect_that(rz, equals(z))
+    expect_that(length(rlez), equals(1))
+    expect_that(rlez, equals(lez))
+    expect_that(length(ro), equals(1))
+    expect_that(ro, equals(o))
+    expect_that(length(rleo), equals(1))
+    expect_that(rleo, equals(leo))
+})
