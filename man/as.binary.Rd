@@ -15,6 +15,8 @@ as.binary(x, signed=FALSE, littleEndian=FALSE, size=2, logic=FALSE)
 
 \item{size}{in Byte. Needed if \bold{signed} is set. (by default 2 Byte)}
 
+\item{n}{in Bit. Can be set if \bold{unsigned} is set to TRUE. (by default 0 Bit = auto)}
+
 \item{logic}{If set to TRUE, x is expected as logical vector.}
 }
 \value{
@@ -43,6 +45,8 @@ as.binary(42, littleEndian=TRUE)
 as.binary(c(0xAF, 0xBF, 0xFF))
 as.binary(c(2,4,8,16,32), signed=TRUE, size=1)
 as.binary(-1, signed=TRUE, size=1)
+as.binary(1:7, n=3)
+as.binary(sample(2^8,3),n=8)
 as.binary(c(1,1,0), signed=TRUE, logic=TRUE)
 as.binary(c(TRUE,TRUE,FALSE), logic=TRUE)
 }

@@ -59,6 +59,7 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
 #' @param signed  TRUE or FALSE. Unsigned by default. (two's complement)
 #' @param littleEndian if TRUE. Big Endian if FALSE.
 #' @param size in Byte. Needed if \bold{signed} is set. (by default 2 Byte)
+#' @param n in Bit. Can be set if \bold{unsigned} is set to TRUE. (by default 0 Bit = auto)
 #' @param logic If set to TRUE, x is expected as logical vector.
 #' @return a vector of class binary.
 #' @examples
@@ -68,21 +69,24 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
 #' as.binary(c(0xAF, 0xBF, 0xFF))
 #' as.binary(c(2,4,8,16,32), signed=TRUE, size=1)
 #' as.binary(-1, signed=TRUE, size=1)
+#' as.binary(1:7, n=3)
+#' as.binary(sample(2^8,3),n=8)
 #' as.binary(c(1,1,0), signed=TRUE, logic=TRUE)
 #' as.binary(c(TRUE,TRUE,FALSE), logic=TRUE)
 #' @seealso \link{is.binary} and \link{binary}
 #' @export
-as.binary <- function(x, signed=FALSE, littleEndian=FALSE, size=2, logic=FALSE) {
+as.binary <- function(x, signed=FALSE, littleEndian=FALSE, size=2, n=0, logic=FALSE) {
     if (!inherits(x, "binary")) {
         if (logic == FALSE)
         {
-            x <- binSeq(x, signed=signed, littleEndian=littleEndian, size=size)
+            x <- binSeq(x, signed=signed, littleEndian=littleEndian, size=size, n=n)
         } else {
             x <- as.logical(x)
             class(x) <- c("binary", "logical")
             attr(x, "signed") <- signed
             attr(x, "littleEndian") <- littleEndian
             if (signed) x <- fillUpToByte(x)
+            else x <- fillUpToBit(x, n)
         }
     } else {
         l <- saveAttributes(x)
@@ -92,6 +96,7 @@ as.binary <- function(x, signed=FALSE, littleEndian=FALSE, size=2, logic=FALSE) 
             x <- fillUpToByte(x)
         } else {
             l$signed <- FALSE
+            x <- fillUpToBit(x, n)
             #attr(x, "signed") <- FALSE
         }
         if (littleEndian) {
@@ -376,11 +381,15 @@ loadAttributes <- function(x, l) {
 }
 
 # Helper function
-dec2bin <- function(num, signed=FALSE, littleEndian=FALSE, size=2) {
+dec2bin <- function(num, signed=FALSE, littleEndian=FALSE, size=2, n=0) {
     # Very slow with negative numbers. (maybe binAdd)
     if (signed && (((num > ((2^(size*byte())/2)-1))) || 
                        (num < ((-1)*(2^(size*byte())/2)))))
         stop("Out of Range. Please increase the size[Byte]")
+    
+    if (signed == FALSE && n > 0 && 
+        (((num > ((2^(n))-1))) || (num < (0))))
+        stop("Out of Range. Please increase the size n [Bit], or set it to 0=auto")
 
     l <- list(class=c("binary","logical"),
               signed=signed,
@@ -399,7 +408,15 @@ dec2bin <- function(num, signed=FALSE, littleEndian=FALSE, size=2) {
     #global read only for function h(num)
     ret <- h(num)
     
-    if(l$signed) b <- logical(size*byte()) else b <- logical(max(ret)-1)
+    if(l$signed) {
+        b <- logical(size*byte()) 
+        } else {
+        if (n > 0) { 
+            b <- logical(n)
+        } else {
+            b <- logical(max(ret)-1)
+        }
+    }
     #do some optimization here.
     for (i in seq(length(b))) b[i] <- any(ifelse((ret-1)==i, TRUE, FALSE))
     

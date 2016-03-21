@@ -75,3 +75,52 @@ bytesNeeded <- function(n) {
 byte <- function() {
     return(8)
 }
+
+#' A gray code converter function
+#' 
+#' @description This function converts a binary number (base2) to a gray code
+#' @usage bin2gray(x)
+#' @param x The binary number (base2) or a logical vector.
+#' @return The gray code as logical vector.
+#' @seealso \link{gray2bin}
+#' @export
+bin2gray <- function(x) {
+    stopifnot(is.logical(x) || is.binary(x))
+    max <- length(x)
+    g <- logical(max)
+    if (max == 1) return(as.logical(x))
+
+    if(is.binary(x) && attributes(x)$littleEndian == TRUE)
+    {
+        g[max] <- x[max]
+        for(i in (max):2) g[i - 1] <- xor(x[i], x[i - 1])
+    } else {
+        g[1] <- x[1]
+        for(i in 1:(max - 1)) g[i + 1] <- xor(x[i], x[i + 1])
+    }
+    return(g)
+}
+
+#' A gray code to binary converter function
+#'
+#' @description This function converts a gray code to a binary number (base2)
+#' @usage gray2bin(x)
+#' @param x. The gray code as logical vector.
+#' @param ... Additional parameter for binary() 
+#' @return The binary number (base2).
+#' @seealso \link{bin2gray}
+#' @export
+gray2bin <- function(x, ...) {
+    max <- length(x)
+    b <- binary(max, ...)
+
+    if(is.binary(b) && attributes(b)$littleEndian == TRUE)
+    {
+        b[max] <- x[max]
+        for(i in (max):2) b[i - 1] <- xor(b[i], x[i - 1])
+    } else {
+        b[1] <- x[1]
+        for(i in 1:(max - 1)) b[i + 1] <- xor(b[i], x[i + 1])
+    }
+    return(b)
+}
