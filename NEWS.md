@@ -1,6 +1,6 @@
 # binaryLogic 0.3.4
 
-Fixed some invalid URL at README.md & README.Rmd
+* Fixed some invalid URL at README.md & README.Rmd
 
 # binaryLogic 0.3.3
 
