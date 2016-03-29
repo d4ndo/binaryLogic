@@ -2,7 +2,7 @@
 binaryLogic
 ===========
 
-[![Build Status](https://travis-ci.org/d4ndo/binaryLogic.png)](https://travis-ci.org/d4ndo/binaryLogic) [![Downloads](http://cranlogs.r-pkg.org/badges/binaryLogic?color=brightgreen)](http://http://www.r-pkg.org/pkg/binaryLogic) [![CRAN version](http://www.r-pkg.org/badges/version/binaryLogic)](http://cran.r-project.org/package=binaryLogic)
+[![Build Status](https://travis-ci.org/d4ndo/binaryLogic.png)](https://travis-ci.org/d4ndo/binaryLogic) [![Downloads](http://cranlogs.r-pkg.org/badges/binaryLogic?color=brightgreen)](http://www.r-pkg.org/pkg/binaryLogic) [![CRAN version](http://www.r-pkg.org/badges/version/binaryLogic)](http://cran.r-project.org/package=binaryLogic)
 
 Binary Logic GNU R Package
 
