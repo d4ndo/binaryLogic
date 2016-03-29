@@ -1,11 +1,8 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-
-
 binaryLogic
 ===========
 
-[![Build Status](https://travis-ci.org/d4ndo/binaryLogic.png)](https://travis-ci.org/d4ndo/binaryLogic) [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/binaryLogic)](http://cran.r-project.org/web/packages/binaryLogic/index.html) [![CRAN version](http://www.r-pkg.org/badges/version/binaryLogic)](http://cran.r-project.org/package=binaryLogic)
+[![Build Status](https://travis-ci.org/d4ndo/binaryLogic.png)](https://travis-ci.org/d4ndo/binaryLogic) [![Downloads](http://cranlogs.r-pkg.org/badges/binaryLogic?color=brightgreen)](http://http://www.r-pkg.org/pkg/binaryLogic) [![CRAN version](http://www.r-pkg.org/badges/version/binaryLogic)](http://cran.r-project.org/package=binaryLogic)
 
 Binary Logic GNU R Package
 
@@ -16,7 +13,7 @@ Installation
 
 devtools are required to install "binaryLogic" from github: [devtools](https://github.com/hadley/devtools)
 
-``` {.R}
+``` r
 library(devtools)
 
 # install 'binaryLogic'
@@ -29,7 +26,7 @@ Getting started
 
 Starting with a simple conversion. Decimal (Base10) to binary (Base2) and vice versa.
 
-``` {.r}
+``` r
 the_answer_to_the_ultimate_question_of_life_the_universe_and_everything <- as.binary(42)
 
 the_answer_to_the_ultimate_question_of_life_the_universe_and_everything
@@ -48,38 +45,38 @@ Operator
 
 Behavior »Class Binary«
 
-|Operator|Behavior|
-|:-------|:-------|
-|[== or !=]|Comparision by value.|
-|[\<, \<= or \> , \>=]|Comparision by value.|
-|[+ or -]|Operations by value.|
-|[\*, \^]|Operations by value.|
-|[/]|Not supported.|
-|[&, ¦, xor]|Bitwise Operations. The smaller vector is filled up with zeros.|
-|[!]|Indicates logical negation (NOT). Bitwise Operations|
+| Operator              | Behavior                                                        |
+|:----------------------|:----------------------------------------------------------------|
+| [== or !=]            | Comparision by value.                                           |
+| [\<, \<= or \> , \>=] | Comparision by value.                                           |
+| [+ or -]              | Operations by value.                                            |
+| [\*, ^]               | Operations by value.                                            |
+| [/]                   | Not supported.                                                  |
+| [&, ¦, xor]           | Bitwise Operations. The smaller vector is filled up with zeros. |
+| [!]                   | Indicates logical negation (NOT). Bitwise Operations            |
 
 The logical == operator compares every element of the vector (Bitwise comparison). e.g.
 
-``` {.r}
+``` r
 two <- as.binary(2); two <- as.logical(two); two == two;
 #> [1] TRUE TRUE
 ```
 
 The binary == operator compares the value and it does not distinguish between big and little endian.
 
-``` {.r}
+``` r
 two <- as.binary(2); two == two;
 #> [1] TRUE
 ```
 
 BinaryLogic operators:
 
-|Operator|Behavior|
-|:-------|:-------|
-|shiftLeft(binary), shiftRight(binary)|shift Operation.|
-|rotate(binary)|shift Operation.|
-|negate(binary)|Indicates arithmetic negation. value \<- value \* (-1)|
-|switchEndianess(binary)||
+| Operator                              | Behavior                                               |
+|:--------------------------------------|:-------------------------------------------------------|
+| shiftLeft(binary), shiftRight(binary) | shift Operation.                                       |
+| rotate(binary)                        | shift Operation.                                       |
+| negate(binary)                        | Indicates arithmetic negation. value \<- value \* (-1) |
+| switchEndianess(binary)               |                                                        |
 
 Information
 -----------
@@ -88,7 +85,7 @@ This class is just not that great at heavy number crunching, but it brings some 
 
 The internal structure looks like this. It is composed of a »logical vector« and several attributes. In this example(Big-Endian), it corresponds to the value = 2(Base10).
 
-``` {.r}
+``` r
 structure(c(TRUE, FALSE), class = c("binary", "logical"), signed = FALSE, littleEndian = FALSE)
 #> [1] 1 0
 ```
@@ -103,7 +100,7 @@ The Big Endian endianess stores its MSB at the lowest adress. The Little Endian 
 
 e.g.
 
-``` {.r}
+``` r
 b <-binary(8)
 b
 #> [1] 0 0 0 0 0 0 0 0
@@ -118,7 +115,7 @@ More Converting
 
 ### Integer
 
-``` {.r}
+``` r
 as.binary(0xAF)
 #> [1] 1 0 1 0 1 1 1 1
 
@@ -157,7 +154,7 @@ as.binary(-1, signed=TRUE, size=1)
 
 other way around
 
-``` {.r}
+``` r
 two <- as.binary(2, signed=TRUE, size=4)
 as.integer(negate(two))
 #> [1] -2
@@ -171,7 +168,7 @@ as.numeric(two)
 
 ### Logical
 
-``` {.r}
+``` r
 as.binary(c(1,1,0), signed=TRUE, logic=TRUE)
 #> [1] 0 0 0 0 0 1 1 0
 
@@ -198,14 +195,14 @@ summary(littleEndian)
 
 other way around
 
-``` {.r}
+``` r
 as.logical(as.binary(2))
 #> [1]  TRUE FALSE
 ```
 
 ### Raw
 
-``` {.r}
+``` r
 b <- as.binary(charToRaw("A"))
 summary(b)
 #>   Signedness  Endianess value<0 Size[bit] Base10
@@ -217,7 +214,7 @@ as.raw(b)
 
 ### Gray code
 
-``` {.r}
+``` r
 b <- as.binary(0:7, n=3)
 g <- lapply(b, bin2gray)
 print(g)
@@ -254,7 +251,7 @@ Special Case
 
 Be aware about this kind of notation »0xAF«. Because Gnu R converts this to an integer first and then it will be converted to a binary digit. This is just a limitation, if you want to use a little endian formation. It can be fixed by using switchEndianess setting the stickyBits=TRUE.
 
-``` {.r}
+``` r
 #Watch out for this
 as.binary(0xAF)
 #> [1] 1 0 1 0 1 1 1 1

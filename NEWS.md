@@ -1,3 +1,7 @@
+# binaryLogic 0.3.4
+
+Fixed some invalid URL at README.md & README.Rmd
+
 # binaryLogic 0.3.3
 
 * Added a new attribute size n [Bit] to »as.binary« for unsigned number. See `?as.binary()`
