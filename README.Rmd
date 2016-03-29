@@ -180,10 +180,20 @@ as.logical(as.binary(2))
 ### Raw
 
 ```{r, echo=TRUE}
-b <- as.binary(charToRaw("A")); 
-summary(b);
+b <- as.binary(charToRaw("A"))
+summary(b)
 
-as.raw(b);
+as.raw(b)
+```
+
+### Gray code
+
+```{r, echo=TRUE}
+b <- as.binary(0:7, n=3)
+g <- lapply(b, bin2gray)
+print(g)
+
+gray2bin(g[[8]])
 ```
 
 Special Case
