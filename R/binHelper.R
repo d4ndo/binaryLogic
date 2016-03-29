@@ -104,8 +104,8 @@ bin2gray <- function(x) {
 #' A gray code to binary converter function
 #'
 #' @description This function converts a gray code to a binary number (base2)
-#' @usage gray2bin(x)
-#' @param x. The gray code as logical vector.
+#' @usage gray2bin(x, ...)
+#' @param x The gray code as logical vector.
 #' @param ... Additional parameter for binary() 
 #' @return The binary number (base2).
 #' @seealso \link{bin2gray}

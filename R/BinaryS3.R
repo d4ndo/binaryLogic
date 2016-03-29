@@ -54,7 +54,7 @@ binary <- function(n, signed=FALSE, littleEndian=FALSE) {
 #' \item Big Endian       (MSB) <--- (LSB)
 #' }
 #' Auto switch to signed if num < 0.
-#' @usage as.binary(x, signed=FALSE, littleEndian=FALSE, size=2, logic=FALSE)
+#' @usage as.binary(x, signed=FALSE, littleEndian=FALSE, size=2, n=0, logic=FALSE)
 #' @param x integer or logical vector.
 #' @param signed  TRUE or FALSE. Unsigned by default. (two's complement)
 #' @param littleEndian if TRUE. Big Endian if FALSE.

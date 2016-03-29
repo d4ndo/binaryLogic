@@ -4,12 +4,12 @@
 \alias{gray2bin}
 \title{A gray code to binary converter function}
 \usage{
-gray2bin(x)
+gray2bin(x, ...)
 }
 \arguments{
-\item{...}{Additional parameter for binary()}
+\item{x}{The gray code as logical vector.}
 
-\item{x.}{The gray code as logical vector.}
+\item{...}{Additional parameter for binary()}
 }
 \value{
 The binary number (base2).

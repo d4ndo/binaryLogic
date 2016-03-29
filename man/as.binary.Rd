@@ -4,7 +4,7 @@
 \alias{as.binary}
 \title{as binary digit.}
 \usage{
-as.binary(x, signed=FALSE, littleEndian=FALSE, size=2, logic=FALSE)
+as.binary(x, signed=FALSE, littleEndian=FALSE, size=2, n=0, logic=FALSE)
 }
 \arguments{
 \item{x}{integer or logical vector.}
