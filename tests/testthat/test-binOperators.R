@@ -162,4 +162,23 @@ test_that("Return switchEndianess", {
     expect_that(switchEndianess(s6, stickyBits=TRUE), equals(s5))
 })
 
+context("Test %/% and %% devision and modulo")
+
+two <- as.binary(2, signed=TRUE, size=1)
+two2 <- as.binary(2, signed=TRUE, size=3)
+six <- as.binary(6, signed=TRUE, size=3)
+three <- as.binary(3, signed=TRUE, size=3)
+zero <- as.binary(0, signed=TRUE, size=3)
+
+test_that("Return modulo", {
+    expect_that(six %/% two , equals(three))
+    expect_that(length(six %/% two), equals(24))
+    expect_that(six %% two, equals(zero))
+    expect_that(length(six %% two), equals(24))
+    expect_that(two %/% six, equals(zero))
+    expect_that(two %% six, equals(two2))
+    expect_that(length(two %/% six), equals(24))
+    expect_that(length(two %% six), equals(24))
+})
+
 context("Test binarySeq")
