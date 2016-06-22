@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Binarylogic : Binary Logic GNU R Package">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Binarylogic</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/d4ndo/binaryLogic">View on GitHub</a>
+
+          <h1 id="project_title">Binarylogic</h1>
+          <h2 id="project_tagline">Binary Logic GNU R Package</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/d4ndo/binaryLogic/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/d4ndo/binaryLogic/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        
+
+<h1>
+<a id="binarylogic" class="anchor" href="#binarylogic" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>binaryLogic</h1>
+
+<p><a href="https://travis-ci.org/d4ndo/binaryLogic"><img src="https://travis-ci.org/d4ndo/binaryLogic.png" alt="Build Status"></a> <a href="http://www.r-pkg.org/pkg/binaryLogic"><img src="http://cranlogs.r-pkg.org/badges/binaryLogic?color=brightgreen" alt="Downloads"></a> <a href="http://cran.r-project.org/package=binaryLogic"><img src="http://www.r-pkg.org/badges/version/binaryLogic" alt="CRAN version"></a></p>
+
+<p>Binary Logic GNU R Package</p>
+
+<p>Convert, negate, shift and rotate binary digits. (switchEndianess, bytesNeeded, binaryPrefix, fillUpToByte).</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>devtools are required to install "binaryLogic" from github: <a href="https://github.com/hadley/devtools">devtools</a></p>
+
+<div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">devtools</span>)
+
+<span class="pl-c"># install 'binaryLogic'</span>
+install_github(<span class="pl-s"><span class="pl-pds">"</span>d4ndo/binaryLogic<span class="pl-pds">"</span></span>)
+library(<span class="pl-smi">binaryLogic</span>)</pre></div>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting started</h2>
+
+<p>Starting with a simple conversion. Decimal (Base10) to binary (Base2) and vice versa.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">the_answer_to_the_ultimate_question_of_life_the_universe_and_everything</span> <span class="pl-k">&lt;-</span> as.binary(<span class="pl-c1">42</span>)
+
+<span class="pl-smi">the_answer_to_the_ultimate_question_of_life_the_universe_and_everything</span>
+<span class="pl-c">#&gt; [1] 1 0 1 0 1 0</span>
+
+as.numeric(<span class="pl-smi">the_answer_to_the_ultimate_question_of_life_the_universe_and_everything</span>)
+<span class="pl-c">#&gt; [1] 42</span>
+
+summary(<span class="pl-smi">the_answer_to_the_ultimate_question_of_life_the_universe_and_everything</span>)
+<span class="pl-c">#&gt;   Signedness  Endianess value&lt;0 Size[bit] Base10</span>
+<span class="pl-c">#&gt; 1   unsigned Big-Endian   FALSE         6     42</span></pre></div>
+
+<h2>
+<a id="operator" class="anchor" href="#operator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Operator</h2>
+
+<p>Behavior »Class Binary«</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="left">Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">[== or !=]</td>
+<td align="left">Comparision by value.</td>
+</tr>
+<tr>
+<td align="left">[&lt;, &lt;= or &gt; , &gt;=]</td>
+<td align="left">Comparision by value.</td>
+</tr>
+<tr>
+<td align="left">[+ or -]</td>
+<td align="left">Operations by value.</td>
+</tr>
+<tr>
+<td align="left">[*, ^]</td>
+<td align="left">Operations by value.</td>
+</tr>
+<tr>
+<td align="left">[/]</td>
+<td align="left">Not supported.</td>
+</tr>
+<tr>
+<td align="left">[&amp;, ¦, xor]</td>
+<td align="left">Bitwise Operations. The smaller vector is filled up with zeros.</td>
+</tr>
+<tr>
+<td align="left">[!]</td>
+<td align="left">Indicates logical negation (NOT). Bitwise Operations</td>
+</tr>
+</tbody>
+</table>
+
+<p>The logical == operator compares every element of the vector (Bitwise comparison). e.g.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">two</span> <span class="pl-k">&lt;-</span> as.binary(<span class="pl-c1">2</span>); <span class="pl-smi">two</span> <span class="pl-k">&lt;-</span> as.logical(<span class="pl-smi">two</span>); <span class="pl-smi">two</span> <span class="pl-k">==</span> <span class="pl-smi">two</span>;
+<span class="pl-c">#&gt; [1] TRUE TRUE</span></pre></div>
+
+<p>The binary == operator compares the value and it does not distinguish between big and little endian.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">two</span> <span class="pl-k">&lt;-</span> as.binary(<span class="pl-c1">2</span>); <span class="pl-smi">two</span> <span class="pl-k">==</span> <span class="pl-smi">two</span>;
+<span class="pl-c">#&gt; [1] TRUE</span></pre></div>
+
+<p>BinaryLogic operators:</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="left">Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">shiftLeft(binary), shiftRight(binary)</td>
+<td align="left">shift Operation.</td>
+</tr>
+<tr>
+<td align="left">rotate(binary)</td>
+<td align="left">shift Operation.</td>
+</tr>
+<tr>
+<td align="left">negate(binary)</td>
+<td align="left">Indicates arithmetic negation. value &lt;- value * (-1)</td>
+</tr>
+<tr>
+<td align="left">switchEndianess(binary)</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="information" class="anchor" href="#information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Information</h2>
+
+<p>This class is just not that great at heavy number crunching, but it brings some benefits. Especially if you like to work using vectors in R. The »binary« class inherits from the »logical« class. Some function from package <code>binaryLogic</code> can be applied to logical vectors such as shift or rotate (see help).</p>
+
+<p>The internal structure looks like this. It is composed of a »logical vector« and several attributes. In this example(Big-Endian), it corresponds to the value = 2(Base10).</p>
+
+<div class="highlight highlight-source-r"><pre>structure(c(<span class="pl-c1">TRUE</span>, <span class="pl-c1">FALSE</span>), <span class="pl-v">class</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span>binary<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>logical<span class="pl-pds">"</span></span>), <span class="pl-v">signed</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">littleEndian</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)
+<span class="pl-c">#&gt; [1] 1 0</span></pre></div>
+
+<p>The binary number is represented by a logical vector. The Bit order usually follows the same endianess as the byte order. How to read:</p>
+
+<ul>
+<li><p>Little Endian (LSB) —&gt; (MSB)</p></li>
+<li><p>Big Endian (MSB) &lt;— (LSB)</p></li>
+</ul>
+
+<p>The Big Endian endianess stores its MSB at the lowest adress. The Little Endian endianess stores its MSB at the highest adress.</p>
+
+<p>e.g.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">b</span> <span class="pl-k">&lt;-</span>binary(<span class="pl-c1">8</span>)
+<span class="pl-smi">b</span>
+<span class="pl-c">#&gt; [1] 0 0 0 0 0 0 0 0</span></pre></div>
+
+<ul>
+<li><p>»Little Endian« : MSB at b[1] and LSB at b[8].</p></li>
+<li><p>»Big Endian« : LSB at b[1] and MSB at b[8].</p></li>
+</ul>
+
+<h2>
+<a id="more-converting" class="anchor" href="#more-converting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>More Converting</h2>
+
+<h3>
+<a id="integer" class="anchor" href="#integer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integer</h3>
+
+<div class="highlight highlight-source-r"><pre>as.binary(<span class="pl-c1">0xAF</span>)
+<span class="pl-c">#&gt; [1] 1 0 1 0 1 1 1 1</span>
+
+as.binary(<span class="pl-c1">42</span>)
+<span class="pl-c">#&gt; [1] 1 0 1 0 1 0</span>
+
+as.binary(<span class="pl-c1">42</span>, <span class="pl-v">littleEndian</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>)
+<span class="pl-c">#&gt; [1] 0 1 0 1 0 1</span>
+
+as.binary(c(<span class="pl-c1">0xAF</span>, <span class="pl-c1">0xBF</span>, <span class="pl-c1">0xFF</span>))
+<span class="pl-c">#&gt; [[1]]</span>
+<span class="pl-c">#&gt; [1] 1 0 1 0 1 1 1 1</span>
+<span class="pl-c">#&gt; </span>
+<span class="pl-c">#&gt; [[2]]</span>
+<span class="pl-c">#&gt; [1] 1 0 1 1 1 1 1 1</span>
+<span class="pl-c">#&gt; </span>
+<span class="pl-c">#&gt; [[3]]</span>
+<span class="pl-c">#&gt; [1] 1 1 1 1 1 1 1 1</span>
+
+as.binary(c(<span class="pl-c1">2</span>,<span class="pl-c1">4</span>,<span class="pl-c1">8</span>,<span class="pl-c1">16</span>), <span class="pl-v">signed</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>, <span class="pl-v">size</span><span class="pl-k">=</span><span class="pl-c1">1</span>)
+<span class="pl-c">#&gt; [[1]]</span>
+<span class="pl-c">#&gt; [1] 0 0 0 0 0 0 1 0</span>
+<span class="pl-c">#&gt; </span>
+<span class="pl-c">#&gt; [[2]]</span>
+<span class="pl-c">#&gt; [1] 0 0 0 0 0 1 0 0</span>
+<span class="pl-c">#&gt; </span>
+<span class="pl-c">#&gt; [[3]]</span>
+<span class="pl-c">#&gt; [1] 0 0 0 0 1 0 0 0</span>
+<span class="pl-c">#&gt; </span>
+<span class="pl-c">#&gt; [[4]]</span>
+<span class="pl-c">#&gt; [1] 0 0 0 1 0 0 0 0</span>
+
+as.binary(<span class="pl-k">-</span><span class="pl-c1">1</span>, <span class="pl-v">signed</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>, <span class="pl-v">size</span><span class="pl-k">=</span><span class="pl-c1">1</span>)
+<span class="pl-c">#&gt; [1] 1 1 1 1 1 1 1 1</span></pre></div>
+
+<p>other way around</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">two</span> <span class="pl-k">&lt;-</span> as.binary(<span class="pl-c1">2</span>, <span class="pl-v">signed</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>, <span class="pl-v">size</span><span class="pl-k">=</span><span class="pl-c1">4</span>)
+as.integer(negate(<span class="pl-smi">two</span>))
+<span class="pl-c">#&gt; [1] -2</span>
+<span class="pl-c"># or</span>
+as.double(<span class="pl-smi">two</span>)
+<span class="pl-c">#&gt; [1] 2</span>
+<span class="pl-c"># alias for</span>
+as.numeric(<span class="pl-smi">two</span>)
+<span class="pl-c">#&gt; [1] 2</span></pre></div>
+
+<h3>
+<a id="logical" class="anchor" href="#logical" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Logical</h3>
+
+<div class="highlight highlight-source-r"><pre>as.binary(c(<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">0</span>), <span class="pl-v">signed</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>, <span class="pl-v">logic</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>)
+<span class="pl-c">#&gt; [1] 0 0 0 0 0 1 1 0</span>
+
+as.binary(c(<span class="pl-c1">TRUE</span>,<span class="pl-c1">TRUE</span>,<span class="pl-c1">FALSE</span>), <span class="pl-v">logic</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>)
+<span class="pl-c">#&gt; [1] 1 1 0</span>
+
+<span class="pl-smi">bigEndian</span> <span class="pl-k">&lt;-</span> as.binary(c(<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">0</span>,<span class="pl-c1">0</span>), <span class="pl-v">logic</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>)
+summary(<span class="pl-smi">bigEndian</span>)
+<span class="pl-c">#&gt;   Signedness  Endianess value&lt;0 Size[bit] Base10</span>
+<span class="pl-c">#&gt; 1   unsigned Big-Endian   FALSE         4     12</span>
+
+<span class="pl-smi">littleEndian</span> <span class="pl-k">&lt;-</span> switchEndianess(<span class="pl-smi">bigEndian</span>)
+print(<span class="pl-smi">littleEndian</span>)
+<span class="pl-c">#&gt; [1] 0 0 1 1</span>
+
+<span class="pl-smi">littleEndian</span> <span class="pl-k">&lt;-</span> as.binary(<span class="pl-smi">bigEndian</span>, <span class="pl-v">littleEndian</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>)
+print(<span class="pl-smi">littleEndian</span>)
+<span class="pl-c">#&gt; [1] 1 1 0 0</span>
+
+summary(<span class="pl-smi">littleEndian</span>)
+<span class="pl-c">#&gt;   Signedness     Endianess value&lt;0 Size[bit] Base10</span>
+<span class="pl-c">#&gt; 1   unsigned Little-Endian   FALSE         4      3</span></pre></div>
+
+<p>other way around</p>
+
+<div class="highlight highlight-source-r"><pre>as.logical(as.binary(<span class="pl-c1">2</span>))
+<span class="pl-c">#&gt; [1]  TRUE FALSE</span></pre></div>
+
+<h3>
+<a id="raw" class="anchor" href="#raw" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Raw</h3>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">b</span> <span class="pl-k">&lt;-</span> as.binary(charToRaw(<span class="pl-s"><span class="pl-pds">"</span>A<span class="pl-pds">"</span></span>))
+summary(<span class="pl-smi">b</span>)
+<span class="pl-c">#&gt;   Signedness  Endianess value&lt;0 Size[bit] Base10</span>
+<span class="pl-c">#&gt; 1   unsigned Big-Endian   FALSE         7     65</span>
+
+as.raw(<span class="pl-smi">b</span>)
+<span class="pl-c">#&gt; [1] 41</span></pre></div>
+
+<h3>
+<a id="gray-code" class="anchor" href="#gray-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gray code</h3>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">b</span> <span class="pl-k">&lt;-</span> as.binary(<span class="pl-c1">0</span><span class="pl-k">:</span><span class="pl-c1">7</span>, <span class="pl-v">n</span><span class="pl-k">=</span><span class="pl-c1">3</span>)
+<span class="pl-smi">g</span> <span class="pl-k">&lt;-</span> lapply(<span class="pl-smi">b</span>, <span class="pl-smi">bin2gray</span>)
+print(<span class="pl-smi">g</span>)
+<span class="pl-c">#&gt; [[1]]</span>
+<span class="pl-c">#&gt; [1] FALSE FALSE FALSE</span>
+<span class="pl-c">#&gt; </span>
+<span class="pl-c">#&gt; [[2]]</span>
+<span class="pl-c">#&gt; [1] FALSE FALSE  TRUE</span>
+<span class="pl-c">#&gt; </span>
+<span class="pl-c">#&gt; [[3]]</span>
+<span class="pl-c">#&gt; [1] FALSE  TRUE  TRUE</span>
+<span class="pl-c">#&gt; </span>
+<span class="pl-c">#&gt; [[4]]</span>
+<span class="pl-c">#&gt; [1] FALSE  TRUE FALSE</span>
+<span class="pl-c">#&gt; </span>
+<span class="pl-c">#&gt; [[5]]</span>
+<span class="pl-c">#&gt; [1]  TRUE  TRUE FALSE</span>
+<span class="pl-c">#&gt; </span>
+<span class="pl-c">#&gt; [[6]]</span>
+<span class="pl-c">#&gt; [1] TRUE TRUE TRUE</span>
+<span class="pl-c">#&gt; </span>
+<span class="pl-c">#&gt; [[7]]</span>
+<span class="pl-c">#&gt; [1]  TRUE FALSE  TRUE</span>
+<span class="pl-c">#&gt; </span>
+<span class="pl-c">#&gt; [[8]]</span>
+<span class="pl-c">#&gt; [1]  TRUE FALSE FALSE</span>
+
+gray2bin(<span class="pl-smi">g</span>[[<span class="pl-c1">8</span>]])
+<span class="pl-c">#&gt; [1] 1 1 1</span></pre></div>
+
+<h2>
+<a id="special-case" class="anchor" href="#special-case" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Special Case</h2>
+
+<p>Be aware about this kind of notation »0xAF«. Because Gnu R converts this to an integer first and then it will be converted to a binary digit. This is just a limitation, if you want to use a little endian formation. It can be fixed by using switchEndianess setting the stickyBits=TRUE.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-c">#Watch out for this</span>
+as.binary(<span class="pl-c1">0xAF</span>)
+<span class="pl-c">#&gt; [1] 1 0 1 0 1 1 1 1</span>
+as.binary(<span class="pl-c1">0xAF</span>, <span class="pl-v">littleEndian</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>)
+<span class="pl-c">#&gt; [1] 1 1 1 1 0 1 0 1</span>
+<span class="pl-c">#It should behave as follows</span>
+as.binary(c(<span class="pl-c1">1</span>,<span class="pl-c1">0</span>,<span class="pl-c1">1</span>,<span class="pl-c1">0</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>), <span class="pl-v">logic</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>)
+<span class="pl-c">#&gt; [1] 1 0 1 0 1 1 1 1</span>
+as.binary(c(<span class="pl-c1">1</span>,<span class="pl-c1">0</span>,<span class="pl-c1">1</span>,<span class="pl-c1">0</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>), <span class="pl-v">littleEndian</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>, <span class="pl-v">logic</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>)
+<span class="pl-c">#&gt; [1] 1 0 1 0 1 1 1 1</span>
+
+<span class="pl-smi">bigEndian</span> <span class="pl-k">&lt;-</span> as.binary(c(<span class="pl-c1">0</span>,<span class="pl-c1">0</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>), <span class="pl-v">logic</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>)
+<span class="pl-smi">bigEndian</span>
+<span class="pl-c">#&gt; [1] 0 0 1 1</span>
+summary(<span class="pl-smi">bigEndian</span>)
+<span class="pl-c">#&gt;   Signedness  Endianess value&lt;0 Size[bit] Base10</span>
+<span class="pl-c">#&gt; 1   unsigned Big-Endian   FALSE         4      3</span>
+<span class="pl-smi">littleEndian</span> <span class="pl-k">&lt;-</span> switchEndianess(<span class="pl-smi">bigEndian</span>)
+<span class="pl-smi">littleEndian</span>
+<span class="pl-c">#&gt; [1] 1 1 0 0</span>
+summary(<span class="pl-smi">littleEndian</span>)
+<span class="pl-c">#&gt;   Signedness     Endianess value&lt;0 Size[bit] Base10</span>
+<span class="pl-c">#&gt; 1   unsigned Little-Endian   FALSE         4      3</span>
+<span class="pl-smi">littleEndian2</span> <span class="pl-k">&lt;-</span> switchEndianess(<span class="pl-smi">bigEndian</span>, <span class="pl-v">stickyBits</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)
+<span class="pl-smi">littleEndian2</span>
+<span class="pl-c">#&gt; [1] 0 0 1 1</span>
+summary(<span class="pl-smi">littleEndian2</span>)
+<span class="pl-c">#&gt;   Signedness     Endianess value&lt;0 Size[bit] Base10</span>
+<span class="pl-c">#&gt; 1   unsigned Little-Endian   FALSE         4     12</span></pre></div>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Binarylogic maintained by <a href="https://github.com/d4ndo">d4ndo</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
