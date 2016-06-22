@@ -253,11 +253,21 @@ Ops.binary <- function(e1, e2) {
     boolean <- switch(.Generic,  '*' =, '^' =, '%%' =, '%/%' = TRUE, FALSE)
     if (boolean) {
         l1 <- saveAttributes(e1)
+        l2 <- saveAttributes(e2)
+        le1 <- length(e1)
+        le2 <- length(e2)
         e1 <- as.numeric(e1)
         e2 <- as.numeric(e2)
-        ret <- NextMethod(.Generic)
-        ret <- as.binary(ret)
-        x <- loadAttributes(ret, l1)
+        if (l1$signed || l2$signed)
+        {
+            ret <- NextMethod(.Generic)
+            ret <- as.binary(ret, signed=TRUE, size=(greater(le1, le2)/byte()))
+            x <- loadAttributes(ret, l1)
+        } else {
+            ret <- NextMethod(.Generic)
+            ret <- as.binary(ret)
+            x <- loadAttributes(ret, l1)
+        }
         return(x)
     }
     boolean <- switch(.Generic,  '&' =, '|' =, 'xor' = TRUE, FALSE)
@@ -467,4 +477,14 @@ bin2dec <- function(bin) {
         }
     }
     return(numeric)
+}
+
+# Helper function
+greater <- function(e1, e2) {
+    if (e1 > e2)
+    {
+        return(e1)
+    } else {
+        return(e2)
+    }
 }
