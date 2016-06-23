@@ -40,7 +40,7 @@
 
 <p>Binary Logic GNU R Package</p>
 
-<p>Convert, negate, shift and rotate binary digits. (switchEndianess, bytesNeeded, binaryPrefix, fillUpToByte).</p>
+<p>Convert, negate, shift and rotate binary digits. (switchEndianess, bin2gray, bytesNeeded, binaryPrefix, fillUpToByte).</p>
 
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
@@ -100,6 +100,10 @@ summary(<span class="pl-smi">the_answer_to_the_ultimate_question_of_life_the_uni
 <td align="left">Operations by value.</td>
 </tr>
 <tr>
+<td align="left">[%/%, %%]</td>
+<td align="left">Operations by value</td>
+</tr>
+<tr>
 <td align="left">[/]</td>
 <td align="left">Not supported.</td>
 </tr>
@@ -150,6 +154,14 @@ summary(<span class="pl-smi">the_answer_to_the_ultimate_question_of_life_the_uni
 <td align="left">switchEndianess(binary)</td>
 <td align="left"></td>
 </tr>
+<tr>
+<td align="left">bin2gray(binary)</td>
+<td align="left">convert binary to gray code</td>
+</tr>
+<tr>
+<td align="left">gray2bin(gray)</td>
+<td align="left">convert gray code to binary</td>
+</tr>
 </tbody>
 </table>
 
@@ -182,6 +194,28 @@ summary(<span class="pl-smi">the_answer_to_the_ultimate_question_of_life_the_uni
 <li><p>»Little Endian« : MSB at b[1] and LSB at b[8].</p></li>
 <li><p>»Big Endian« : LSB at b[1] and MSB at b[8].</p></li>
 </ul>
+
+<h5>
+<a id="signed-digit" class="anchor" href="#signed-digit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Signed digit:</h5>
+
+<p>Calculation:</p>
+
+<p>The size has to be considerd in a calculation with a signed number. e.G.: An 8 Bit signed number can hold this range of base10 numbers [127 to -128]. You will run into a problem if a calculation is outside of this range. The reference is the larger number in size.</p>
+
+<p>Size:</p>
+
+<p>The size »must« be specified. In Byte e.G. (1 Byte = 8 Bit, 2 Byte, .. n Byte). By default it is 2 Byte.</p>
+
+<h5>
+<a id="unsigned-digit" class="anchor" href="#unsigned-digit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unsigned digit:</h5>
+
+<p>Calculation:</p>
+
+<p>An unsigned number will increase it's size when caluculation is not in range.</p>
+
+<p>Size:</p>
+
+<p>The size »can« be specified. In Bit. (1 Bit , 2 Bit, .. n Bit). There is no default size because the size is calculated on the fly.</p>
 
 <h2>
 <a id="more-converting" class="anchor" href="#more-converting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>More Converting</h2>
@@ -316,35 +350,16 @@ gray2bin(<span class="pl-smi">g</span>[[<span class="pl-c1">8</span>]])
 
 <p>Be aware about this kind of notation »0xAF«. Because Gnu R converts this to an integer first and then it will be converted to a binary digit. This is just a limitation, if you want to use a little endian formation. It can be fixed by using switchEndianess setting the stickyBits=TRUE.</p>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-c">#Watch out for this</span>
-as.binary(<span class="pl-c1">0xAF</span>)
-<span class="pl-c">#&gt; [1] 1 0 1 0 1 1 1 1</span>
+<div class="highlight highlight-source-r"><pre><span class="pl-c">#Watch out for this notation</span>
 as.binary(<span class="pl-c1">0xAF</span>, <span class="pl-v">littleEndian</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>)
 <span class="pl-c">#&gt; [1] 1 1 1 1 0 1 0 1</span>
-<span class="pl-c">#It should behave as follows</span>
-as.binary(c(<span class="pl-c1">1</span>,<span class="pl-c1">0</span>,<span class="pl-c1">1</span>,<span class="pl-c1">0</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>), <span class="pl-v">logic</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>)
-<span class="pl-c">#&gt; [1] 1 0 1 0 1 1 1 1</span>
-as.binary(c(<span class="pl-c1">1</span>,<span class="pl-c1">0</span>,<span class="pl-c1">1</span>,<span class="pl-c1">0</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>), <span class="pl-v">littleEndian</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>, <span class="pl-v">logic</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>)
-<span class="pl-c">#&gt; [1] 1 0 1 0 1 1 1 1</span>
 
-<span class="pl-smi">bigEndian</span> <span class="pl-k">&lt;-</span> as.binary(c(<span class="pl-c1">0</span>,<span class="pl-c1">0</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>), <span class="pl-v">logic</span><span class="pl-k">=</span><span class="pl-c1">TRUE</span>)
-<span class="pl-smi">bigEndian</span>
-<span class="pl-c">#&gt; [1] 0 0 1 1</span>
-summary(<span class="pl-smi">bigEndian</span>)
-<span class="pl-c">#&gt;   Signedness  Endianess value&lt;0 Size[bit] Base10</span>
-<span class="pl-c">#&gt; 1   unsigned Big-Endian   FALSE         4      3</span>
-<span class="pl-smi">littleEndian</span> <span class="pl-k">&lt;-</span> switchEndianess(<span class="pl-smi">bigEndian</span>)
+<span class="pl-smi">littleEndian</span> <span class="pl-k">&lt;-</span> switchEndianess(as.binary(<span class="pl-c1">0xAF</span>), <span class="pl-v">stickyBits</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)
 <span class="pl-smi">littleEndian</span>
-<span class="pl-c">#&gt; [1] 1 1 0 0</span>
+<span class="pl-c">#&gt; [1] 1 0 1 0 1 1 1 1</span>
 summary(<span class="pl-smi">littleEndian</span>)
 <span class="pl-c">#&gt;   Signedness     Endianess value&lt;0 Size[bit] Base10</span>
-<span class="pl-c">#&gt; 1   unsigned Little-Endian   FALSE         4      3</span>
-<span class="pl-smi">littleEndian2</span> <span class="pl-k">&lt;-</span> switchEndianess(<span class="pl-smi">bigEndian</span>, <span class="pl-v">stickyBits</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)
-<span class="pl-smi">littleEndian2</span>
-<span class="pl-c">#&gt; [1] 0 0 1 1</span>
-summary(<span class="pl-smi">littleEndian2</span>)
-<span class="pl-c">#&gt;   Signedness     Endianess value&lt;0 Size[bit] Base10</span>
-<span class="pl-c">#&gt; 1   unsigned Little-Endian   FALSE         4     12</span></pre></div>
+<span class="pl-c">#&gt; 1   unsigned Little-Endian   FALSE         8    245</span></pre></div>
       </section>
     </div>
 
