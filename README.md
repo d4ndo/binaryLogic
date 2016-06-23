@@ -6,7 +6,7 @@ binaryLogic
 
 Binary Logic GNU R Package
 
-Convert, negate, shift and rotate binary digits. (switchEndianess, bytesNeeded, binaryPrefix, fillUpToByte).
+Convert, negate, shift and rotate binary digits. (switchEndianess, bin2gray, bytesNeeded, binaryPrefix, fillUpToByte).
 
 Installation
 ------------
@@ -51,6 +51,7 @@ Behavior »Class Binary«
 | [\<, \<= or \> , \>=] | Comparision by value.                                           |
 | [+ or -]              | Operations by value.                                            |
 | [\*, ^]               | Operations by value.                                            |
+| [%/%, %%]             | Operations by value                                             |
 | [/]                   | Not supported.                                                  |
 | [&, ¦, xor]           | Bitwise Operations. The smaller vector is filled up with zeros. |
 | [!]                   | Indicates logical negation (NOT). Bitwise Operations            |
@@ -77,6 +78,8 @@ BinaryLogic operators:
 | rotate(binary)                        | shift Operation.                                       |
 | negate(binary)                        | Indicates arithmetic negation. value \<- value \* (-1) |
 | switchEndianess(binary)               |                                                        |
+| bin2gray(binary)                      | convert binary to gray code                            |
+| gray2bin(gray)                        | convert gray code to binary                            |
 
 Information
 -----------
@@ -109,6 +112,26 @@ b
 -   »Little Endian« : MSB at b[1] and LSB at b[8].
 
 -   »Big Endian« : LSB at b[1] and MSB at b[8].
+
+##### Signed digit:
+
+Calculation:
+
+The size has to be considerd in a calculation with a signed number. e.G.: An 8 Bit signed number can hold this range of base10 numbers [127 to -128]. You will run into a problem if a calculation is outside of this range. The reference is the larger number in size.
+
+Size:
+
+The size »must« be specified. In Byte e.G. (1 Byte = 8 Bit, 2 Byte, .. n Byte). By default it is 2 Byte.
+
+##### Unsigned digit:
+
+Calculation:
+
+An unsigned number will increase it's size when caluculation is not in range.
+
+Size:
+
+The size »can« be specified. In Bit. (1 Bit , 2 Bit, .. n Bit). There is no default size because the size is calculated on the fly.
 
 More Converting
 ---------------
@@ -252,33 +275,14 @@ Special Case
 Be aware about this kind of notation »0xAF«. Because Gnu R converts this to an integer first and then it will be converted to a binary digit. This is just a limitation, if you want to use a little endian formation. It can be fixed by using switchEndianess setting the stickyBits=TRUE.
 
 ``` r
-#Watch out for this
-as.binary(0xAF)
-#> [1] 1 0 1 0 1 1 1 1
+#Watch out for this notation
 as.binary(0xAF, littleEndian=TRUE)
 #> [1] 1 1 1 1 0 1 0 1
-#It should behave as follows
-as.binary(c(1,0,1,0,1,1,1,1), logic=TRUE)
-#> [1] 1 0 1 0 1 1 1 1
-as.binary(c(1,0,1,0,1,1,1,1), littleEndian=TRUE, logic=TRUE)
-#> [1] 1 0 1 0 1 1 1 1
 
-bigEndian <- as.binary(c(0,0,1,1), logic=TRUE)
-bigEndian
-#> [1] 0 0 1 1
-summary(bigEndian)
-#>   Signedness  Endianess value<0 Size[bit] Base10
-#> 1   unsigned Big-Endian   FALSE         4      3
-littleEndian <- switchEndianess(bigEndian)
+littleEndian <- switchEndianess(as.binary(0xAF), stickyBits = TRUE)
 littleEndian
-#> [1] 1 1 0 0
+#> [1] 1 0 1 0 1 1 1 1
 summary(littleEndian)
 #>   Signedness     Endianess value<0 Size[bit] Base10
-#> 1   unsigned Little-Endian   FALSE         4      3
-littleEndian2 <- switchEndianess(bigEndian, stickyBits = TRUE)
-littleEndian2
-#> [1] 0 0 1 1
-summary(littleEndian2)
-#>   Signedness     Endianess value<0 Size[bit] Base10
-#> 1   unsigned Little-Endian   FALSE         4     12
+#> 1   unsigned Little-Endian   FALSE         8    245
 ```
