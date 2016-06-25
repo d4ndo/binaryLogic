@@ -1,3 +1,7 @@
+#binaryLogic 0.3.5
+
+* Fixed the size issue for signed numbers.
+
 # binaryLogic 0.3.4
 
 * Fixed some invalid URL at README.md & README.Rmd
