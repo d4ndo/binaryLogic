@@ -442,14 +442,22 @@ dec2bin <- function(num, signed=FALSE, littleEndian=FALSE, size=2, n=0) {
 
 # Helper function to convert decimal to binary
 h <- function(x) {
-    # v should be global.
-    v <- c(0,  2^(0:1016))
-    ret <- numeric(1)
-    for(i in 1:length(v)) {
-        if (v[i] > x) { ret <- c(i-1, h(x-v[i-1])); break }
-        if (v[i] == x) return(ret <- c(i, ret))
-    }
-    return(ret)
+    # Basic error handling: function expects single positive integer
+    if(x %% 1 != 0) { stop("Non-integer input to h()") }
+    if(x < 0) { stop("Negative input to h()") }
+
+    # Special case
+    if(x == 0) { return(c(1, 0)) }
+
+    # Only generate as many comparison digits as we need
+    num_digits = floor(log2(x)) + 1
+
+    # Get x %% each power of two; points in the vector where this
+    # changes are active. Because my function has bit order reversed
+    # versus the original h() function, we need to go num_digits -
+    # the active bits. The +2 and append 0 are to match the original
+    # h behavior
+    c(num_digits + 2 - which(diff(x %% 2^(num_digits:0)) != 0), 0)
 }
 
 # Helper function
