@@ -1,3 +1,7 @@
+# binaryLogic 0.3.7
+
+* minor changes to comply with the guidelines of CRAN.
+
 # binaryLogic 0.3.6
 
 * Optimization of decimal to binary conversion. Remarkable speed gain of 50x. Author A. Rudkin
