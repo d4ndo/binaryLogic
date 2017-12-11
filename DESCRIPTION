@@ -4,7 +4,7 @@ Description: Convert to binary numbers (Base2). Shift, rotate, summary. Based on
 Version: 0.3.6
 Authors@R: c(
     person("Daniel", "Dörrhöfer", email = "ddo@openmailbox.org", role = c("aut", "cre")),
-    person("Aaron", "Rudkin", email = "email = "rudkin@ucla.edu", role = "ctb")
+    person("Aaron", "Rudkin", email = "rudkin@ucla.edu", role = "ctb")
     )
 Maintainer: Daniel Dörrhöfer <ddo@openmailbox.org>
 URL: https://github.com/d4ndo/binaryLogic
