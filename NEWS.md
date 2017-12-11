@@ -1,3 +1,7 @@
+#binaryLogic 0.3.6
+
+* Optimization of decimal to binary conversion. Remarkable speed gain of 50x. Author A. Rudkin
+
 #binaryLogic 0.3.5
 
 * Fixed the size issue for signed numbers.
