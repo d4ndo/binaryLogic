@@ -2,7 +2,10 @@ Package: binaryLogic
 Title: Binary Logic
 Description: Convert to binary numbers (Base2). Shift, rotate, summary. Based on logical vector.
 Version: 0.3.6
-Author: Daniel Dörrhöfer <ddo@openmailbox.org>
+Authors@R: c(
+    person("Daniel", "Dörrhöfer", email = "ddo@openmailbox.org", role = c("aut", "cre")),
+    person("Aaron", "Rudkin", email = "email = "rudkin@ucla.edu", role = "ctb")
+    )
 Maintainer: Daniel Dörrhöfer <ddo@openmailbox.org>
 URL: https://github.com/d4ndo/binaryLogic
 BugReports: https://github.com/d4ndo/binaryLogic/issues
