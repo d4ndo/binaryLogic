@@ -1,6 +1,6 @@
 Package: binaryLogic
 Title: Binary Logic
-Description: This package provides the »binary« S3 class. The instance of »binary« is used to convert a decimal number (Base10) into a binary number (Base2). The Class also provides some features e.G. Shift, Rotate, Summary. This Class is based on logical vectors.
+Description: This package provides the »binary« S3 class. The instance of »binary« is used to convert a decimal number (Base10) to a binary number (Base2). The Class also provides some features e.G. Shift, Rotate, Summary. This Class is based on logical vectors.
 Version: 0.3.8
 Authors@R: c(
     person("Daniel", "Dörrhöfer", email = "ddo@openmailbox.org", role = c("aut", "cre")),
