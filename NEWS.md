@@ -1,3 +1,9 @@
+# binaryLogic 0.3.8
+
+* fixed travis-ci according https://docs.travis-ci.com/user/languages/r/
+* Modified DESCRIPTION to comply with the guidelines of CRAN
+* Fixed the url in README.md (https)
+
 # binaryLogic 0.3.7
 
 * minor changes to comply with the guidelines of CRAN.
