@@ -2,7 +2,7 @@
 binaryLogic
 ===========
 
-[![Build Status](https://travis-ci.org/d4ndo/binaryLogic.png)](https://travis-ci.org/d4ndo/binaryLogic) [![Downloads](http://cranlogs.r-pkg.org/badges/binaryLogic?color=brightgreen)](http://www.r-pkg.org/pkg/binaryLogic) [![CRAN version](http://www.r-pkg.org/badges/version/binaryLogic)](http://cran.r-project.org/package=binaryLogic)
+[![Build Status](https://travis-ci.org/d4ndo/binaryLogic.png)](https://travis-ci.org/d4ndo/binaryLogic) [![Downloads](https://cranlogs.r-pkg.org/badges/binaryLogic?color=brightgreen)](https://www.r-pkg.org/pkg/binaryLogic) [![CRAN version](https://www.r-pkg.org/badges/version/binaryLogic)](https://cran.r-project.org/package=binaryLogic)
 
 Binary Logic GNU R Package
 
@@ -45,16 +45,16 @@ Operator
 
 Behavior »Class Binary«
 
-| Operator              | Behavior                                                        |
-|:----------------------|:----------------------------------------------------------------|
-| [== or !=]            | Comparision by value.                                           |
-| [\<, \<= or \> , \>=] | Comparision by value.                                           |
-| [+ or -]              | Operations by value.                                            |
-| [\*, ^]               | Operations by value.                                            |
-| [%/%, %%]             | Operations by value                                             |
-| [/]                   | Not supported.                                                  |
-| [&, ¦, xor]           | Bitwise Operations. The smaller vector is filled up with zeros. |
-| [!]                   | Indicates logical negation (NOT). Bitwise Operations            |
+| Operator                        | Behavior                                                        |
+|:--------------------------------|:----------------------------------------------------------------|
+| \[== or !=\]                    | Comparision by value.                                           |
+| \[&lt;, &lt;= or &gt; , &gt;=\] | Comparision by value.                                           |
+| \[+ or -\]                      | Operations by value.                                            |
+| \[\*, ^\]                       | Operations by value.                                            |
+| \[%/%, %%\]                     | Operations by value                                             |
+| \[/\]                           | Not supported.                                                  |
+| \[&, ¦, xor\]                   | Bitwise Operations. The smaller vector is filled up with zeros. |
+| \[!\]                           | Indicates logical negation (NOT). Bitwise Operations            |
 
 The logical == operator compares every element of the vector (Bitwise comparison). e.g.
 
@@ -72,14 +72,14 @@ two <- as.binary(2); two == two;
 
 BinaryLogic operators:
 
-| Operator                              | Behavior                                               |
-|:--------------------------------------|:-------------------------------------------------------|
-| shiftLeft(binary), shiftRight(binary) | shift Operation.                                       |
-| rotate(binary)                        | shift Operation.                                       |
-| negate(binary)                        | Indicates arithmetic negation. value \<- value \* (-1) |
-| switchEndianess(binary)               |                                                        |
-| bin2gray(binary)                      | convert binary to gray code                            |
-| gray2bin(gray)                        | convert gray code to binary                            |
+| Operator                              | Behavior                                                 |
+|:--------------------------------------|:---------------------------------------------------------|
+| shiftLeft(binary), shiftRight(binary) | shift Operation.                                         |
+| rotate(binary)                        | shift Operation.                                         |
+| negate(binary)                        | Indicates arithmetic negation. value &lt;- value \* (-1) |
+| switchEndianess(binary)               |                                                          |
+| bin2gray(binary)                      | convert binary to gray code                              |
+| gray2bin(gray)                        | convert gray code to binary                              |
 
 Information
 -----------
@@ -95,9 +95,9 @@ structure(c(TRUE, FALSE), class = c("binary", "logical"), signed = FALSE, little
 
 The binary number is represented by a logical vector. The Bit order usually follows the same endianess as the byte order. How to read:
 
--   Little Endian (LSB) —\> (MSB)
+-   Little Endian (LSB) —&gt; (MSB)
 
--   Big Endian (MSB) \<— (LSB)
+-   Big Endian (MSB) &lt;— (LSB)
 
 The Big Endian endianess stores its MSB at the lowest adress. The Little Endian endianess stores its MSB at the highest adress.
 
@@ -109,15 +109,15 @@ b
 #> [1] 0 0 0 0 0 0 0 0
 ```
 
--   »Little Endian« : MSB at b[1] and LSB at b[8].
+-   »Little Endian« : MSB at b\[1\] and LSB at b\[8\].
 
--   »Big Endian« : LSB at b[1] and MSB at b[8].
+-   »Big Endian« : LSB at b\[1\] and MSB at b\[8\].
 
 ##### Signed digit:
 
 Calculation:
 
-The size has to be considerd in a calculation with a signed number. e.G.: An 8 Bit signed number can hold this range of base10 numbers [127 to -128]. You will run into a problem if a calculation is outside of this range. The reference is the larger number in size.
+The size has to be considerd in a calculation with a signed number. e.G.: An 8 Bit signed number can hold this range of base10 numbers \[127 to -128\]. You will run into a problem if a calculation is outside of this range. The reference is the larger number in size.
 
 Size:
 
