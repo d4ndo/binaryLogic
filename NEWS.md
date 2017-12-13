@@ -1,3 +1,7 @@
+# binaryLogic 0.3.9
+
+* Modified DESCRIPTION to comply with the guidelines of CRAN
+
 # binaryLogic 0.3.8
 
 * fixed travis-ci according https://docs.travis-ci.com/user/languages/r/
